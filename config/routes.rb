@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'about#landing'
+  get 'about/info'
+  get 'about/contacts'
 end
