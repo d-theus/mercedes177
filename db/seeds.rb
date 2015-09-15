@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+groups = ["Двигатель", "Колёса", "Кузов", "Стекла", "Топливная система", "Тормозная система", "Электрика"]
+groups.each { |n| CatGroup.create(name: n) }
