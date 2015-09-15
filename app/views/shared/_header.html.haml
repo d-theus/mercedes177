@@ -1,0 +1,21 @@
+.col-xs-4
+  %a.brand{ title: 'Автозапчасти Mercedes', href: '/'}
+    Автозапчасти Mercedes
+.col-xs-3
+  - unless controller_name == 'about' && action_name == 'landing'
+    %form.form-inline.navbar-form.pull-right{name: 'search'}
+      .form-group
+        %input{type: :text, name: :q, placehoder: 'Поиск...'}
+        %button.btn.btn-primary{type: :submit}
+          %span.fa.fa-search
+.col-xs-5
+  %nav.navbar-nav.pull-right
+    %ul.nav.navbar-nav
+      %li
+        %a{ href: '/catalog', title: 'Каталог'} Каталог
+      %li
+        %a{ href: '/about/info', title: 'Инфо'} Инфо
+      %li
+        %a{ href: '/about/contacts', title: 'Контакты'} Контакты
+      %li
+        %a{ href: '/cart', title: 'Корзина'} Корзина

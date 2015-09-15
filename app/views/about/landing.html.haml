@@ -1,2 +1,15 @@
-%h1 About#landing
-%p Find me in app/views/about/landing.html.haml
+- content_for(:title) do
+  = raw 'Авторазбор в Москве'
+- content_for(:meta_description) do
+  = raw 'Б/У и новые запчасти для автомобилей Mercedes'
+
+.row
+  .col-xs-4.col-xs-offset-8.jumbotron
+    %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог'} Каталог
+    %br/
+    %br/
+    %form.form-inline{ name: 'search'}
+      .form-group
+        %input.form-control{ type: :text, placeholder: "Искать"}
+      %button.btn.btn-primary{type: :submit}
+        %span.fa.fa-search

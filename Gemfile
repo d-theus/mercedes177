@@ -26,6 +26,7 @@ gem 'capistrano-rails', group: :development
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'rspec-html-matchers'
   gem 'capybara'
   gem 'pry'
   gem 'pry-rails'

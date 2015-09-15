@@ -13,17 +13,84 @@
 
 // Font Awesome
 @import "fontawesome/font-awesome";
+@import "fonts";
 
-// Glyphicons
-//@import "twitter/bootstrap/glyphicons.less";
+@brand-primary: #ffa700;
 
-// Your custom LESS stylesheets goes here
-//
-// Since bootstrap was imported above you have access to its mixins which
-// you may use and inherit here
-//
-// If you'd like to override bootstrap's own variables, you can do so here as well
-// See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
-//
-// Example:
-// @link-color: #ff0000;
+@font-size-base: 16px;
+@font-family-sans-serif: Jura;
+@font-family-serif: Tinos;
+@headings-font-family: @font-family-serif;
+
+@link-color: mix(@brand-primary, black, 85%);
+@link-hover-color: @gray-lighter;
+@link-hover-decoration: none;
+@headings-color: black;
+@headings-small-color: @gray-darker;
+@text-color: darken(@headings-color, 10%);
+
+@component-active-bg: @brand-primary;
+@component-active-color: black;
+@nav-link-hover-bg: @brand-primary;
+
+@grid-float-breakpoint: @screen-sm-max;
+
+@btn-primary-color: @gray-lighter;
+@btn-primary-border: transparent;
+
+@jumbotron-bg: transparent;
+
+@input-bg: transparent;
+@input-bg-disabled: mix(@gray-lighter, transparent);
+@input-color: @gray-darker;
+@input-border: @gray-darker;
+@input-border-focus: black;
+
+html{
+  height: 100%;
+  min-height: 100%;
+  background: image-url('bg-lg.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  body{
+    background: transparent;
+  }
+}
+
+
+body{
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+
+#header{
+  background: mix(black, transparent, 80%);
+  font-size: 1.2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  width: 100%;
+
+  .brand{
+    font-size: 2em;
+    font-family: @font-family-serif;
+  }
+}
+
+#content{
+}
+
+#footer{
+  h6, small {
+    color: white;
+  }
+  background: mix(black, transparent, 80%);
+}
+
+.cta{
+  font-size: 2em;
+  font-weight: bold;
+}
+

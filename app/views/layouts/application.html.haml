@@ -2,9 +2,19 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Mercedes
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = title_tag
+    = meta_description
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = yield
+    .container-fluid
+      .row
+        %header.col-xs-12#header
+          = render partial: 'shared/header'
+      .row
+        .col-xs-12#content
+          = yield
+      .row
+        %footer.col-xs-12#footer
+          = render partial: 'shared/footer'
