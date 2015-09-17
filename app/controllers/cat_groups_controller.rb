@@ -35,7 +35,7 @@ class CatGroupsController < ApplicationController
   end
 
   def show
-    @cat_group = CatGroup.find(params[:cg_id])
+    @cat_group = CatGroup.find(params[:id])
   end
 
   def destroy
@@ -56,6 +56,6 @@ class CatGroupsController < ApplicationController
   end
 
   def fetch_group
-    @cat_group = CatGroup.find(params[:cg_id])
+    @cat_group = CatGroup.find(params[:id])
   end
 end
