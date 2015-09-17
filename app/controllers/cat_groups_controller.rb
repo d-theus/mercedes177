@@ -1,25 +1,27 @@
 class CatGroupsController < ApplicationController
   before_filter :admin?, except: [:show, :index]
-  before_filter :fetch_group, only: [ :edit, :update, :destroy ]
+  before_filter :fetch_group, only: [ :show, :edit, :update, :destroy ]
 
   def new
-    @cat_group = CatGroup.new
+    @cg = CatGroup.new
+    render :new, layout: false
   end
 
   def create
-    @cat_group = CatGroup.new(cat_group_params)
-    if @cat_group.save
-      render nothing: true
+    @cg = CatGroup.new(cat_group_params)
+    if @cg.save
+      render :show, layout: false
     else
-      render :new, status: :unprocessable_entity
+      render partial: 'cat_groups/error', status: :unprocessable_entity, layout: false
     end
   end
 
   def edit
+    render :edit, layout: false
   end
 
   def update
-    if @cat_group.update(cat_group_params)
+    if @cg.update(cat_group_params)
       render nothing: true
     else
       render :edit, status: :unprocessable_entity
@@ -27,23 +29,21 @@ class CatGroupsController < ApplicationController
   end
 
   def index
-    @cat_groups = CatGroup.all
+    @cgs = CatGroup.all
     respond_to do |f|
       f.html
-      f.json { render(json: { cat_groups: @cat_groups }) }
+      f.json { render(json: { cat_groups: @cgs }) }
     end
   end
 
   def show
-    @cat_group = CatGroup.find(params[:id])
   end
 
   def destroy
-    if @cat_group.delete
+    if @cg.delete
       render nothing: true
     else
-      render nothing: true,
-        status: :bad_request
+      render partial: 'cat_groups/error', status: :bad_request
     end
   end
 

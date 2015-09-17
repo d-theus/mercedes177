@@ -25,6 +25,18 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    false
+    if Rails.env.development?
+      return true
+    else
+      unauthorized
+    end
+  end
+
+  def unauthorized
+      render(
+        file: File.join(Rails.root, 'public/403.html'),
+        status: 403,
+        layout: false
+      )
   end
 end

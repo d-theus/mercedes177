@@ -1,0 +1,22 @@
+.panel.panel-default
+  .panel-body
+    %span.lead Управление:
+    = simple_form_for @cg, remote: true, html: { class: 'form-horizontal' }, url: cat_group_path(cg_id: @cg.id), method: :put  do |f|
+      .row
+        .col-xs-9.col-xs-offset-1
+          %label Название
+      .row
+        .col-xs-9.col-xs-offset-1
+          = f.input :name, label: false
+        .col-xs-2
+          %button.btn.btn-default.btn-primary{type: :submit, name: 'rename', title: 'Переименовать'}
+            %span.fa.fa-edit
+    .row
+      .col-xs-12
+        %a.btn.btn-danger.btn-sm.pull-right{ href: cat_group_path(@cg), title: 'Удалить', name: 'delete',
+          data: { method: :delete,
+          confirm: 'Уверены, что хотите удалить эту группу?',
+          id: @cg.id,
+          remote: true }}
+          %span.fa.fa-trash-o
+            Удалить эту группу

@@ -1,0 +1,25 @@
+.panel.panel-primary.cat-group{ data: { id: cg.id, model: 'CatGroup' }}
+  .panel-heading{role: 'tab', id: "heading#{cg.id}"}
+    %h4.panel-title
+      %a.list-group-item.collapsed{ role: :button,
+        'data-toggle': 'collapse',
+        'data-parent': '#catalog_list_accordion',
+        href: "#cg#{cg.id}",
+        title: cg.name }
+        = cg.name
+  .panel-collapse.collapse{ id: "cg#{cg.id}", role: 'tabpanel' }
+    .panel-body
+      - if admin?
+        .row
+          .col-xs-4.pull-right
+            %button.btn.btn-info.btn-lg{ type: :button, name: 'edit' }
+              %span.fa.fa-edit
+      %ul.list-group
+        %li.list-group-item placeholder
+        %li.list-group-item placeholder
+        %li.list-group-item placeholder
+        %li.list-group-item placeholder
+        %li.list-group-item placeholder
+        %li.list-group-item placeholder
+        %li.list-group-item placeholder
+        %li.list-group-item placeholder

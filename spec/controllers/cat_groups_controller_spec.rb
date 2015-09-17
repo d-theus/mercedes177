@@ -100,8 +100,8 @@ RSpec.describe CatGroupsController, type: :controller do
   context 'indifferent of auth' do
     describe 'GET index' do
       before { get :index }
-      it 'assigns @cat_groups' do
-        expect(assigns(:cat_groups)).not_to be_nil
+      it 'assigns @cgs' do
+        expect(assigns(:cgs)).not_to be_nil
       end
     end
 

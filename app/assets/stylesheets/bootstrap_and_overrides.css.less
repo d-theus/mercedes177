@@ -29,6 +29,8 @@
 @headings-small-color: @gray-darker;
 @text-color: darken(@headings-color, 10%);
 
+@border-radius-base: 0px;
+
 @component-active-bg: @brand-primary;
 @component-active-color: black;
 @nav-link-hover-bg: @brand-primary;
@@ -40,13 +42,31 @@
 
 @jumbotron-bg: transparent;
 
-@input-bg: transparent;
+@input-bg: mix(@brand-primary, transparent, 50%);
 @input-bg-disabled: mix(@gray-lighter, transparent);
 @input-color: @gray-darker;
 @input-border: @gray-darker;
 @input-border-focus: black;
 
-@well-bg: mix(white, transparent);
+@well-bg: mix(white, transparent, 75%);
+
+@list-group-bg: transparent;
+@list-group-border: @gray-darker;
+@list-group-active-color: @gray-darker;
+@list-group-active-bg: mix(@brand-primary, transparent);
+@list-group-link-color: black;
+@list-group-link-hover-color: @brand-primary;
+
+@panel-bg: mix(white, transparent);
+@panel-default-text: @gray-dark;
+@panel-default-heading-bg: @gray-lighter;
+@panel-primary-text: @gray-dark;
+@panel-primary-heading-bg: mix(@brand-primary, transparent, 40%);
+
+.panel{
+  *{ border: none; }
+  border: none;
+}
 
 html{
   height: 100%;
@@ -82,6 +102,7 @@ body{
 }
 
 #content{
+  margin-top: 1em;
 }
 
 #footer{
