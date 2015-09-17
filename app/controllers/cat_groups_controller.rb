@@ -24,7 +24,7 @@ class CatGroupsController < ApplicationController
     if @cg.update(cat_group_params)
       render nothing: true
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity, layout: false
     end
   end
 
