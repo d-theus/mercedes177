@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :cat_groups do
-    resources :categories
+    get 'categories', to: 'categories#index'
   end
+  resources :categories, except: [:index]
 
   scope :catalog do
     get '/', to: 'catalog#index'

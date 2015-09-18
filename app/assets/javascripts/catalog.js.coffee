@@ -53,6 +53,15 @@ class window.CatGroup
     @formParams.error =   (data) -> callback( $(CatGroup.errorDiv) )
     $.ajax(@formParams)
 
+  getCategories: ()->
+    @formParams.url = "cat_groups/#{@id}/categories"
+    @formParams.success = (data) =>
+      items = $(data)
+      @el.find('[name="categories"]').append(items)
+    @formParams.error = (data) =>
+      @el.find('[name="categories"]').append($(CatGroup.errorDiv))
+    $.ajax(@formParams)
+
   bindEvents: ->
     @el.find('button[name="edit"]').on 'click', =>
       this.getEditForm (form)=>
@@ -71,9 +80,18 @@ class window.CatGroup
           form.remove()
           @el.find('button[name="edit"]').show()
 
+    @el.find('.collapse').on 'show.bs.collapse', =>
+      if @el.find('[name="categories"] li').length == 0
+        this.getCategories()
+
 ready = ->
   CatGroup.bindToList('#catalog_list_accordion')
-  CatGroup.bindAddButton('#catalog_list button[name="add"]')
+  CatGroup.bindAddButton('#catalog_list button[name="add-group"]')
+
+  $('[name="category"]').on 'ajax:success', (data)->
+    $('#catalog_container').html(data)
+  $('[name="category"]').on 'ajax:error', (e, data)->
+    $('#catalog_container').html('Error:' + data.responseText)
 
 
 $(document).ready ready

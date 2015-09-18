@@ -1,0 +1,6 @@
+- @cats.each do |cat|
+  %li.list-group-item{name: 'category'}
+    %a{href: category_path(cat),
+    title: cat.name,
+    data: { remote: true }}
+      = cat.name

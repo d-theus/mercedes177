@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
   before_filter :admin?, except: [:index, :show]
-  before_filter :fetch_group
   before_filter :fetch_category, only: [:edit, :update, :show, :destroy]
 
   def new
@@ -33,7 +32,8 @@ class CategoriesController < ApplicationController
   end
 
   def index
-    @cats = CatGroup.find(params[:cg_id]).categories
+    @cats = CatGroup.find(params[:cat_group_id]).categories
+    render :index, layout: false
   end
 
   def destroy
@@ -47,14 +47,10 @@ class CategoriesController < ApplicationController
   private
 
   def fetch_category
-    @cg.categories.find(params[:c_id])
-  end
-
-  def fetch_group
-    @cg = CatGroup.find(params[:cg_id])
+    Category.find(params[:id])
   end
 
   def category_params
-    params.require(:cat_group).require(:category).permit(:name)
+    params.require(:category).permit(:name)
   end
 end

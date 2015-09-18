@@ -1,12 +1,17 @@
 .row
   .col-lg-3.col-xs-5.well#catalog_list
     .row
-      %center.col-xs-8
+      %center.col-xs-5
         %h3 Группы
       - if admin?
-        .col-xs-4.pull-right
-          %button.btn.btn-info.btn-lg{ type: :button, name: 'add'}
+        .col-xs-2.col-xs-offset-1
+          %button.btn.btn-info{ type: :button, name: 'add-group'}
             %span.fa.fa-plus
+              группу
+        .col-xs-2.col-xs-offset-1
+          %button.btn.btn-info{ type: :button, name: 'add-category'}
+            %span.fa.fa-plus
+              катег.
     .panel-group#catalog_list_accordion
       - @cgs.each do |cg|
         = render partial: 'cat_groups/panel', locals: { cg: cg }
