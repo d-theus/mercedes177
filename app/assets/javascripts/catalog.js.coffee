@@ -56,13 +56,20 @@ class window.CatGroup
   bindEvents: ->
     @el.find('button[name="edit"]').on 'click', =>
       this.getEditForm (form)=>
-        @el.find('button[name="edit"]').remove()
+        @el.find('button[name="edit"]').hide()
         @el.find('.panel-body').prepend(form)
         delBtn = form.find('a[name="delete"]')
         delBtn.on 'ajax:success', =>
           @el.remove()
         delBtn.on 'ajax:error',   =>
           @el.find('.panel-body').prepend($(CatGroup.errorDiv))
+
+        form.on 'ajax:success', =>
+          input = form.find('input[name="name"]')
+          #FIXME:
+          @el.find('.panel-title a').html(input.val())
+          form.remove()
+          @el.find('button[name="edit"]').show()
 
 ready = ->
   CatGroup.bindToList('#catalog_list_accordion')

@@ -56,6 +56,6 @@ class CatGroupsController < ApplicationController
   end
 
   def fetch_group
-    @cat_group = CatGroup.find(params[:id])
+    @cg = CatGroup.find(params[:id])
   end
 end
