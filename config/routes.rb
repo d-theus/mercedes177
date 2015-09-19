@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :items, only: [:new, :edit, :show]
+  get 'items/search'
+
   resources :cat_groups do
     get 'categories', to: 'categories#index'
   end

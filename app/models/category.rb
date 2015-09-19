@@ -10,6 +10,7 @@ class Category < ActiveRecord::Base
   validates :cat_groups,
     presence: { message: "должны содержать как минимум одну." }
   has_and_belongs_to_many :cat_groups
+  has_many :items
 
   def self.human_attribute_name(attr, option={})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
