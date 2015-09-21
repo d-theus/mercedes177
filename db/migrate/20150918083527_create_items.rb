@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :name
       t.string :serial
       t.float :price
-      t.integer :count
+      t.integer :count, default: 0, null: false
       t.text :description
       t.text :notice
       t.references :category, index: true
