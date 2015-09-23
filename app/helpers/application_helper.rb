@@ -36,19 +36,9 @@ module ApplicationHelper
       end
   end
 
-  def navbar_link(args)
-    current = (controller_name == args[:controller].to_s and action_name == args[:action].to_s)
-    Rails.logger.info 'Controller:' + controller_name
-    Rails.logger.info 'Action:' + action_name
-
-    if current 
-      haml_tag(:a, title: 'Главная', href: root_path) do
-        haml_concat 'Главная'
-      end
-    else
-      haml_tag(:a, title: args[:title] || args[:text], href: url_for(controller: args[:controller], action: args[:action])) do
-        yield
-      end
+  def v_submit_tag
+    haml_tag :button, class: %i(btn btn-warning), type: :submit do
+      haml_tag :span, class: %i(fa fa-check)
     end
   end
 end

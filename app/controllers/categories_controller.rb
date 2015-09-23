@@ -1,54 +1,29 @@
 class CategoriesController < ApplicationController
   before_filter :admin?, except: [:index, :show]
-  before_filter :fetch_category, only: [:edit, :update, :show, :destroy]
 
-  def new
-    @cat = CatGroup.build_category
-    render :new, layout: false
-  end
+  respond_to :json
 
   def create
-    @cat = Category.new(category_params)
-    if @cat.save
-      render :show, layout: false
-    else
-      render partial: 'categories/error', status: :unprocessable_entity, layout: false
-    end
-  end
-
-  def edit
-    render :edit, layout: false
+    respond_with Category.create(category_params)
   end
 
   def update
-    if @cat.update(category_params)
-      render nothing: true
-    else
-      render :edit, status: :unprocessable_entity, layout: false
-    end
+    respond_with Category.update(params[:id], category_params)
   end
 
   def show
+    respond_with Category.find(params[:id])
   end
 
   def index
-    @cats = CatGroup.find(params[:cat_group_id]).categories
-    render :index, layout: false
+    respond_with Category.order('name ASC')
   end
 
   def destroy
-    if @cat.delete
-      render nothing: true
-    else
-      render partial: 'categories/errors', status: :bad_request, layout: false
-    end
+    respond_with Category.destroy(params[:id])
   end
 
   private
-
-  def fetch_category
-    Category.find(params[:id])
-  end
 
   def category_params
     params.require(:category).permit(:name)

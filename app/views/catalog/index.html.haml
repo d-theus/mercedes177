@@ -1,20 +1,123 @@
 .row
-  .col-lg-3.col-xs-5.well#catalog_list
+  .col-lg-3.col-xs-5.well#catalog_list{'ng-controller' => 'CategoriesCtrl'}
     .row
       %center.col-xs-5
-        %h3 Группы
+        %h3 Категории
       - if admin?
         .col-xs-2.col-xs-offset-1
+          %br/
           %button.btn.btn-info{ type: :button, name: 'add-group'}
             %span.fa.fa-plus
-              группу
-        .col-xs-2.col-xs-offset-1
-          %button.btn.btn-info{ type: :button, name: 'add-category'}
-            %span.fa.fa-plus
-              катег.
     .panel-group#catalog_list_accordion
-      - @cgs.each do |cg|
-        = render partial: 'cat_groups/panel', locals: { cg: cg }
+      .panel.panel-primary.cat-group{ 'ng-repeat' => 'cat in categories' }
+        .panel-heading{role: 'tab', id: "heading{{cat.id}}"}
+          %h4.panel-title
+            %a.list-group-item.collapsed{ role: :button,
+              'data-toggle': 'collapse',
+              'ng-click': 'toggle(cat)',
+              title: "{{cat.name}}" }
+              = raw '{{cat.name}}'
+        .panel-collapse.collapse{ id: "cat{{cat.id}}", role: 'tabpanel', 'ng-class' => '{in: cat.current}' }
+          .panel-body
+            %ul.list-group{ name: 'categories'}
+              %li.list-group-item{ 'ng-repeat' => 'item in items', 'ng-if' => 'item.category_id == cat.id'}
+                %a.btn{type: :button, 'ng-click' => 'setItem(item)'}
+                  {{ item.name }}
 
   .col-lg-9.col-xs-7.container
-    .col-xs-12.well#catalog_container
+    .col-xs-12.well#catalog_container{'ng-controller' => 'ItemCtrl'}
+      .row
+        .col-xs-10.col-xs-offset-1
+          .row
+            .col-xs-8
+              %h1
+                %span{ 'ng-show' => '!editing.name'}
+                  {{item.name}}
+                  - if admin?
+                    %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("name")'}
+                      %span.fa.fa-edit
+                - item_field_form_for 'name' do
+                  .form-group.col-xs-8
+                    .input-group
+                      %input.form-control{type: :text, 'ng-model' => 'item.name'}
+                  - v_submit_tag
+          .row
+            .col-xs-8
+              %h2{title: 'Серийный номер'}
+                %span{ 'ng-show' => '!editing.serial'}
+                  SN: {{ item.serial }}
+                  - if admin?
+                    %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("serial")'}
+                      %span.fa.fa-edit
+                - item_field_form_for 'serial' do
+                  .form-group.col-xs-8
+                    .input-group
+                      %input.form-control{type: :text, 'ng-model' => 'item.serial'}
+                  - v_submit_tag
+      .row{'ng-if' => 'item.name'}
+        .col-xs-5
+          = image_tag 'placeholder.png'
+          - if admin?
+            %br/
+            %br/
+            .panel
+              .panel-body
+                %span.lead
+                  Добавить/удалить:
+                %span.pull-right
+                  %button.btn.btn-info{ type: :button, 'ng-click' => 'editItem()'}
+                    %span.fa.fa-plus
+                  %button.btn.btn-info{ type: :button, 'ng-click' => 'editItem()'}
+                    %span.fa.fa-minus
+
+        .col-xs-5.col-xs-offset-1.container
+          .row
+            %center.col-xs-6.lead{'ng-show' => '!editing.price'}
+              %strong {{ item.price }}
+              %span.fa.fa-rub
+              %br/
+              %br/
+              %span.alert.alert-success{'ng-if' => 'item.count > 0'}
+                В наличии
+              %span.alert.alert-danger{'ng-if' => 'item.count == 0'}
+                Нет в наличии
+            - if admin?
+              %span
+                %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
+                  %span.fa.fa-edit
+              .col-xs-8
+                - item_field_form_for 'price' do
+                  .form-group.col-xs-8
+                    .input-group
+                      .input-group-addon
+                        %span.fa.fa-rub
+                      %input.form-control{type: :number, 'ng-model' => 'item.price'}
+                  - v_submit_tag
+            - unless admin?
+              .col-xs-6.lead{'ng-if' => 'item.count > 0'}
+                %a.btn.btn-lg.btn-primary{href: '#'}
+                  %span.fa.fa-money
+                  Купить
+                %br/
+                %br/
+                %a.btn.btn-lg.btn-primary{href: '#'}
+                  %span.fa.fa-shopping-cart
+                  В корзину
+              %br/
+            %br/
+          .row
+
+            .col-xs-12.well{'ng-show' => '!editing.description'}
+              - if admin?
+                .col-xs-2.pull-right
+                  %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("description")'}
+                    %span.fa.fa-edit
+              {{ item.description }}
+
+            - if admin?
+              .col-xs-12.well{'ng-show' => 'editing.description'}
+                - item_field_form_for 'description', :horizontal do
+                  .form-group
+                    %textarea.form-control{ 'ng-model' => 'item.description'}
+                  - v_submit_tag
+

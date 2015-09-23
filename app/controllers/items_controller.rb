@@ -1,13 +1,31 @@
 class ItemsController < ApplicationController
-  def new
-  end
+  before_filter :admin?, except: [:show, :index]
 
-  def edit
+  respond_to :json
+
+  def create
+    respond_with Item.create(item_params)
   end
 
   def show
+    respond_with Item.find(params[:id])
   end
 
-  def search
+  def update
+    respond_with Item.update(params[:id], item_params)
+  end
+
+  def destroy
+    respond_with Item.destroy(params[:id])
+  end
+
+  def index
+    respond_with Item.order('name ASC')
+  end
+
+  private
+  
+  def item_params
+    params.require(:item).permit(:name, :serial, :price, :count, :description, :notice, :category, :category_id)
   end
 end

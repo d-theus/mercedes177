@@ -1,98 +1,59 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-class window.CatGroup
-  this.formParams =
-    async: true
-    timeout: 10000
-    cache: false
+@catalog = angular.module('catalog', ['ngResource'])
+@catalog.controller 'CategoriesCtrl', ($scope, $resource, $location) ->
 
-  this.errorDiv = (message)->
-    "<div class=\"alert alert-danger\"><strong>Ошибка!</strong>#{if message then '<br/>' + message.toString()}</div>"
+  Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
+  Item =     $resource('/items/:id',      {id: '@id'})
+  $scope.categories = Category.query '', ->
+    if (cid = Number($location.search().cat))
+      for cat in $scope.categories
+        if cat.id == cid
+          cat.current = true
 
-  constructor: (@el, @id) ->
-    @formParams = CatGroup.formParams
-    this.bindEvents()
+  $scope.items = Item.query '', ->
+    if (iid = Number($location.search().item))
+      for item in $scope.items
+        if item.id == iid
+          $scope.setItem(item)
 
-  this.bindToList = (list)->
-    this._array.splice(this._array.length)
-    this._list = $(list)
-    $(list).find('[data-model=CatGroup]').each (i, el)=>
-      this.fromEl(el)
+  $scope.setItem = (item)->
+    $('#catalog_container').scope().setItem(item)
+    $location.search('item', item.id)
 
-  this.bindAddButton = (btn)->
-    $(btn).on 'click', =>
-      this.getNew (panel)=>
-        this._list.prepend(panel)
+  $scope.open = (cat)->
+    for c in $scope.categories
+      c.current = false
+    cat.current = true
+    $location.search('cat', cat.id)
 
-  this.getNew = ->
-    @formParams.url = 'cat_groups/new'
-    @formParams.success = (data) =>
-      panel = $(data)
-      this._list.prepend panel
-      form = panel.find('#new_cat_group')
-      form.on 'ajax:success', (e, data) =>
-        panel.remove()
-        new_panel = $(data)
-        this._list.prepend new_panel
-        this.fromEl new_panel
-      form.on 'ajax:error', (e, data) =>
-        panel.prepend( $(CatGroup.errorDiv data.responseText) )
-    $.ajax(@formParams)
+  $scope.close = (cat)->
+    cat.current = false
+    $location.search('')
 
-  this.fromEl = (el)->
-    cg = new CatGroup($(el), $(el).data('id'))
-    this._array.push(cg)
-    return cg
+  $scope.toggle = (cat)->
+    if cat.current
+      $scope.close(cat)
+    else
+      $scope.open(cat)
 
-  this._array = []
+@catalog.controller 'ItemCtrl', ($scope, $resource) ->
+  Item = $resource('/items/:id', {id: '@id'}, {update: {method: 'PUT'}})
+  $scope.editing = { }
 
-  getEditForm: (callback)->
-    @formParams.url = "cat_groups/#{@id}/edit"
-    @formParams.success = (data) -> callback( $(data) )
-    @formParams.error =   (data) -> callback( $(CatGroup.errorDiv) )
-    $.ajax(@formParams)
+  $scope.setItem = (item)->
+    $scope.item = item
 
-  getCategories: ()->
-    @formParams.url = "cat_groups/#{@id}/categories"
-    @formParams.success = (data) =>
-      items = $(data)
-      @el.find('[name="categories"]').append(items)
-    @formParams.error = (data) =>
-      @el.find('[name="categories"]').append($(CatGroup.errorDiv))
-    $.ajax(@formParams)
+  $scope.toggleControl = (ct)->
+    if typeof($scope.editing[ct]) != undefined
+      $scope.editing[ct] = !$scope.editing[ct]
+    else
+      $scope.editing[ct] = true
 
-  bindEvents: ->
-    @el.find('button[name="edit"]').on 'click', =>
-      this.getEditForm (form)=>
-        @el.find('button[name="edit"]').hide()
-        @el.find('.panel-body').prepend(form)
-        delBtn = form.find('a[name="delete"]')
-        delBtn.on 'ajax:success', =>
-          @el.remove()
-        delBtn.on 'ajax:error',   =>
-          @el.find('.panel-body').prepend($(CatGroup.errorDiv))
-
-        form.on 'ajax:success', =>
-          input = form.find('input[name="name"]')
-          #FIXME:
-          @el.find('.panel-title a').html(input.val())
-          form.remove()
-          @el.find('button[name="edit"]').show()
-
-    @el.find('.collapse').on 'show.bs.collapse', =>
-      if @el.find('[name="categories"] li').length == 0
-        this.getCategories()
-
-ready = ->
-  CatGroup.bindToList('#catalog_list_accordion')
-  CatGroup.bindAddButton('#catalog_list button[name="add-group"]')
-
-  $('[name="category"]').on 'ajax:success', (data)->
-    $('#catalog_container').html(data)
-  $('[name="category"]').on 'ajax:error', (e, data)->
-    $('#catalog_container').html('Error:' + data.responseText)
-
-
-$(document).ready ready
-$(document).on 'page:load', ready
+  $scope.submit = (attr)->
+    if $scope.item[attr]
+      upd = {}
+      upd.id = $scope.item.id
+      upd[attr] = $scope.item[attr]
+      Item.update upd, ->
+        #success
+        #
+        $scope.editing[attr] = false
