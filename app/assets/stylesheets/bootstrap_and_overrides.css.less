@@ -48,7 +48,7 @@
 @input-border: @gray-darker;
 @input-border-focus: black;
 
-@well-bg: mix(white, transparent, 75%);
+@well-bg: mix(white, transparent, 85%);
 
 @list-group-bg: transparent;
 @list-group-border: @gray-darker;
@@ -58,14 +58,32 @@
 @list-group-link-hover-color: @brand-primary;
 
 @panel-bg: mix(white, transparent);
-@panel-default-text: @gray-dark;
-@panel-default-heading-bg: @gray-lighter;
+@panel-default-text: @gray-lighter;
+@panel-default-heading-bg: @gray;
+@panel-info-heading-text: @gray-darker;
+@panel-info-heading-bg: mix(@brand-info, transparent, 40%);
 @panel-primary-text: @gray-dark;
 @panel-primary-heading-bg: mix(@brand-primary, transparent, 40%);
+
+@modal-content-bg: white;
 
 .panel{
   *{ border: none; }
   border: none;
+
+  .panel-title {
+    font-size: @font-size-base * 1.25;
+  }
+}
+
+.image-container{
+  position: relative;
+  display: inline-block;
+  .image-overlay{
+    position: absolute;
+    bottom: 0.5em;
+    left: 0.5em;
+  }
 }
 
 html{
