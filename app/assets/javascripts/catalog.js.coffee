@@ -36,7 +36,8 @@
       $scope.open(cat)
 
 @catalog.controller 'ItemCtrl', ($scope, $resource) ->
-  Item = $resource('/items/:id', {id: '@id'}, {update: {method: 'PUT'}})
+  Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
+  ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'})
   $scope.editing = { }
 
   $scope.setItem = (item)->
@@ -54,6 +55,19 @@
       upd.id = $scope.item.id
       upd[attr] = $scope.item[attr]
       Item.update upd, ->
-        #success
+        # success
         #
         $scope.editing[attr] = false
+
+  $scope.addPhoto = (file)->
+    photo = new ItemPhoto
+    #photo.image = file
+
+    #photo.$save(item_id: $scope.item.id)
+
+    fr = new FileReader()
+    fr.onloadend = (e)->
+      photo.image = e.target.result
+      photo.$save(item_id: $scope.item.id)
+    fr.readAsDataURL(file)
+    true

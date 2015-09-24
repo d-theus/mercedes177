@@ -1,5 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :category
+  has_many   :photos
 
   validates :name, presence: true
   validates :serial, presence: true
