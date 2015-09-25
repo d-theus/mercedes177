@@ -36,7 +36,7 @@
             %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
               %span.fa.fa-edit
 
-          %button.btn.btn-primary{ type: :button, 'ng-click' => 'openPhotoPreview()'}
+          %button.btn.btn-primary{ type: :button, 'ng-click' => 'openPhotoPreview()', 'ng-if' => 'item.photos.length'}
             %span.fa.fa-arrows-alt
     .row{ 'ng-if' => 'item.photos.length'}
       .col-xs-12
