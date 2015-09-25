@@ -13,6 +13,10 @@
 #= require jquery
 #= require jquery_ujs
 #= require twitter/bootstrap
+#= require angular
+#= require angular-ui-bootstrap
+#= require angular-ui-bootstrap-tpls
+#= require angular-resource
 #= require turbolinks
 #= require catalog
 #= require about
