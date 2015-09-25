@@ -1,0 +1,16 @@
+%script{src: '/assets/okzoom.min.js', async: true}
+.modal-header
+  %button.btn.btn-danger.col-xs-2.col-xs-offset-10{ 'ng-click' => '$close()' }
+    %span.fa.fa-times
+  %br/
+.modal-body
+  %img.img-responsive.with-loupe{ 'ng-src' => '{{ item.currentPhoto.full }}' }
+.modal-footer
+  %button.btn.btn-primary{'ng-click' => 'prevPhoto()'}
+    %span.fa.fa-chevron-left
+  %button.btn.btn-primary{'ng-click' => 'nextPhoto()'}
+    %span.fa.fa-chevron-right
+  &nbsp;
+  %button.btn.btn-primary{onclick: 'Zoom.toggle()'}
+    %span.fa.fa-search
+

@@ -37,6 +37,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angular-ui-bootstrap-rails (0.13.4)
     angular_rails_csrf (1.0.4)
       rails (>= 3, < 5)
     angularjs-rails (1.4.4)
@@ -237,6 +238,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular-ui-bootstrap-rails
   angular_rails_csrf
   angularjs-rails
   capistrano

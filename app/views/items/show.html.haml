@@ -1,4 +1,4 @@
-.row
+.row{'ng-if' => 'item'}
   .col-xs-10.col-xs-offset-1
     .row
       .col-xs-8
@@ -8,7 +8,7 @@
             - if admin?
               %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("name")'}
                 %span.fa.fa-edit
-          - item_field_form_for 'name' do
+          - item_field_for 'name' do
             .form-group.col-xs-8
               .input-group
                 %input.form-control{type: :text, 'ng-model' => 'item.name'}
@@ -21,34 +21,63 @@
             - if admin?
               %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("serial")'}
                 %span.fa.fa-edit
-          - item_field_form_for 'serial' do
+          - item_field_for 'serial' do
             .form-group.col-xs-8
               .input-group
                 %input.form-control{type: :text, 'ng-model' => 'item.serial'}
             - v_submit_tag
 .row{'ng-if' => 'item.name'}
   .col-xs-5
-    %img{'ng-src' => image_path('{{item.photos[0] || "placeholder.png"}}') }
+    .row
+      .col-xs-12.image-container
+        %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview}}"}
+        .col-xs-6.image-overlay
+          - if admin?
+            %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
+              %span.fa.fa-edit
+
+          %button.btn.btn-primary{ type: :button, 'ng-click' => 'openPhotoPreview()'}
+            %span.fa.fa-arrows-alt
+    .row{ 'ng-if' => 'item.photos.length'}
+      .col-xs-12
+        %br/
+        %br
+        %a{'ng-click' => 'setPhoto(photo)', 'ng-repeat' => 'photo in item.photos'}
+          %img{'ng-src' => '{{photo.thumb}}', width: '50px'}
     - if admin?
-      %br/
-      %br/
-      .panel
-        .panel-body
-          - item_field_form_for 'photos', :horizontal, multipart: true do
-            .form-group.bg-primary
-              %input{ type: :file, onchange: 'angular.element(this).scope().file = this.files[0];' }
-              %button.btn.btn-primary{ type: :button, 'ng-model' => 'file', 'ng-click' => 'addPhoto(file)'}
-                %span.fa.fa-plus
-              %br/
-            %br
-            - v_submit_tag
-          %span.lead{ 'ng-show' => '!editing.photos'}
-            Добавить/удалить:
-          %span.pull-right
-            %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos")', 'ng-show' => '!editing.photos'}
-              %span.fa.fa-plus
-            %button.btn.btn-info{ type: :button, 'ng-show' => '!editing.photos'}
-              %span.fa.fa-minus
+      .row
+        %br/
+        %br/
+        .panel.panel-info{'ng-if' => 'editing.photos'}
+          .panel-heading
+            %button.btn.btn-danger.pull-right{ type: :button, 'ng-click' => 'toggleControl("photos")'}
+              %span.fa.fa-times
+            .panel-title Добавить фотографии
+            %hr
+          .panel-body
+            .row
+              .col-xs-10.col-xs-offset-1
+                - item_form_for 'photos', multipart: true do
+                  .form-group{'ng-if' => 'files.length'}
+                    .row{'ng-repeat' => 'file in files'}
+                      %img.col-xs-3{ 'ng-src' => '{{file.data}}' }
+                      .col-xs-7
+                        {{ file.name }}
+                      .pull-right
+                      .col-xs-2
+                        %button.btn.btn-danger{ type: :button, 'ng-click' => 'removeFile(file.name)'}
+                          %span.fa.fa-times
+                      %br/
+                      %br/
+                  .form-group{'ng-show' => 'editing.photos == "choose"'}
+                    %input{type: :file, onchange: 'angular.element(this).scope().uploadPhoto(this.files[0])'}
+                  %button.btn.btn-primary{ type: :button, 'ng-click' => 'chooseFile()', 'ng-show' => 'editing.photos == "prompt"'}
+                    %span.fa.fa-plus
+                  %br/
+                  %br/
+                  .col-xs-offset-10
+                    %button.btn.btn-primary{ type: :button, 'ng-click' => 'savePhotos()', 'ng-show' => 'files.length'}
+                      %span.fa.fa-check
 
   .col-xs-5.col-xs-offset-1.container
     .row
@@ -66,7 +95,7 @@
           %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
             %span.fa.fa-edit
         .col-xs-8
-          - item_field_form_for 'price' do
+          - item_field_for 'price' do
             .form-group.col-xs-8
               .input-group
                 .input-group-addon
@@ -96,7 +125,25 @@
 
       - if admin?
         .col-xs-12.well{'ng-show' => 'editing.description'}
-          - item_field_form_for 'description', :horizontal do
+          - item_form_for 'description' do
             .form-group
               %textarea.form-control{ 'ng-model' => 'item.description'}
             - v_submit_tag
+
+.row{'ng-if' => '!item'}
+  %center.col-xs-12
+    %h2.text-info.center-block
+      Пока ничего не выбрано.
+    %h3.text-info.center-block
+      Чтобы выбрать деталь
+    %h4.text-info.center-block
+      %span.fa.fa-arrow-left
+      найдите её в нужной категории
+      %br/
+      %br/
+      или
+      %br/
+      %br/
+      воспользуйтесь поиском:
+  %center.col-xs-6.col-xs-offset-3.well
+    Тут будет поиск

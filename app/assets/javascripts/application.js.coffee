@@ -20,7 +20,7 @@
 #= require turbolinks
 #= require catalog
 #= require about
-
+#= require zoom
 ready = ->
   $('#content').css({
     'min-height': $(window).height() - $('#header').height() - 20

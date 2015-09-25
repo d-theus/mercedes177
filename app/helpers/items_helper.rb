@@ -1,10 +1,21 @@
 module ItemsHelper
-  def item_field_form_for(attr, type = :inline, options = {})
+  def item_form_for(attr, options = {})
     if admin?
-      haml_tag :form, options,
-        class: "form-#{type}",
-        'ng-show' => "editing.#{attr.to_s}",
-        'ng-submit' => "submit('#{attr}')" do
+      options[:class] ? options[:class] << ' form-horizontal' : options[:class] = 'form-horizontal'
+      options[:'ng-show'] = "editing.#{attr.to_s}"
+      options[:'ng-submit'] = "submit('#{attr}')"
+      haml_tag :form, options do
+          yield
+        end
+    end
+  end
+
+  def item_field_for(attr, options = {})
+    if admin?
+      options[:class] ? options[:class] << ' form-inline' : options[:class] = 'form-inline'
+      options[:'ng-show'] = "editing.#{attr.to_s}"
+      options[:'ng-submit'] = "submit('#{attr.to_s}')"
+      haml_tag :form, options do
           yield
         end
     end
