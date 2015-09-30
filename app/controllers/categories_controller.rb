@@ -16,7 +16,10 @@ class CategoriesController < ApplicationController
   end
 
   def index
-    respond_with Category.order('name ASC')
+    respond_with Category
+    .joins('LEFT JOIN items on items.category_id = categories.id GROUP BY categories.id')
+    .select('categories.*, COUNT(items.id) AS item_count')
+    .order('name ASC')
   end
 
   def destroy

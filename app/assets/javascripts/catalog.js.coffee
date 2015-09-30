@@ -1,5 +1,7 @@
-@catalog = angular.module('catalog', ['ngResource', 'ui.bootstrap'])
-@catalog.controller 'CategoriesCtrl', ($scope, $resource, $location) ->
+@catalog = angular.module('catalog', ['ngResource', 'ngAnimate', 'ui.bootstrap'])
+@catalog.controller 'CategoriesCtrl', ($scope, $resource, $location, $modal) ->
+
+  $scope.editing = false
 
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
   Item =     $resource('/items/:id',      {id: '@id'})
@@ -19,21 +21,28 @@
     $('#catalog_container').scope().setItem(item)
     $location.search('item', item.id)
 
-  $scope.open = (cat)->
-    for c in $scope.categories
-      c.current = false
-    cat.current = true
-    $location.search('cat', cat.id)
+  $scope.openNewDialog = ->
+    $scope.newCategory = new Category
+    m = $modal.open(
+      scope: $scope
+      templateUrl: '/templates/categories/new_modal'
+    )
 
-  $scope.close = (cat)->
-    cat.current = false
-    $location.search('')
+    m.result.then ->
+      $scope.newCategory.$save (created)->
+        $scope.categories.unshift(created)
+      , (e)->
+        msgs = []
+        for field, msg of e.data.errors
+          msgs.push "#{field}: #{msg}"
+        alert "ОШИБКА!" + msgs.join('/n')
+    , ->
+      delete $scope.newCategory
 
-  $scope.toggle = (cat)->
-    if cat.current
-      $scope.close(cat)
-    else
-      $scope.open(cat)
+  $scope.delete = (cat)->
+    return unless confirm "Действительно удалить категорию\n'#{cat.name}'"
+    $scope.categories.splice($scope.categories.indexOf(cat), 1)
+    cat.$remove()
 
 @catalog.controller 'ItemCtrl', ($scope, $resource, $modal) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})

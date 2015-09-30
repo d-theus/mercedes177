@@ -36,8 +36,10 @@ module ApplicationHelper
       end
   end
 
-  def v_submit_tag
-    haml_tag :button, class: %i(btn btn-warning), type: :submit do
+  def v_submit_tag(opts = {})
+    defaults = { class: %i(btn btn-warning), type: :submit }
+    final = defaults.merge opts
+    haml_tag :button, final do
       haml_tag :span, class: %i(fa fa-check)
     end
   end

@@ -1,0 +1,9 @@
+.panel.panel-primary.cat-group
+  .panel-heading
+    %h4.panel-title
+      %a.accordion-toggle{ role: :button,
+        'ng-click': 'toggleOpen()',
+        'accordion-transclude' => 'heading' }
+        {{heading}}
+  .panel-collapse.collapse{ 'collapse' => '!isOpen' }
+    .panel-body{'ng-transclude' => true}

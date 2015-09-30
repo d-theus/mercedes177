@@ -6,24 +6,22 @@
       - if admin?
         .col-xs-2.col-xs-offset-1
           %br/
-          %button.btn.btn-info{ type: :button, name: 'add-group'}
+          %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
             %span.fa.fa-plus
-    .panel-group#catalog_list_accordion
-      .panel.panel-primary.cat-group{ 'ng-repeat' => 'cat in categories' }
-        .panel-heading{role: 'tab', id: "heading{{cat.id}}"}
-          %h4.panel-title
-            %a.list-group-item.collapsed{ role: :button,
-              'data-toggle': 'collapse',
-              'ng-click': 'toggle(cat)',
-              title: "{{cat.name}}" }
-              = raw '{{cat.name}}'
-        .panel-collapse.collapse{ id: "cat{{cat.id}}", role: 'tabpanel', 'ng-class' => '{in: cat.current}' }
-          .panel-body
-            %ul.list-group{ name: 'categories'}
-              %li.list-group-item{ 'ng-repeat' => 'item in items', 'ng-if' => 'item.category_id == cat.id'}
-                %a.btn{type: :button, 'ng-click' => 'setItem(item)'}
-                  {{ item.name }}
-
+    %accordion#catalog_list_accordion
+      %accordion-group{ 'ng-repeat' => 'cat in categories',
+        'heading' => '{{cat.name}}',
+        'template-url' => '/templates/categories/panel',
+        'is-open' => 'cat.current' }
+        - if admin?
+          %button.btn.btn-danger.btn-sm.pull-right{ type: :button,
+            'ng-click' => 'delete(cat)',
+            'ng-if' => 'cat.item_count == 0' }
+            %span.fa.fa-trash-o
+        %ul.list-group{ name: 'categories'}
+          %li.list-group-item{ 'ng-repeat' => 'item in items', 'ng-if' => 'item.category_id == cat.id'}
+            %a.btn{type: :button, 'ng-click' => 'setItem(item)'}
+              = raw '{{ item.name }}'
   .col-lg-9.col-xs-7.container
     .col-xs-12.well#catalog_container{'ng-controller' => 'ItemCtrl'}
       =render template: 'items/show', layout: false
