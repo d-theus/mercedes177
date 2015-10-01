@@ -47,7 +47,9 @@
     $scope.categories.splice($scope.categories.indexOf(cat), 1)
     cat.$remove()
 
-@catalog.controller 'ItemCtrl', ($scope, $resource, $modal) ->
+
+
+@catalog.controller 'ItemCtrl', ($scope, $resource, $location, $modal) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
   ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'})
   $scope.editing = { }
@@ -129,3 +131,11 @@
       size: 'lg'
       templateUrl: '/templates/items/preview_modal'
     )
+
+  $scope.delete = ()->
+    return unless confirm "Удалить товар\n#{$scope.item.name}?"
+    $scope.item.$remove()
+    $location.search('item', null)
+    $location.search('cat', $scope.item.category_id)
+    window.location = '#' + $location.url()
+    window.location.reload()
