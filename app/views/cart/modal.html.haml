@@ -1,0 +1,47 @@
+.modal-header
+  %button.btn.btn-danger.col-xs-2.pull-right{ 'ng-click' => '$dismiss()'}
+    %span.fa.fa-times
+  %h2 Корзина
+  %br/
+
+.modal-body
+  .container-fluid
+    .row
+      .col-xs-10.col-xs-offset-1
+        %h3 Позиции
+    .row
+      .col-xs-10.col-xs-offset-1
+        %table.table.table-striped
+          %tr
+            %th Наименование
+            %th СН
+            %th Цена
+            %th Количество
+            %th
+              %button.btn.btn-sm.btn-danger{type: :button, title: 'Удалить', 'ng-click' => 'remove(pos)'}
+                %span.fa.fa-times
+                Очистить
+          %tr{'ng-repeat' => 'pos in positions', 'ng-model' => 'pos' }
+            %td {{ pos.name }}
+            %td {{ pos.serial }}
+            %td
+              %span.fa.fa-rub
+              {{ pos.price | currency : ''}}
+            %td
+              .col-xs-5
+                {{ pos.count }}
+              %span.text-primary
+                %span.fa.fa-plus-square{'ng-click' => 'pos.add()'}
+                %span.fa.fa-minus-square{'ng-click' => 'pos.subtract()', 'ng-class' => '{"text-muted": pos.count < 1}'}
+            %td
+              %button.btn.btn-sm.btn-danger.pull-right{type: :button, title: 'Удалить', 'ng-click' => 'remove(pos)'}
+                %span.fa.fa-times
+        %span.pull-right
+          %strong Итого:
+          %span.fa.fa-rub
+          {{ summarize() | currency : '' }}
+
+.modal-footer
+  %button.btn.btn-primary{'ng-click' => 'proceed()'}
+    %span.fa.fa-check
+    Заказать

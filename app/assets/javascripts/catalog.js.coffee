@@ -1,6 +1,5 @@
-@catalog = angular.module('catalog', ['ngResource', 'ngAnimate', 'ui.bootstrap'])
+@catalog = angular.module('catalog', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
 @catalog.controller 'CategoriesCtrl', ($scope, $resource, $location, $modal) ->
-
   $scope.editing = false
 
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
@@ -139,3 +138,61 @@
     $location.search('cat', $scope.item.category_id)
     window.location = '#' + $location.url()
     window.location.reload()
+
+
+
+@catalog.controller 'CartCtrl', ($scope, $resource, $modal, $cookies) ->
+  # FIXME:
+  $scope.$on 'add', (e, item)->
+    console.log 'caught cart click'
+    $scope.put(item, 1)
+
+  class Position
+    constructor: (item, @count) ->
+      @id = item.id
+      @name = item.name
+      @serial = item.serial
+      @price = item.price
+    add: ->
+      @count += 1
+    subtract: ()->
+      @count -= 1 if @count > 0
+
+    Position.sample = ->
+      [1..20].map (i)->
+        new Position(
+          {
+            id: i
+            name: "Товар #{i}"
+            serial: "W#{Math.ceil (Math.random() * 10000000)}"
+            price: Math.round(Math.random(150*i) * 1000).toPrecision(3)
+          },
+          Math.ceil(Math.random() * 15 * i) + 1
+        )
+
+  $scope.open = ->
+    $modal.open(
+      scope: $scope
+      size: 'lg'
+      templateUrl: '/templates/cart/modal'
+    )
+
+  $scope.getPositions = ->
+    #$scope.positions = $cookies.getObject('cart-positions') || []
+    $scope.positions = Position.sample()
+
+  $scope.put = (item, count = 1)->
+    dupl = $scope.positions.filter((p) -> p.id == item.id)[0]
+    if dupl
+      dupl.add()
+    else
+      $scope.positions.push new Position(item, count)
+    $cookies.putObject('cart-positions', $scope.positions)
+
+  $scope.remove = (pos)->
+    $scope.positions.splice($scope.positions.indexOf(pos),1)
+
+  $scope.summarize = ->
+    $scope.positions.reduce ((acc,e) -> acc + (e.price) * e.count), 0
+
+  $scope.getPositions()

@@ -113,7 +113,8 @@
             Купить
           %br/
           %br/
-          %a.btn.btn-lg.btn-primary{href: '#'}
+          - # FIXME:
+          %a.btn.btn-lg.btn-primary{'ng-click' => '$emit("add", item)'}
             %span.fa.fa-shopping-cart
             В корзину
         %br/
