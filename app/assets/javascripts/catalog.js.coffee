@@ -17,6 +17,9 @@
         if item.id == iid
           $scope.setItem(item)
 
+  $scope.updateLocation = (cat)->
+    $location.search('cat', if cat.current then cat.id else null )
+
   $scope.setItem = (item)->
     $('#catalog_container').scope().setItem(item)
     $location.search('item', item.id)

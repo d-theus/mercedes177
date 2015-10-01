@@ -12,6 +12,7 @@
       %accordion-group{ 'ng-repeat' => 'cat in categories',
         'heading' => '{{cat.name}}',
         'template-url' => '/templates/categories/panel',
+        'ng-click' => 'updateLocation(cat)',
         'is-open' => 'cat.current' }
         - if admin?
           %button.btn.btn-danger.btn-sm.pull-right{ type: :button,
