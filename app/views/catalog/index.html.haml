@@ -19,10 +19,11 @@
             'ng-click' => 'delete(cat)',
             'ng-if' => 'cat.item_count == 0' }
             %span.fa.fa-trash-o
-        %ul.list-group{ name: 'categories'}
-          %li.list-group-item{ 'ng-repeat' => 'item in items', 'ng-if' => 'item.category_id == cat.id'}
-            %a.btn{type: :button, 'ng-click' => 'setItem(item)'}
-              = raw '{{ item.name }}'
+        .list-group{ name: 'categories'}
+          %a.list-group-item.clearfix{'href' => '', 'ng-click' => 'setItem(item)', 'ng-repeat' => 'item in items', 'ng-if' => 'item.category_id == cat.id'}
+            = raw '{{ item.name }}'
+            %span.pull-right
+              = raw '{{item.serial}}'
   .col-lg-9.col-xs-7.container
     .col-xs-12.well#catalog_container{'ng-controller' => 'ItemCtrl'}
       =render template: 'items/show', layout: false
