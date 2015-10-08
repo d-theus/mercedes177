@@ -4,7 +4,18 @@ class ItemsController < ApplicationController
   respond_to :json
 
   def create
-    respond_with Item.create(item_params)
+    respond_to do |f|
+      f.json { respond_with Item.create(item_params)}
+      f.html do
+        @item = Item.new(item_params)
+        if @item.save
+          redirect_to "/catalog#?item=#{@item.id}"
+        else
+          flash.now[:error] = 'Ошибка при создании товара'
+          render :new
+        end
+      end
+    end
   end
 
   def show
@@ -21,6 +32,13 @@ class ItemsController < ApplicationController
 
   def index
     respond_with Item.order('name ASC')
+  end
+
+  def new
+    @item = Item.new(category_id: params[:category_id])
+    respond_to do |f|
+      f.html
+    end
   end
 
   private

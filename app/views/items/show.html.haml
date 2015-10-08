@@ -134,6 +134,11 @@
               %textarea.form-control{ 'ng-model' => 'item.description'}
             - v_submit_tag
 
+      .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
+        %h6 Примечания:
+        {{ item.notice }}
+
+
 .row{'ng-if' => '!item'}
   %center.col-xs-12
     %h2.text-info.center-block
