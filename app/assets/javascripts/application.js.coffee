@@ -18,7 +18,6 @@
 #= require angular-animate
 #= require angular-ui-bootstrap
 #= require angular-ui-bootstrap-tpls
-#= require turbolinks
 #= require catalog
 #= require about
 #= require zoom

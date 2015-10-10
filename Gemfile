@@ -20,7 +20,6 @@ gem 'mini_magick'
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate'
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'spring',        group: :development
 
