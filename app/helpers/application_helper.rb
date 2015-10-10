@@ -1,5 +1,6 @@
 module ApplicationHelper
   DEFAULT_KEYWORDS = %w(автозапчасти мерседес mercedes авторазбор)
+  NG_APPS = %w(catalog orders)
 
   def title_tag
     str = "Автозапчасти Mercedes"
@@ -43,5 +44,9 @@ module ApplicationHelper
     haml_tag :button, final do
       haml_tag :span, class: %i(fa fa-check)
     end
+  end
+
+  def ng_app
+    controller_name if NG_APPS.include? controller_name
   end
 end

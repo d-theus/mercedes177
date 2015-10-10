@@ -1,0 +1,41 @@
+.well.col-xs-10.col-xs-offset-1
+  - # TODO: here goes ng-app orders
+  %center
+    %h1 Оформление заказа
+
+  .col-xs-8.col-xs-offset-2
+    = simple_form_for(@order, html: { class: 'form-horizontal'}) do |f|
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :middle_name
+      = f.input :phone
+      = f.input :email
+      = f.input :address
+      .form-group
+        %span.btn.fa{'ng-init' => 'shipping = false', 'ng-model' => 'shipping', 'ng-click' => 'shipping = !shipping', 'ng-class' => '{"fa-square-o": !shipping, "fa-check-square-o": shipping}'}
+        %label Доставка почтой
+      .col-xs-12{ 'ng-if' => 'shipping'}
+        = f.input :shipping_info
+      %h3 Позиции
+      %table.table.table-striped.bg-info
+        %tr
+          %th Наименование
+          %th СН
+          %th Количество
+
+        - @positions.each do |pos|
+          %tr
+            %td= pos.item.name
+            %td= pos.item.serial
+            %td= pos.count
+      .row
+        .col-xs-5.col-xs-offset-7
+          %span.pull-right
+            %strong Итого:
+            %span.fa.fa-rub
+            &nbsp;
+            %span.lead
+              {{ #{@positions.reduce(0) { |acc, p| p.count * p.item.price + acc } } | currency : '' }}
+        .row
+          .col-xs-12
+            = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg pull-right)

@@ -20,6 +20,8 @@
 #= require angular-ui-bootstrap
 #= require angular-ui-bootstrap-tpls
 #= require catalog
+#= require cart
+#= require orders
 #= require about
 #= require zoom
 ready = ->
