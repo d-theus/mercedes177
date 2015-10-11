@@ -9,11 +9,10 @@
       = f.input :middle_name
       = f.input :phone
       = f.input :email
-      = f.input :address
-      .form-group
-        %span.btn.fa{'ng-init' => 'shipping = false', 'ng-model' => 'shipping', 'ng-click' => 'shipping = !shipping', 'ng-class' => '{"fa-square-o": !shipping, "fa-check-square-o": shipping}'}
-        %label Доставка почтой
-      .col-xs-12{ 'ng-if' => 'shipping'}
+      = f.input :delivery_method, collection: Order::DELIVERY_METHODS, as: :radio_buttons, checked: true, item_wrapper_class: %i(radio-inline), input_html: { 'ng-model' => 'deliveryMethod' }
+      .col-xs-12{ 'ng-if' => 'deliveryMethod && !(deliveryMethod === "pickup")'}
+        = f.input :address
+      .col-xs-12{ 'ng-if' => 'deliveryMethod === "post"'}
         = f.input :shipping_info
       %h3 Позиции
       %table.table.table-striped.bg-info

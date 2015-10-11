@@ -51,13 +51,14 @@ ActiveRecord::Schema.define(version: 20151001164725) do
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
 
   create_table "orders", force: true do |t|
-    t.string   "first_name",                    null: false
-    t.string   "middle_name",                   null: false
-    t.string   "last_name",                     null: false
-    t.string   "phone",                         null: false
-    t.string   "email",                         null: false
-    t.string   "status",        default: "new", null: false
-    t.text     "address",                       null: false
+    t.string   "first_name",                      null: false
+    t.string   "middle_name",                     null: false
+    t.string   "last_name",                       null: false
+    t.string   "phone",                           null: false
+    t.string   "email",                           null: false
+    t.string   "status",          default: "new", null: false
+    t.text     "address"
+    t.string   "delivery_method",                 null: false
     t.text     "shipping_info"
     t.datetime "created_at"
     t.datetime "updated_at"

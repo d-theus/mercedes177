@@ -7,7 +7,8 @@ class CreateOrders < ActiveRecord::Migration
       t.string :phone, null: false
       t.string :email, null: false
       t.string :status, null: false, default: 'new'
-      t.text :address, null: false
+      t.text :address
+      t.string :delivery_method, null: false
       t.text :shipping_info
 
       t.timestamps
