@@ -9,7 +9,9 @@
           %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
             %span.fa.fa-plus
     %accordion#catalog_list_accordion
-      %accordion-group{ 'ng-repeat' => 'cat in categories',
+      %span.fa.fa-gear.fa-spin{ 'ng-if' => '!categories.length' }
+      %accordion-group{ 'ng-show' => 'categories.length',
+        'ng-repeat' => 'cat in categories',
         'heading' => '{{cat.name}}',
         'template-url' => '/templates/categories/panel',
         'ng-click' => 'updateLocation(cat)',
