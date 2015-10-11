@@ -1,4 +1,4 @@
-.row{'ng-if' => 'item'}
+.row{'ng-if' => 'item', 'ng-cloak' => true}
   - if admin?
     .col-xs-1.pull-right
       %button.btn.btn-danger.btn-lg{ type: :button, 'ng-click' => 'delete()'}
