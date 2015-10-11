@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
   validates_presence_of :first_name, :middle_name, :last_name, :phone, :email, :delivery_method
   validates :delivery_method, with: :valid_delivery_method?
   validates :address, presence: true, unless: :pickup? 
+  validates :email, format: /\A(\S+)@(.+)\.(\S+)\z/
+  validates :phone, format: /\d{11}/
   has_many :positions
 
   DELIVERY_METHODS = %w(pickup courier post)
