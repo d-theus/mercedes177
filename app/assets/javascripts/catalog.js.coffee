@@ -142,3 +142,7 @@
   $scope.putToCart = ()->
     console.log 'Putting to cart'
     angular.element("#cart").scope().put($scope.item)
+
+  $scope.putToCartAndProceed = ()->
+    $scope.putToCart()
+    window.location = '/orders/new'

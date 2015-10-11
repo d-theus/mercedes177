@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  get 'orders/received'
   resources :orders
+
   resources :items, defaults: { format: :json} do
     resources :photos, only: [:index, :create]
   end

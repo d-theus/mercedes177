@@ -108,7 +108,7 @@
             - v_submit_tag
       - unless admin?
         .col-xs-6.lead{'ng-if' => 'item.count > 0'}
-          %a.btn.btn-lg.btn-primary{href: '#'}
+          %a.btn.btn-lg.btn-primary{'ng-click' => 'putToCartAndProceed()'}
             %span.fa.fa-money
             Купить
           %br/

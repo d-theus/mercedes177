@@ -3,8 +3,17 @@ class OrdersController < ApplicationController
   after_filter :mail_client
 
   def new
-    fetch_positions
     @order = Order.new
+  end
+
+  def create
+    @order = Order.new(order_params)
+    if @order.save
+      redirect_to orders_received_path(order_id: @order.id)
+    else
+      flash.now[:error] = 'Ошибка при составлении заказа!'
+      render :new
+    end
   end
 
   def edit
@@ -15,6 +24,11 @@ class OrdersController < ApplicationController
     @orders = Order.order('created_at DESC')
   end
 
+  def received
+    @order_id = params[:order_id]
+    render :received
+  end
+
   private
 
   def mail_client
@@ -23,14 +37,5 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:first_name, :middle_name, :last_name, :phone, :email, :status, :shipping_info, :address)
-  end
-
-  def fetch_positions
-    items = Item.order('RANDOM()').limit(5).reject { |i| i.count == 0}
-    @positions = items.map do |item|
-      pos = Position.new(count: rand(item.count - 1) + 1)
-      pos.item = item
-      pos
-    end
   end
 end

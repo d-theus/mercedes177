@@ -43,6 +43,6 @@
           {{ summarize() | currency : '' }}
 
 .modal-footer{ 'ng-if' => 'positions.length'}
-  %button.btn.btn-primary{'ng-click' => 'proceed()'}
+  %a.btn.btn-primary{href: '/orders/new'}
     %span.fa.fa-check
     Заказать

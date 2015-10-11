@@ -1,5 +1,4 @@
-.well.col-xs-10.col-xs-offset-1
-  - # TODO: here goes ng-app orders
+.well.col-xs-10.col-xs-offset-1{'ng-controller' => 'OrdersCtrl'}
   %center
     %h1 Оформление заказа
 
@@ -23,11 +22,11 @@
           %th СН
           %th Количество
 
-        - @positions.each do |pos|
-          %tr
-            %td= pos.item.name
-            %td= pos.item.serial
-            %td= pos.count
+        %tr{ 'ng-repeat' => 'pos in positions'}
+          %td {{ pos.name }}
+          %td {{ pos.serial }}
+          %td {{ pos.count }}
+
       .row
         .col-xs-5.col-xs-offset-7
           %span.pull-right
@@ -35,7 +34,7 @@
             %span.fa.fa-rub
             &nbsp;
             %span.lead
-              {{ #{@positions.reduce(0) { |acc, p| p.count * p.item.price + acc } } | currency : '' }}
+              {{ calcTotal() }}
         .row
           .col-xs-12
             = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg pull-right)
