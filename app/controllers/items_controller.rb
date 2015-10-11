@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
         if @item.save
           redirect_to "/catalog#?item=#{@item.id}"
         else
-          flash.now[:error] = 'Ошибка при создании товара'
+          flash.now[:alert] = 'Ошибка при создании товара'
           render :new
         end
       end

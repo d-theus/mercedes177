@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to orders_received_path(order_id: @order.id)
     else
-      flash.now[:error] = 'Ошибка при составлении заказа!'
+      flash.now[:alert] = 'Ошибка при составлении заказа!'
       render :new
     end
   end

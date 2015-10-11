@@ -12,6 +12,13 @@
       .row
         %header.col-xs-12#header
           = render partial: 'shared/header'
+      - if notice or alert
+        .row
+          .col-xs-10.col-xs-offset-1
+            - if alert
+              %h4.alert.alert-danger.text-center= alert
+            - if notice
+              %h4.alert.alert-success.text-center= notice
       .row
         .col-xs-12#content
           = yield
