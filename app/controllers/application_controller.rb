@@ -5,11 +5,26 @@ class ApplicationController < ActionController::Base
     render text: 'Example'
   end
 
+  def require_admin
+    admin = Rails.env.development? || ( current_user && current_user.admin? )
+    #admin = false
+    if admin
+      true
+    else
+      flash[:error] = "Требуются права администратора"
+      redirect_to root_path
+    end
+  end
+
+  def unauthorized
+      render(
+        file: File.join(Rails.root, 'public/403.html'),
+        status: 403,
+        layout: false
+      )
+  end
+
   def admin?
-    render(
-      file: File.join(Rails.root, 'public/403.html'),
-      status: 403,
-      layout: false
-    )
+    false
   end
 end
