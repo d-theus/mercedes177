@@ -36,4 +36,8 @@
               {{ calcTotal() }}
         .row
           .col-xs-12
-            = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg pull-right)
+            = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg pull-right), 'ng-disabled' => 'isEmpty()'
+        .row
+          .col-xs-12
+            .text-danger.pull-right{ 'ng-if' => 'isEmpty()'}
+              %strong Нет позиций!

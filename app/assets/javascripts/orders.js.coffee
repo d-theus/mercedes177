@@ -11,4 +11,7 @@
     $scope.cart = angular.element("#cart").scope()
     $scope.positions = $scope.cart.positions
 
+  $scope.isEmpty = ->
+    $scope.positions.length == 0
+
   $scope.init()
