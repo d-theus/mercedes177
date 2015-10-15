@@ -17,5 +17,6 @@
         %a{ href: '/about/info', title: 'Инфо'} Инфо
       %li
         %a{ href: '/about/contacts', title: 'Контакты'} Контакты
-      %li
-        %a#cart{ href: '', title: 'Корзина', 'ng-controller' => 'CartCtrl', 'ng-click' => 'open()'} Корзина
+      - unless admin?
+        %li
+          %a#cart{ href: '', title: 'Корзина', 'ng-controller' => 'CartCtrl', 'ng-click' => 'open()'} Корзина

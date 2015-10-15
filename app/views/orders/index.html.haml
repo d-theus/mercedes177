@@ -1,4 +1,4 @@
-.well
+.well{ 'ng-controller' => 'OrdersAdminCtrl'}
   .row
     .col-xs-10.col-xs-offset-1
       %h1 Заказы
@@ -8,19 +8,24 @@
         %tr
           %th Номер
           %th Дата
-          %th Статус
           %th
-          %th Сменить статус
-        - @orders.each do |order|
-          %tr
-            %td= order.id
-            %td= I18n.l order.created_at, format: '%d %B %Y  %H:%M'
-            %td= order.status
-            %td
-              = link_to 'Позиции', edit_order_path(order), class: %i(btn btn-primary)
-            %td
-              %button.btn.btn-primary{type: :button, }
-                %span.fa.fa-arrow-right
-                %span.fa.fa-archive
-                %strong "Упаковка"
+            .btn-group{ 'dropdown' => true}
+              %button.btn.btn-default{ 'dropdown-toggle' => true }
+                Статус
+                %span.caret
+              %ul.dropdown-menu{ 'ng-model' => 'search.status', 'ng-init' => 'search = {status: ""}'}
+                %li{role: :menuitem}
+                  %a{href: '', 'ng-click' => 'search.status = ""'}
+                    Все
+                %li{role: :menuitem, 'ng-repeat' => 'st in Statuses'}
+                  %a{href: '', 'ng-click' => 'search.status = st'}
+                    {{st}}
+          %th
+        %tr{'ng-repeat' => 'order in orders | filter:search'}
+          %td {{order.id}}
+          %td {{order.created_at | date : 'dd.M в HH:mm'}}
+          %td {{order.status}}
+          %td
+            %a.btn.btn-primary{'ng-href' => '/orders/{{order.id}}/edit'}
+              Подробности
 

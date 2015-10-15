@@ -265,8 +265,8 @@ ru:
         first_name: 'Имя'
         last_name:  'Фамилия'
   order_status:
-    new: новый
-    processing: собирается
-    sent: отправлен
-    succeed: закрыт
-    canceled: отмеен
+    new: Новый
+    processing: Собирается
+    sent: Отправлен
+    succeed: Закрыт
+    canceled: Отменен

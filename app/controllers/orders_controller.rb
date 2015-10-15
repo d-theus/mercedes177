@@ -2,6 +2,8 @@ class OrdersController < ApplicationController
   before_filter :require_admin, except: [:new]
   after_filter :mail_client
 
+  respond_to :html, :json
+
   def new
     @order = Order.new
   end
@@ -22,8 +24,28 @@ class OrdersController < ApplicationController
     @order = Order.includes(:positions).find(params[:id])
   end
 
+  def update
+    @order = Order.find(params[:id])
+    if @order.update(order_params)
+      flash.now[:notice] = "Статус заказа №#{@order.id} изменен на #{I18n.t 'order_status.'+@order.status}."
+      redirect_to orders_path
+    else
+      flash.now[:alert] = 'Статус заказа не был изменен.'
+      render :edit
+    end
+
+  end
+
   def index
-    @orders = Order.order('created_at DESC')
+    @orders = Order.order('created_at DESC').to_a.map do |ord|
+      ord.status = I18n.t("order_status.#{ord.status}")
+      ord
+    end
+
+    respond_to do |f|
+      f.html
+      f.json { respond_with @orders }
+    end
   end
 
   def received

@@ -24,3 +24,9 @@
                 %span.text-success
                   %span.fa.fa-check
 
+  .row
+    .col-xs-10.col-xs-offset-1
+      %a.btn.btn-primary.btn-lg{href: order_path(@order, order: { status: 'sent' }), 'data-method' => :put}
+        %span.fa.fa-check
+        Сменить статус: ОТПРАВЛЕН
+

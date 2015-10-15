@@ -15,3 +15,14 @@
     $scope.positions.length == 0
 
   $scope.init()
+
+@ordersAdmin = angular.module('orders', ['ngResource', 'ngAnimate', 'ui.bootstrap'])
+
+@ordersAdmin.controller 'OrdersAdminCtrl', ($scope, $resource) ->
+  Order = $resource('/orders.json')
+  $scope.Statuses = ['Новый', 'Собирается', 'Отправлен', 'Закрыт', 'Отменен']
+  
+  $scope.init = ->
+    $scope.orders = Order.query ''
+
+  $scope.init()
