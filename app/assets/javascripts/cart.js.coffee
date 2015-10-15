@@ -33,7 +33,7 @@
   $scope.getPositions = ->
     pos = $cookies.getObject('cart-positions')
     if pos
-      $scope.positions = pos
+      $scope.positions = (new Position({id: p.id, name: p.name, serial: p.serial, price: p.price}, p.count) for p in pos)
     else
       $scope.positions = []
       $scope.updateCookies()
@@ -44,8 +44,6 @@
   $scope.put = (item, count = 1)->
     dupl = $scope.positions.filter((p) -> p.id == item.id)[0]
     if dupl
-      console.log 'dupl:'
-      console.log dupl
       dupl.add()
     else
       $scope.positions.push new Position(item, count)
