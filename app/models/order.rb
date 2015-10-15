@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   validates :email, format: /\A(\S+)@(.+)\.(\S+)\z/
   validates :phone, format: /\d{11}/
   validate  :has_positions?
-  has_many :positions
+  has_many :positions, dependent: :destroy
 
   DELIVERY_METHODS = %w(pickup courier post)
 

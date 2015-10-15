@@ -26,6 +26,13 @@
           %td {{ pos.serial }}
           %td {{ pos.count }}
 
+      - @order.positions.to_a.select {|p| not p.errors[:count].blank? }.each do |p|
+        - item = p.item
+        .alert.alert-danger
+          %strong #{item.name}:
+          требуется: #{p.count},
+          доступно: #{item.count}
+
       .row
         .col-xs-5.col-xs-offset-7
           %span.pull-right
