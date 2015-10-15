@@ -1,13 +1,28 @@
 .row
   .col-lg-3.col-xs-5.well#catalog_list{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true}
     .row
-      %center.col-xs-5
-        %h3 Категории
-      - if admin?
-        .col-xs-2.col-xs-offset-1
-          %br/
-          %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
-            %span.fa.fa-plus
+      .col-xs-12.navbar
+        %strong.navbar-brand Категории
+        %ul.nav.navbar-nav.nav-pills
+          %li
+            .btn-group{ 'is-open' => false, 'dropdown' => true}
+              %button.btn.btn-primary.navbar-btn#catalog_list_filter_toggle{'dropdown-toggle' => true }
+                %span.fa.fa-filter
+                Фильтр
+              %ul.dropdown-menu{ 'aria-labelledby' => 'catalog_list_filter_toggle'}
+                %li.text-muted.text-center
+                  По наличию
+                %li{ role: :menuitem}
+                  %a{ href: '', 'ng-click' => 'showAll()'}
+                    Все
+                %li{ role: :menuitem}
+                  %a{ href: '', 'ng-click' => 'showAvailable()'}
+                    В наличии
+                %li.divider
+          - if admin?
+            %li
+              %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
+                %span.fa.fa-plus
     %accordion#catalog_list_accordion
       %span.fa.fa-gear.fa-spin{ 'ng-if' => '!categories.length' }
       %accordion-group{ 'ng-show' => 'categories.length',

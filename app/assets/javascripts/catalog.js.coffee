@@ -4,13 +4,14 @@
 
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
   Item =     $resource('/items/:id',      {id: '@id'})
+
   $scope.categories = Category.query '', ->
     if (cid = Number($location.search().cat))
       for cat in $scope.categories
         if cat.id == cid
           cat.current = true
 
-  $scope.items = Item.query '', ->
+  $scope.allItems = Item.query '', ->
     if (iid = Number($location.search().item))
       for item in $scope.items
         if item.id == iid
@@ -45,6 +46,14 @@
     return unless confirm "Действительно удалить категорию\n'#{cat.name}'"
     $scope.categories.splice($scope.categories.indexOf(cat), 1)
     cat.$remove()
+
+  $scope.showAll = ->
+    $scope.items = $scope.allItems
+
+  $scope.showAvailable = ->
+    $scope.items = $scope.allItems.filter (item)-> item.count > 0
+
+  $scope.showAll()
 
 
 
