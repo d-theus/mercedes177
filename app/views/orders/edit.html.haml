@@ -1,7 +1,9 @@
-.well
+.well{ 'ng-controller' => 'OrderEditCtrl'}
   .row
     .col-xs-10.col-xs-offset-1
-      %h1 Заказ №#{@order.id}
+      %h1
+        Заказ №#{@order.id}
+        %small.text-muted (#{@order.status})
   .row
     .col-xs-10.col-xs-offset-1
       %h2 Позиции
@@ -26,7 +28,14 @@
 
   .row
     .col-xs-10.col-xs-offset-1
-      %a.btn.btn-primary.btn-lg{href: order_path(@order, order: { status: 'sent' }), 'data-method' => :put}
-        %span.fa.fa-check
-        Сменить статус: ОТПРАВЛЕН
+      .btn-group{ 'dropdown' => true}
+        %button.btn.btn-default{ 'dropdown-toggle' => true }
+          Сменить статус
+          %span.caret
+        %ul.dropdown-menu
+          %li{role: :menuitem, 'ng-repeat' => 'st in Statuses'}
+            %a{'ng-href' => "/orders/#{@order.id}?order[status]={{st}}",
+            'data-method' => 'PUT',
+            'data-confirm' => "Сменить статус заказа с '#{@order.status}' на '{{st}}'?" }
+              {{st}}
 

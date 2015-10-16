@@ -16,9 +16,7 @@
 
   $scope.init()
 
-@ordersAdmin = angular.module('orders', ['ngResource', 'ngAnimate', 'ui.bootstrap'])
-
-@ordersAdmin.controller 'OrdersAdminCtrl', ($scope, $resource) ->
+@orders.controller 'OrdersAdminCtrl', ($scope, $resource) ->
   Order = $resource('/orders.json')
   $scope.Statuses = ['Новый', 'Собирается', 'Готов', 'Отправлен', 'Закрыт', 'Отменен']
   $scope.DeliveryMethods = ['Самовывоз', 'Курьер', 'Почта']
