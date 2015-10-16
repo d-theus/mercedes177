@@ -10,9 +10,9 @@
       = f.input :phone, placeholder: '84991112233'
       = f.input :email, placeholder: 'somemail@example.com'
       = f.input :delivery_method, collection: Order::DELIVERY_METHODS, as: :radio_buttons, checked: true, item_wrapper_class: %i(radio-inline), input_html: { 'ng-model' => 'deliveryMethod' }
-      .col-xs-12{ 'ng-if' => 'deliveryMethod && !(deliveryMethod === "pickup")'}
+      .col-xs-12{ 'ng-if' => 'deliveryMethod && !(deliveryMethod === "Самовывоз")'}
         = f.input :address
-      .col-xs-12{ 'ng-if' => 'deliveryMethod === "post"'}
+      .col-xs-12{ 'ng-if' => 'deliveryMethod === "Почта"'}
         = f.input :shipping_info
       %h3 Позиции
       %table.table.table-striped.bg-info

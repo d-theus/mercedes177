@@ -21,12 +21,13 @@
 @ordersAdmin.controller 'OrdersAdminCtrl', ($scope, $resource) ->
   Order = $resource('/orders.json')
   $scope.Statuses = ['Новый', 'Собирается', 'Готов', 'Отправлен', 'Закрыт', 'Отменен']
-  $scope.DeliveryMethods =
-    pickup: 'Самовывоз'
-    courier: 'Курьер'
-    post: 'Почта'
+  $scope.DeliveryMethods = ['Самовывоз', 'Курьер', 'Почта']
   
   $scope.init = ->
     $scope.orders = Order.query ''
 
   $scope.init()
+
+@orders.controller 'OrderEditCtrl', ($scope, $resource) ->
+  $scope.Statuses = ['Новый', 'Собирается', 'Готов', 'Отправлен', 'Закрыт', 'Отменен']
+  $scope.DeliveryMethods = ['Самовывоз', 'Курьер', 'Почта']

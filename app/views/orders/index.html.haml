@@ -17,8 +17,8 @@
                 %li{role: :menuitem}
                   %a{href: '', 'ng-click' => 'search.delivery_method = ""'}
                     Все
-                %li{role: :menuitem, 'ng-repeat' => '(val, dm) in DeliveryMethods'}
-                  %a{href: '', 'ng-click' => 'search.delivery_method = val'}
+                %li{role: :menuitem, 'ng-repeat' => 'dm in DeliveryMethods'}
+                  %a{href: '', 'ng-click' => 'search.delivery_method = dm'}
                     {{dm}}
           %th
             .btn-group{ 'dropdown' => true}
@@ -36,7 +36,7 @@
         %tr{'ng-repeat' => 'order in orders | filter:search'}
           %td {{order.id}}
           %td {{order.created_at | date : 'dd.M в HH:mm'}}
-          %td {{DeliveryMethods[order.delivery_method]}}
+          %td {{order.delivery_method}}
           %td {{order.status}}
           %td
             %a.btn.btn-primary{'ng-href' => '/orders/{{order.id}}/edit'}

@@ -37,10 +37,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.order('created_at DESC').to_a.map do |ord|
-      ord.status = I18n.t("order_status.#{ord.status}")
-      ord
-    end
+    @orders = Order.order('created_at DESC')
 
     respond_to do |f|
       f.html
