@@ -4,16 +4,28 @@
       %h1 Заказы
   .row
     .col-xs-10.col-xs-offset-1
-      %table.table.table-striped.bg-info
+      %table.table.table-striped.bg-info{'ng-model'=>'search', 'ng-init' => 'search = { status: "", delivery_method: "" }'}
         %tr
           %th Номер
           %th Дата
+          %th 
+            .btn-group{ 'dropdown' => true}
+              %button.btn.btn-default{ 'dropdown-toggle' => true }
+                Доставка
+                %span.caret
+              %ul.dropdown-menu{ 'ng-model' => 'search.delivery_method' }
+                %li{role: :menuitem}
+                  %a{href: '', 'ng-click' => 'search.delivery_method = ""'}
+                    Все
+                %li{role: :menuitem, 'ng-repeat' => '(val, dm) in DeliveryMethods'}
+                  %a{href: '', 'ng-click' => 'search.delivery_method = val'}
+                    {{dm}}
           %th
             .btn-group{ 'dropdown' => true}
               %button.btn.btn-default{ 'dropdown-toggle' => true }
                 Статус
                 %span.caret
-              %ul.dropdown-menu{ 'ng-model' => 'search.status', 'ng-init' => 'search = {status: ""}'}
+              %ul.dropdown-menu{ 'ng-model' => 'search.status'}
                 %li{role: :menuitem}
                   %a{href: '', 'ng-click' => 'search.status = ""'}
                     Все
@@ -24,6 +36,7 @@
         %tr{'ng-repeat' => 'order in orders | filter:search'}
           %td {{order.id}}
           %td {{order.created_at | date : 'dd.M в HH:mm'}}
+          %td {{DeliveryMethods[order.delivery_method]}}
           %td {{order.status}}
           %td
             %a.btn.btn-primary{'ng-href' => '/orders/{{order.id}}/edit'}
