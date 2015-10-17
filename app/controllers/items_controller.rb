@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :admin?, except: [:show, :index]
+  before_filter :authenticate_admin!, except: [:show, :index]
 
   respond_to :json
 

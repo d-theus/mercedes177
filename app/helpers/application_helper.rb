@@ -26,8 +26,7 @@ module ApplicationHelper
   end
 
   def admin?
-    Rails.env.development? || ( current_user && current_user.admin? )
-    #false
+    admin_signed_in?
   end
 
   def page_title(title)

@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_filter :admin?, except: [:index, :show]
+  before_action :authenticate_admin!, except: [:index, :show]
 
   respond_to :json
 
