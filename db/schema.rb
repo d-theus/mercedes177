@@ -75,7 +75,11 @@ ActiveRecord::Schema.define(version: 20151025165715) do
     t.string   "status",          default: "Новый", null: false
     t.text     "address"
     t.string   "delivery_method",                   null: false
+<<<<<<< HEAD
     t.text     "notice"
+=======
+    t.text     "shipping_info"
+>>>>>>> admin: authentication
     t.datetime "created_at"
     t.datetime "updated_at"
   end
