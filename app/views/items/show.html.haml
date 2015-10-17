@@ -154,5 +154,10 @@
       %br/
       %br/
       воспользуйтесь поиском:
-  %center.col-xs-6.col-xs-offset-3.well
-    Тут будет поиск
+  %center.col-xs-6.col-xs-offset-3.well{'ng-controller' => 'SearchCtrl'}
+    %input.form-control{ 'type' => 'text',
+    'placeholder' => 'Начните вводить название или сер. номер',
+    'ng-model' => 'query',
+    'ng-focus' => 'getItems()',
+    'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
+    'typeahead-template-url' => '/templates/catalog/search_result'}
