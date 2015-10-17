@@ -4,12 +4,15 @@
   = raw 'Б/У и новые запчасти для автомобилей Mercedes'
 
 .row
-  .col-xs-4.col-xs-offset-8.jumbotron
+  .col-xs-5.col-xs-offset-7.jumbotron
     %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
     %br/
     %br/
-    %form.form-inline{ name: 'search'}
+    %form.form-horizontal{ name: 'search', 'ng-app' => 'catalog', 'ng-controller' => 'SearchCtrl'}
       .form-group
-        %input.form-control{ type: :text, placeholder: "Искать"}
-      %button.btn.btn-primary{type: :submit}
-        %span.fa.fa-search
+        %label Искать (название или серийный номер)
+        %input.form-control{ 'type' => 'text',
+        'ng-model' => 'query',
+        'ng-focus' => 'getItems()',
+        'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
+        'typeahead-template-url' => '/templates/catalog/search_result'}
