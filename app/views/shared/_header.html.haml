@@ -10,16 +10,18 @@
         %a{ href: '/about/info', title: 'Инфо'} Инфо
       %li
         %a{ href: '/about/contacts', title: 'Контакты'} Контакты
-<<<<<<< HEAD
       - unless admin?
         %li{'ng-controller' => 'CartCtrl', 'ng-app' => 'catalog'}
           %a#cart{ href: '', title: 'Корзина', 'ng-click' => 'open()'}
             Корзина
             %span.badge{'ng-show' => 'positions.length'} {{positions.length}}
-=======
-      %li
-        %a#cart{ href: '', title: 'Корзина', 'ng-controller' => 'CartCtrl', 'ng-click' => 'open()'} Корзина
       - if admin?
-        %li
-          %a{href: destroy_admin_session_path, 'data-method' => :delete} Выйти
->>>>>>> admin: authentication
+        .btn-group{'ng-app' => 'catalog', 'dropdown' => true}
+          %button.btn.btn-primary.navbar-btn{'type' => 'button', 'dropdown-toggle' => true}
+            Администратору
+            %span.caret
+          %ul.dropdown-menu{role: :menu}
+            %li{role: :menuitem}
+              %a{href: orders_path} Заказы
+            %li{role: :menuitem}
+              %a{href: destroy_admin_session_path, 'data-method' => :delete} Выйти
