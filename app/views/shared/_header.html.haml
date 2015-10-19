@@ -18,5 +18,7 @@
       %li
         %a{ href: '/about/contacts', title: 'Контакты'} Контакты
       - unless admin?
-        %li
-          %a#cart{ href: '', title: 'Корзина', 'ng-controller' => 'CartCtrl', 'ng-click' => 'open()'} Корзина
+        %li{'ng-controller' => 'CartCtrl', 'ng-app' => 'catalog'}
+          %a#cart{ href: '', title: 'Корзина', 'ng-click' => 'open()'}
+            Корзина
+            %span.badge{'ng-show' => 'positions.length'} {{positions.length}}
