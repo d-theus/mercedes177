@@ -5,7 +5,7 @@
         %span.fa.fa-trash-o
   .col-xs-10.col-xs-offset-1
     .row
-      .col-xs-8
+      .col-xs-11
         %h1
           %span{ 'ng-show' => '!editing.name'}
             {{item.name}}
@@ -18,7 +18,7 @@
                 %input.form-control{type: :text, 'ng-model' => 'item.name'}
             - v_submit_tag
     .row
-      .col-xs-8
+      .col-xs-11
         %h2{title: 'Серийный номер'}
           %span{ 'ng-show' => '!editing.serial'}
             SN: {{ item.serial }}
@@ -30,6 +30,7 @@
               .input-group
                 %input.form-control{type: :text, 'ng-model' => 'item.serial'}
             - v_submit_tag
+
 .row{'ng-if' => 'item.name'}
   .col-xs-5
     .row
@@ -83,17 +84,20 @@
                     %button.btn.btn-primary{ type: :button, 'ng-click' => 'savePhotos()', 'ng-show' => 'files.length'}
                       %span.fa.fa-check
 
-  .col-xs-5.col-xs-offset-1.container
+  .col-xs-5.col-xs-offset-1
     .row
-      %center.col-xs-6.lead{'ng-show' => '!editing.price'}
-        %strong {{ item.price }}
-        %span.fa.fa-rub
+      .col-xs-5{'ng-show' => '!editing.price'}
+        .row
+          .col-xs-12
+            %strong.lead {{ item.price }}
+            %span.fa.fa-rub
         %br/
-        %br/
-        %span.alert.alert-success{'ng-if' => 'item.count > 0'}
-          В наличии
-        %span.alert.alert-danger{'ng-if' => 'item.count == 0'}
-          Нет в наличии
+        .row
+          .col-xs-12
+            %span.text-success.text-nowrap{'ng-if' => 'item.count > 0'}
+              %strong В наличии
+            %span.text-danger.text-nowrap{'ng-if' => 'item.count == 0'}
+              %strong Нет в наличии
       - if admin?
         %span
           %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
@@ -121,19 +125,22 @@
             - v_submit_tag
 
       - unless admin?
-        .col-xs-6.lead{'ng-if' => 'item.count > 0'}
-          %a.btn.btn-lg.btn-primary{'ng-click' => 'putToCartAndProceed()'}
-            %span.fa.fa-money
-            Купить
+        .col-xs-7{'ng-if' => 'item.count > 0'}
+          .row
+            .col-xs-12.text-center
+              %a.btn.btn-primary.btn-block{'ng-click' => 'putToCartAndProceed()'}
+                %span.fa.fa-money
+                %strong Купить
           %br/
-          %br/
-          %a.btn.btn-lg.btn-primary{'ng-click' => 'putToCart()'}
-            %span.fa.fa-shopping-cart
-            В корзину
-        %br/
-      %br/
-    .row
+          .row
+            .col-xs-12.text-center
+              %a.btn.btn-primary.btn-block{'ng-click' => 'putToCart()'}
+                %span.fa.fa-shopping-cart
+                %strong В корзину
 
+    %br/
+    %br/
+    .row
       .col-xs-12.well{'ng-show' => '!editing.description'}
         - if admin?
           .col-xs-2.pull-right
