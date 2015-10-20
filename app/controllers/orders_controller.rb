@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :authenticate_admin!, except: [:new]
+  before_filter :authenticate_admin!, except: [:new, :create, :received]
   after_filter :mail_client
 
   respond_to :html, :json
