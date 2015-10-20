@@ -4,15 +4,18 @@
   = raw 'Б/У и новые запчасти для автомобилей Mercedes'
 
 .row
-  .col-xs-5.col-xs-offset-7.jumbotron
-    %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
+  .col-xs-5.col-xs-offset-7
+    .row
+      .col-xs-11
+        %form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
+          .form-group
+            %label Искать (название или серийный номер)
+            %input.form-control{ 'type' => 'text',
+            'ng-model' => 'query',
+            'ng-focus' => 'getItems()',
+            'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
+            'typeahead-template-url' => '/templates/catalog/search_result'}
     %br/
-    %br/
-    %form.form-horizontal{ name: 'search', 'ng-app' => 'catalog', 'ng-controller' => 'SearchCtrl'}
-      .form-group
-        %label Искать (название или серийный номер)
-        %input.form-control{ 'type' => 'text',
-        'ng-model' => 'query',
-        'ng-focus' => 'getItems()',
-        'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
-        'typeahead-template-url' => '/templates/catalog/search_result'}
+    .row
+      .col-xs-4.col-xs-offset-6
+        %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
