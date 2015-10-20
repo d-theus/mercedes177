@@ -1,6 +1,6 @@
-.col-xs-4
-  %a.brand{ title: 'Автозапчасти Mercedes', href: '/'}
-    Автозапчасти Mercedes
+.col-xs-6
+  %a.brand{ title: 'Автозапчасти Mercedes-Benz', href: '/'}
+    Автозапчасти Mercedes-Benz
 .col-xs-5
   %nav.navbar-nav.pull-right
     %ul.nav.navbar-nav
@@ -11,14 +11,14 @@
       %li
         %a{ href: '/about/contacts', title: 'Контакты'} Контакты
       - unless admin?
-        %li{'ng-controller' => 'CartCtrl', 'ng-app' => 'catalog'}
+        %li{'ng-controller' => 'CartCtrl'}
           %a#cart{ href: '', title: 'Корзина', 'ng-click' => 'open()'}
             Корзина
             %span.badge{'ng-show' => 'positions.length'} {{positions.length}}
       - if admin?
         .btn-group{'ng-app' => 'catalog', 'dropdown' => true}
           %button.btn.btn-primary.navbar-btn{'type' => 'button', 'dropdown-toggle' => true}
-            Администратору
+            %strong Администратору
             %span.caret
           %ul.dropdown-menu{role: :menu}
             %li{role: :menuitem}
