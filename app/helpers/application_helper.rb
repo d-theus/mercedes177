@@ -1,6 +1,11 @@
 module ApplicationHelper
   DEFAULT_KEYWORDS = %w(автозапчасти мерседес mercedes авторазбор)
-  NG_APPS = %w(catalog orders)
+  NG_APPS = {
+    'catalog'  => 'catalog',
+    'about'    => 'catalog',
+    'orders'   => 'orders',
+    'sessions' => 'catalog'
+  }
 
   def title_tag
     str = "Автозапчасти Mercedes"
@@ -47,6 +52,6 @@ module ApplicationHelper
   end
 
   def ng_app
-    controller_name if NG_APPS.include? controller_name
+    NG_APPS[controller_name] || false
   end
 end
