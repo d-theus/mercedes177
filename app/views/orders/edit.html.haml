@@ -1,9 +1,13 @@
 .well{ 'ng-controller' => 'OrderEditCtrl'}
   .row
     .col-xs-10.col-xs-offset-1
+      %span.pull-right
+        Обратно в заказы
+        %a.btn.btn-primary{href: orders_path}
+          %span.fa.fa-arrow-left.fa-fw
       %h1
         Заказ №#{@order.id}
-        %small.text-muted (#{@order.status})
+        %small.text-muted (СТАТУС: #{@order.status})
   .row
     .col-xs-10.col-xs-offset-1
       %h2 Позиции
@@ -12,20 +16,24 @@
           %th Деталь
           %th Номер
           %th Количество
-          %th.text-center Положил
         - @order.positions.each do |pos|
           %tr
             %td= pos.item.name
             %td= pos.item.serial
             %td= pos.count
-            %td.text-center
-              - if rand() > 0.7
-                %button.btn.btn-primary{ type: :button }
-                  %span.fa.fa-check
-              - else
-                %span.text-success
-                  %span.fa.fa-check
 
+  .row
+    .col-xs-10.col-xs-offset-1
+      %h2 Доставка
+      - if @order.pickup?
+        %strong Самовывоз.
+      - else
+        %p= @order.address
+        - if @order.shipping_info
+          %h3 Почта
+          %p= @order.shipping_info
+
+  %br/
   .row
     .col-xs-10.col-xs-offset-1
       .btn-group{ 'dropdown' => true}
@@ -33,7 +41,7 @@
           Сменить статус
           %span.caret
         %ul.dropdown-menu
-          %li{role: :menuitem, 'ng-repeat' => 'st in Statuses'}
+          %li{role: :menuitem, 'ng-repeat' => "st in Statuses | filter: '!#{@order.status}'"}
             %a{'ng-href' => "/orders/#{@order.id}?order[status]={{st}}",
             'data-method' => 'PUT',
             'data-confirm' => "Сменить статус заказа с '#{@order.status}' на '{{st}}'?" }
