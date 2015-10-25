@@ -262,8 +262,15 @@ ru:
         other: 'Заказы'
     attributes:
       order:
-        first_name: 'Имя'
-        last_name:  'Фамилия'
+        first_name: Имя
+        last_name:  Фамилия
+        middle_name: Отчество
+        phone: Телефон
+        email: Эл. Почта
+        status: Статус
+        notice: Примечание
+        address: Адрес
+        delivery_method: Способ доставки
   order_status:
     new: Новый
     processing: Собирается

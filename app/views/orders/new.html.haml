@@ -11,8 +11,8 @@
       = f.input :email, placeholder: 'somemail@example.com'
       = f.input :delivery_method, collection: Order::DELIVERY_METHODS, as: :radio_buttons, checked: true, item_wrapper_class: %i(radio-inline), input_html: { 'ng-model' => 'deliveryMethod' }
       .col-xs-12{ 'ng-if' => 'deliveryMethod && !(deliveryMethod === "Самовывоз")'}
-        = f.input :address
-        = f.input :notice
+        = f.input :address, placeholder: 'При доставке почтой обязательно укажите город и индекс.'
+        = f.input :notice, placeholder: 'Ваши комментарии к заказу, например время, в которое вам удобно принять курьера.'
       %h3 Позиции
       %table.table.table-striped.bg-info
         %tr
