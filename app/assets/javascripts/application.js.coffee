@@ -21,6 +21,8 @@
 #= require angular-ui-bootstrap-tpls
 #= require catalog
 #= require cart
+#= require items
+#= require search
 #= require orders
 #= require about
 #= require zoom

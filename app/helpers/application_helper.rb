@@ -2,7 +2,7 @@ module ApplicationHelper
   DEFAULT_KEYWORDS = %w(автозапчасти мерседес mercedes авторазбор)
   NG_APPS = {
     'catalog'  => 'catalog',
-    'about'    => 'catalog',
+    'about'    => 'about',
     'orders'   => 'orders',
     'sessions' => 'catalog'
   }
