@@ -29,9 +29,9 @@
         %strong Самовывоз.
       - else
         %p= @order.address
-        - if @order.shipping_info
+        - if @order.notice
           %h3 Почта
-          %p= @order.shipping_info
+          %p= @order.notice
 
   %br/
   .row
