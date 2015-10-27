@@ -106,6 +106,20 @@
                   %span.fa.fa-rub
                 %input.form-control{type: :number, 'ng-model' => 'item.price'}
             - v_submit_tag
+        %br/
+        %br/
+        %span
+          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("count")', 'ng-show' => '!editing.count'}
+            %span.fa.fa-edit
+        .col-xs-8
+          - item_field_for 'count' do
+            .form-group.col-xs-8
+              .input-group
+                .input-group-addon
+                  %span.fa.fa-rub
+                %input.form-control{type: :number, min: '0', 'ng-model' => 'item.count'}
+            - v_submit_tag
+
       - unless admin?
         .col-xs-6.lead{'ng-if' => 'item.count > 0'}
           %a.btn.btn-lg.btn-primary{'ng-click' => 'putToCartAndProceed()'}
