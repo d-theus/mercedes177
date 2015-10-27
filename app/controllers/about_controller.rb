@@ -7,4 +7,7 @@ class AboutController < ApplicationController
 
   def contacts
   end
+
+  def policy
+  end
 end
