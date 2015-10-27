@@ -24,4 +24,7 @@
             %li{role: :menuitem}
               %a{href: orders_path} Заказы
             %li{role: :menuitem}
+              %a{href: new_item_path(format: :html)} Создать товар
+            %li.divider
+            %li{role: :menuitem}
               %a{href: destroy_admin_session_path, 'data-method' => :delete} Выйти
