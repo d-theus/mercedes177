@@ -1,2 +1,22 @@
-%h1 About#contacts
-%p Find me in app/views/about/contacts.html.haml
+.row
+  .col-xs-8.col-xs-offset-2.well
+    %h1.text-center Контакты
+
+    %section.row
+      %h2.col-xs-10.col-xs-offset-1.col-md-7.col-md-offset-3
+        %span.fa.fa-phone.fa-fw.text-primary
+        Телефоны
+      .col-xs-7.col-xs-offset-4
+        %p.tel 8 9xx xxx xx xx
+        %p.tel 8 9yy yyy yy yy
+
+    %section.row
+      %h2.col-xs-10.col-xs-offset-1.col-md-7.col-md-offset-3
+        %span.fa.fa-map-marker.fa-fw.text-primary
+        Местонахождение
+      %address.adr.col-xs-7.col-xs-offset-4
+        %span.locality г.Москва,
+        %span.street-address ул. Такая-то, х.
+      %center.col-xs-12{'ng-controller' => 'YMCtrl'}
+        .well.ym-container
+          %script{type: "text/javascript", charset: "utf-8", src: "https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=G062rgBl2TSwCU4FooWqXpbhry3zQko1&width=500&height=400&lang=ru_RU&sourceType=constructor", async: true}
