@@ -25,3 +25,4 @@ tags
 *.swp
 tags
 .rbenv-vars
+/documents/
