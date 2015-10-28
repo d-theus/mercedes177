@@ -44,3 +44,8 @@
   .col-lg-9.col-xs-7.container
     .col-xs-12.well#catalog_container{'ng-controller' => 'ItemCtrl'}
       =render template: 'items/show', layout: false
+
+- content_for :title do
+  = raw 'Каталог'
+- content_for :meta_description do
+  = raw 'Найдите интересующую Вас деталь в каталоге.'
