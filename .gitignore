@@ -21,7 +21,6 @@ tags
 /public/assets
 /public/uploads
 
-*.ttf
 *.swp
 tags
 .rbenv-vars
