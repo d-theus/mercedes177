@@ -1,5 +1,6 @@
 @cart = angular.module('cart', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
-@cart.controller 'CartCtrl', ($scope, $resource, $modal, $cookies) ->
+
+CartCtrl = ($scope, $resource, $modal, $cookies) ->
   class Position
     constructor: (item, @count) ->
       @id = item.id
@@ -66,3 +67,5 @@
     $scope.positions.reduce ((acc,e) -> acc + (e.price) * e.count), 0
 
   $scope.getPositions()
+
+@cart.controller 'CartCtrl', ['$scope', '$resource', '$modal', '$cookies', CartCtrl]

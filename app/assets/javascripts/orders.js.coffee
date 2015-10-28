@@ -1,6 +1,6 @@
 @orders = angular.module('orders', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'cart'])
 
-@orders.controller 'OrdersCtrl', ($scope, $resource, $location, $modal) ->
+OrdersCtrl = ($scope, $resource, $location, $modal) ->
   $scope.clearCart = ->
     $scope.cart.clear()
 
@@ -16,7 +16,7 @@
 
   $scope.init()
 
-@orders.controller 'OrdersAdminCtrl', ($scope, $resource) ->
+OrdersAdminCtrl = ($scope, $resource) ->
   Order = $resource('/orders.json')
   $scope.Statuses = ['Новый', 'Собирается', 'Готов', 'Отправлен', 'Закрыт', 'Отменен']
   $scope.DeliveryMethods = ['Самовывоз', 'Курьер', 'Почта']
@@ -26,6 +26,10 @@
 
   $scope.init()
 
-@orders.controller 'OrderEditCtrl', ($scope, $resource) ->
+OrderEditCtrl = ($scope, $resource) ->
   $scope.Statuses = ['Новый', 'Собирается', 'Готов', 'Отправлен', 'Закрыт', 'Отменен']
   $scope.DeliveryMethods = ['Самовывоз', 'Курьер', 'Почта']
+
+@orders.controller 'OrdersCtrl', ['$scope', '$resource', '$location', '$modal', OrdersCtrl]
+@orders.controller 'OrdersAdminCtrl', ['$scope', '$resource', OrdersAdminCtrl]
+@orders.controller 'OrderEditCtrl', ['$scope', '$resource', OrderEditCtrl]

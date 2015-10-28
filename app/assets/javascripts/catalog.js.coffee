@@ -1,5 +1,6 @@
 @catalog = angular.module('catalog', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'item', 'search', 'cart'])
-@catalog.controller 'CategoriesCtrl', ($scope, $resource, $location, $modal) ->
+
+CategoriesCtrl = ($scope, $resource, $location, $modal) ->
   $scope.editing = false
 
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
@@ -54,3 +55,6 @@
     $scope.items = $scope.allItems.filter (item)-> item.count > 0
 
   $scope.showAll()
+
+
+@catalog.controller 'CategoriesCtrl', ['$scope', '$resource', '$location', '$modal', CategoriesCtrl]

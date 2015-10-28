@@ -1,5 +1,5 @@
 @item = angular.module('item', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
-@item.controller 'ItemCtrl', ($scope, $resource, $location, $modal) ->
+ItemCtrl = ($scope, $resource, $location, $modal) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
   ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'})
   $scope.editing = { }
@@ -101,4 +101,5 @@
     $scope.putToCart()
     window.location = '/orders/new'
 
+@item.controller 'ItemCtrl', ['$scope', '$resource', '$location', '$modal', ItemCtrl]
 
