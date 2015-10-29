@@ -4,18 +4,34 @@
   = raw 'Б/У и новые запчасти для автомобилей Mercedes'
 
 .row
-  .col-xs-5.col-xs-offset-7
-    .row
-      .col-xs-11
-        %form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
-          .form-group
-            %label Искать (название или серийный номер)
-            %input.form-control{ 'type' => 'text',
-            'ng-model' => 'query',
-            'ng-focus' => 'getItems()',
-            'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
-            'typeahead-template-url' => '/templates/catalog/search_result'}
+  .col-xs-10.col-xs-offset-1.landing-hero
     %br/
-    .row
-      .col-xs-4.col-xs-offset-6
-        %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
+    %br/
+    %br/
+    %br/
+    %br/
+    .col-xs-6.col-xs-offset-3.text-center.well
+      %h1.text-primary
+        Оригинальные автозапчасти Mercedes-Benz из Европы
+.row
+  .col-xs-10.col-xs-offset-1.landing-section-short.well
+    .col-xs-6.text-center
+      %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
+    .col-xs-5.text-center
+      %form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
+        .form-group
+          %label Поиск детали
+          %input.form-control{ 'type' => 'text',
+          'ng-model' => 'query',
+          'placeholder' => 'Начните вводить название детали или серийный номер',
+          'ng-focus' => 'getItems()',
+          'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
+          'typeahead-template-url' => '/templates/catalog/search_result'}
+.row
+  .col-xs-10.col-xs-offset-1.landing-section-short.well
+    .col-xs-4.text-center
+      %h2 Только оригинальные детали
+    .col-xs-4.text-center
+      %h2 Отличное состояние
+    .col-xs-4.text-center
+      %h2 Тёплый сухой склад

@@ -20,14 +20,14 @@
 @font-size-base: 18px;
 @font-family-sans-serif: Jura;
 @font-family-serif: Tinos;
-h1,h2 {font-family: @font-family-serif;}
+//h1,h2{ font-family: @font-family-serif}
 
 @link-color: mix(@brand-primary, black, 85%);
 @link-hover-color: @gray-lighter;
 @link-hover-decoration: none;
-@headings-color: black;
-@headings-small-color: @gray-darker;
-@text-color: darken(@headings-color, 10%);
+@headings-color: @gray-darker;
+@headings-small-color: @gray-lighter;
+@text-color: @gray-darker;
 
 @border-radius-base: 2px;
 
@@ -37,18 +37,20 @@ h1,h2 {font-family: @font-family-serif;}
 
 @grid-float-breakpoint: @screen-sm-max;
 
-@btn-primary-color: @gray-lighter;
+//@btn-primary-color: @gray-lighter;
+@btn-primary-color: @gray-darker;
 @btn-primary-border: transparent;
 
 @jumbotron-bg: transparent;
 
-@input-bg: mix(@brand-primary, transparent, 25%);
+@input-bg: @brand-primary;
 @input-bg-disabled: mix(@gray-lighter, transparent);
 @input-color: @gray-darker;
+@input-color-placeholder: mix(black, @input-bg);
 @input-border: transparent;
 @input-border-focus: gray;
 
-@well-bg: mix(white, transparent, 90%);
+@well-bg: mix(white,black,90%);
 
 @list-group-bg: transparent;
 @list-group-border: @gray-darker;
@@ -98,10 +100,11 @@ h1,h2 {font-family: @font-family-serif;}
 html{
   height: 100%;
   min-height: 100%;
-  background: image-url('bg-lg.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  //background: image-url('bg-lg.jpg') no-repeat center center fixed;
+  //-webkit-background-size: cover;
+  //-moz-background-size: cover;
+  //-o-background-size: cover;
+  background: @gray-darker;
   background-size: cover;
   body{
     background: transparent;
@@ -142,6 +145,32 @@ body{
 .cta{
   font-size: 2em;
   font-weight: bold;
+}
+
+.landing-hero{
+  background: image-url('bg-lg.jpg') no-repeat center center;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto;
+  .landing-section;
+  .well{
+    background: mix(black, transparent, 60%);
+    //border: 1px solid @gray-lighter;
+    border-color: lighten(mix(black, transparent), 20%);
+  }
+}
+
+.landing-section{
+  padding-top: 3em;
+  padding-bottom: 3em;
+  min-height: 600px;
+}
+
+.landing-section-short{
+  padding-top: 3em;
+  padding-bottom: 3em;
+  min-height: 200px;
 }
 
 //.loupe{
