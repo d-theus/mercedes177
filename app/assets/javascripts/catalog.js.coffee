@@ -6,18 +6,6 @@ CategoriesCtrl = ($scope, $resource, $location, $modal) ->
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
   Item =     $resource('/items/:id',      {id: '@id'})
 
-  $scope.categories = Category.query '', ->
-    if (cid = Number($location.search().cat))
-      for cat in $scope.categories
-        if cat.id == cid
-          cat.current = true
-
-  $scope.allItems = Item.query '', ->
-    if (iid = Number($location.search().item))
-      for item in $scope.items
-        if item.id == iid
-          $scope.setItem(item)
-
   $scope.updateLocation = (cat)->
     $location.search('cat', if cat.current then cat.id else null )
 
@@ -48,13 +36,22 @@ CategoriesCtrl = ($scope, $resource, $location, $modal) ->
     $scope.categories.splice($scope.categories.indexOf(cat), 1)
     cat.$remove()
 
-  $scope.showAll = ->
-    $scope.items = $scope.allItems
+  $scope.init = ->
+    $scope.categories = Category.query '', ->
+      if (cid = Number($location.search().cat))
+        for cat in $scope.categories
+          if cat.id == cid
+            cat.current = true
 
-  $scope.showAvailable = ->
-    $scope.items = $scope.allItems.filter (item)-> item.count > 0
+    $scope.allItems = Item.query '', ->
+      if (iid = Number($location.search().item))
+        for item in $scope.allItems
+          if item.id == iid
+            $scope.setItem(item)
 
-  $scope.showAll()
+    $scope.filters = { count: '!0' }
+
+  $scope.init()
 
 
 @catalog.controller 'CategoriesCtrl', ['$scope', '$resource', '$location', '$modal', CategoriesCtrl]

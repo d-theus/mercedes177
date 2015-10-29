@@ -13,16 +13,22 @@
                 %li.text-muted.text-center
                   По наличию
                 %li{ role: :menuitem}
-                  %a{ href: '', 'ng-click' => 'showAll()'}
+                  %a{ href: '', 'ng-click' => 'filters.count = ""'}
+                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === ''}"}
                     Все
                 %li{ role: :menuitem}
-                  %a{ href: '', 'ng-click' => 'showAvailable()'}
+                  %a{ href: '', 'ng-click' => 'filters.count = "!0"'}
+                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === '!0'}"}
                     В наличии
-                %li.divider
+                %li{ role: :menuitem}
+                  %a{ href: '', 'ng-click' => 'filters.count = 0'}
+                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === 0}"}
+                    Архив
           - if admin?
             %li
               %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
                 %span.fa.fa-plus
+
     %accordion#catalog_list_accordion
       %span.fa.fa-gear.fa-spin{ 'ng-if' => '!categories.length' }
       %accordion-group{ 'ng-show' => 'categories.length',
@@ -37,7 +43,10 @@
             'ng-if' => 'cat.item_count == 0' }
             %span.fa.fa-trash-o
         .list-group{ name: 'categories'}
-          %a.list-group-item.clearfix{'href' => '', 'ng-click' => 'setItem(item)', 'ng-repeat' => 'item in items', 'ng-if' => 'item.category_id == cat.id'}
+          %a.list-group-item.clearfix{'href' => '',
+            'ng-click' => 'setItem(item)',
+            'ng-repeat' => 'item in allItems | filter: filters',
+            'ng-if' => 'item.category_id == cat.id'}
             = raw '{{ item.name }}'
             %span.pull-right
               = raw '{{item.serial}}'
