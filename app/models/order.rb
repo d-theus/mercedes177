@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
-  validates_presence_of :first_name, :middle_name, :last_name, :phone, :email, :delivery_method
+  validates_presence_of :first_name, :last_name, :phone, :email, :delivery_method
+  validates :middle_name, presence: true, if: :post?
   validates :delivery_method, with: :valid_delivery_method?
   validates :status, with: :valid_status?
   validates :address, presence: true, unless: :pickup? 
@@ -13,6 +14,10 @@ class Order < ActiveRecord::Base
 
   def pickup?
     self.delivery_method == 'Самовывоз'
+  end
+
+  def post?
+    self.delivery_method == 'Почта'
   end
 
   def has_positions?

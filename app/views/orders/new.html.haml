@@ -3,47 +3,52 @@
     %h1 Оформление заказа
 
   .col-xs-8.col-xs-offset-2
-    = simple_form_for(@order, html: { class: 'form-horizontal'}) do |f|
-      = f.input :first_name
-      = f.input :last_name
-      = f.input :middle_name
-      = f.input :phone, placeholder: '84991112233'
-      = f.input :email, placeholder: 'somemail@example.com'
-      = f.input :delivery_method, collection: Order::DELIVERY_METHODS, as: :radio_buttons, checked: true, item_wrapper_class: %i(radio-inline), input_html: { 'ng-model' => 'deliveryMethod' }
-      .col-xs-12{ 'ng-if' => 'deliveryMethod && !(deliveryMethod === "Самовывоз")'}
-        = f.input :address, placeholder: 'При доставке почтой обязательно укажите город и индекс.'
-        = f.input :notice, placeholder: 'Ваши комментарии к заказу, например время, в которое вам удобно принять курьера.'
-      %h3 Позиции
-      %table.table.table-striped.bg-info
-        %tr
-          %th Наименование
-          %th СН
-          %th Количество
 
-        %tr{ 'ng-repeat' => 'pos in positions'}
-          %td {{ pos.name }}
-          %td {{ pos.serial }}
-          %td {{ pos.count }}
+    %h3 Позиции
+    %table.table.table-striped.bg-info
+      %tr
+        %th Наименование
+        %th СН
+        %th Количество
 
-      - @order.positions.to_a.select {|p| not p.errors[:count].blank? }.each do |p|
-        - item = p.item
-        .alert.alert-danger
-          %strong #{item.name}:
-          требуется: #{p.count},
-          доступно: #{item.count}
+      %tr{ 'ng-repeat' => 'pos in positions'}
+        %td {{ pos.name }}
+        %td {{ pos.serial }}
+        %td {{ pos.count }}
 
-      .row
-        .col-xs-5.col-xs-offset-7
-          %span.pull-right
-            %strong Итого:
-            %span.fa.fa-rub
-            &nbsp;
-            %span.lead
-              {{ calcTotal() }}
-        .row
-          .col-xs-12
-            = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg pull-right), 'ng-disabled' => 'isEmpty()'
-        .row
-          .col-xs-12
-            .text-danger.pull-right{ 'ng-if' => 'isEmpty()'}
-              %strong Нет позиций!
+    - @order.positions.to_a.select {|p| not p.errors[:count].blank? }.each do |p|
+      - item = p.item
+      .alert.alert-danger
+        %strong #{item.name}:
+        требуется: #{p.count},
+        доступно: #{item.count}
+
+  .row
+    .col-xs-5.col-xs-offset-7
+      %span.pull-left
+        %strong Итого:
+        %span.fa.fa-rub
+        &nbsp;
+        %span.lead
+          {{ calcTotal() }}
+  .row
+    .col-xs-8.col-xs-offset-2
+      %label Способ доставки
+      %tabset
+        - Order::DELIVERY_METHODS.each do |dm|
+          %tab{'heading' => dm, 'active' => (@order.delivery_method == dm).to_s}
+            = simple_form_for(@order, html: { class: 'form-horizontal'}) do |f|
+              = f.input :delivery_method, as: :hidden, input_html: { value: dm }
+              = f.input :first_name
+              = f.input :last_name
+              - if dm == "Почта"
+                = f.input :middle_name, required: true
+              = f.input :phone, placeholder: '84991112233'
+              = f.input :email, placeholder: 'somemail@example.com'
+              - unless dm == "Самовывоз"
+                = f.input :address, placeholder: 'При доставке почтой обязательно укажите город и индекс.', required: true
+              = f.input :notice, placeholder: 'Ваши комментарии к заказу, например время, в которое вам удобно принять курьера.'
+              %center.col-xs-12
+                = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg), 'ng-disabled' => 'isEmpty()'
+                .text-danger{ 'ng-if' => 'isEmpty()'}
+                  %strong Нет позиций!
