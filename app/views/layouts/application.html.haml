@@ -18,9 +18,29 @@
         .row
           .col-xs-10.col-xs-offset-1
             - if alert
-              %h4.alert.alert-danger.text-center= alert
+              %br/
+              .col-xs-12.alert.alert-danger.text-center
+                %span.text-center.pull-left
+                  %span.fa-stack.fa-lg
+                    %span.fa.fa-square-o.fa-fw.fa-stack-2x
+                    %span.fa.fa-exclamation.fa-fw.fa-stack-1x
+                %span.lead.text-center= alert
+                %span.text-center.pull-right
+                  %span.fa-stack.fa-lg
+                    %span.fa.fa-square-o.fa-fw.fa-stack-2x
+                    %span.fa.fa-exclamation.fa-fw.fa-stack-1x
             - if notice
-              %h4.alert.alert-success.text-center= notice
+              %br/
+              .col-xs-12.alert.alert-success.text-center
+                %span.text-center.pull-left
+                  %span.fa-stack.fa-lg
+                    %span.fa.fa-square-o.fa-fw.fa-stack-2x
+                    %span.fa.fa-info.fa-fw.fa-stack-1x
+                %span.lead.text-center= notice
+                %span.text-center.pull-right
+                  %span.fa-stack.fa-lg
+                    %span.fa.fa-square-o.fa-fw.fa-stack-2x
+                    %span.fa.fa-info.fa-fw.fa-stack-1x
       .row
         .col-xs-12#content
           = yield
