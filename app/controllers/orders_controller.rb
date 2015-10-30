@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
     positions = JSON.parse(cookies[:'cart-positions'])
     positions.each { |p| @order.positions << Position.new(item_id: p['id'], count: p['count']) }
     if @order.save
+      Orders.created_notification(@order).deliver
       redirect_to orders_received_path(order_id: @order.id)
     else
       flash.now[:alert] = 'Ошибка при составлении заказа!'

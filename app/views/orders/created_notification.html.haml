@@ -1,4 +1,4 @@
-%h1 Новый заказ на сайте mercedes77.ru
+%h1 Новый заказ на сайте mercedes177.ru
 
 %p
   Уважаемый #{@order.first_name} #{@order.middle_name}, ваш заказ
@@ -8,4 +8,4 @@
 %p
   Позиции:
 - @order.positions.each do |pos|
-  %p #{pos.name}[#{pos.serial}] x#{pos.count}
+  %p #{pos.item.name}[#{pos.item.serial}] x#{pos.count}
