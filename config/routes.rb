@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   scope :catalog do
     get '/', to: 'catalog#index'
+    get 'static', to: 'catalog#static'
   end
 
   root to: 'about#landing'
