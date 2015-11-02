@@ -7,6 +7,8 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    = render file: 'layouts/_ga'
+    = render file: 'layouts/_ym'
   %body{'data-no-turbolink' => (controller_name == 'catalog' && 'true')}
     .container-fluid
       .row
