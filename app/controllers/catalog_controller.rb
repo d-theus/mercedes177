@@ -1,5 +1,9 @@
 class CatalogController < ApplicationController
   def index
-    @cgs = CatGroup.order('name ASC')
+  end
+
+  def static
+    @categories = Category.order('name')
+    @items = Item.all
   end
 end

@@ -20,4 +20,5 @@ SitemapGenerator::Sitemap.create do
   add about_info_path, priority: 0.7, changefreq: 'weekly'
   add about_contacts_path, priority: 0.7, changefreq: 'weekly'
   add about_policy_path, priority: 0.7, changefreq: 'weekly'
+  add '/catalog/static', priority: 0.8, changefreq: 'daily'
 end
