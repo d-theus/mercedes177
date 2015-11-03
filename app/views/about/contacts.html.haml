@@ -1,6 +1,8 @@
 .row
-  .col-xs-8.col-xs-offset-1.col-md-6.col-md-offset-3.well
+  .col-xs-8.col-xs-offset-1.col-md-6.col-md-offset-3.well.vcard
     %h1.text-center Контакты
+    %h2.text-center.text-muted.fn.org Магазин Mercedes177.ru
+    %h3.text-center.text-muted Оригинальные автозапчасти Mercedes-Benz
 
     %section.col-xs-10.col-xs-offset-1
       %h2
@@ -8,9 +10,46 @@
           %span.fa.fa-square.fa-stack-2x.text-primary
           %span.fa.fa-phone.fa-stack-1x
         Телефоны
-      .col-xs-7.col-xs-offset-4
-        %p.tel 8 9xx xxx xx xx
-        %p.tel 8 9yy yyy yy yy
+      .col-xs-8.col-xs-offset-2
+        %p
+          %a.tel.btn.btn-primary.btn-lg{href:'tel:+79647064621'}
+            %span.fa.fa-phone.fa-fw.fa-lg
+          %span.lead 8 964 706 46 21
+          %span.text-muted.lead Михаил
+
+        %p
+          %a.tel.btn.btn-primary.btn-lg{href:'tel:+79653579413'}
+            %span.fa.fa-phone.fa-fw.fa-lg
+          %span.lead 8 965 357 94 13
+          %span.text-muted.lead Ян
+
+    %section.col-xs-10.col-xs-offset-1
+      %h2
+        %span.fa-lg.fa-stack.fa-fw
+          %span.fa.fa-square.fa-stack-2x.text-primary
+          %span.fa.fa-envelope.fa-stack-1x
+        Электронная почта
+      .col-xs-8.col-xs-offset-2
+        %h3 По общим вопросам
+        %p.email
+          %a.btn.btn-primary.btn-lg{href:'mailto:contact@mercedes177.ru'}
+            %span.fa.fa-envelope.fa-fw.fa-lg
+          %span.lead contact@mercedes177.ru
+
+        %h3 По вопросам заказов
+        %p.email
+          %a.btn.btn-primary.btn-lg{href:'mailto:orders@mercedes177.ru'}
+            %span.fa.fa-envelope.fa-fw.fa-lg
+          %span.lead orders@mercedes177.ru
+
+    %section.col-xs-10.col-xs-offset-1
+      %h2
+        %span.fa-lg.fa-stack.fa-fw
+          %span.fa.fa-square.fa-stack-2x.text-primary
+          %span.fa.fa-skype.fa-stack-1x
+        Skype
+      .col-xs-8.col-xs-offset-2
+        %p.lead mercedes177m
 
     %section.col-xs-10.col-xs-offset-1
       %h2
@@ -20,10 +59,14 @@
         Местонахождение
       %address.adr.col-xs-7.col-xs-offset-4
         %span.locality г.Москва,
-        %span.street-address ул. Такая-то, х.
+        %span.street-address ул. Осташковская, 14.
+      .col-xs-9.col-xs-offset-2
+        %p.text-muted
+          Офис и склад находятся на охраняемой территории.
+          Чтобы пройти, заранее договаривайтесь о встрече по телефону.
       %center.col-xs-12
         .well.ym-container
-          %script{type: "text/javascript", charset: "utf-8", src: "https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=G062rgBl2TSwCU4FooWqXpbhry3zQko1&width=500&height=400&lang=ru_RU&sourceType=constructor", async: true}
+          %script{type: "text/javascript", charset: "utf-8", src: "https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=x5wjXGIQoYyq-toz1S59tZE5ufehN0MF&width=500&height=400&lang=ru_RU&sourceType=constructor", async: true}
 
 
 - content_for :title do
