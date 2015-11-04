@@ -50,7 +50,7 @@
 @input-border: transparent;
 @input-border-focus: gray;
 
-@well-bg: mix(white,black,90%);
+@well-bg: #eee;
 
 @list-group-bg: transparent;
 @list-group-border: @gray-darker;
@@ -109,7 +109,7 @@ html{
   //-webkit-background-size: cover;
   //-moz-background-size: cover;
   //-o-background-size: cover;
-  background: @gray-darker;
+  background: @gray;
   background-size: cover;
   body{
     background: transparent;
@@ -154,6 +154,7 @@ body{
 
 .landing-hero{
   background: image-url('bg-lg.jpg') no-repeat center center;
+  box-shadow: 4px 4px 3px @gray-darker;
   -webkit-background-size: 100% auto;
   -moz-background-size: 100% auto;
   -o-background-size: 100% auto;
@@ -163,6 +164,7 @@ body{
     background: mix(black, transparent, 60%);
     //border: 1px solid @gray-lighter;
     border-color: lighten(mix(black, transparent), 20%);
+    box-shadow: none;
   }
 }
 
@@ -176,6 +178,10 @@ body{
   padding-top: 3em;
   padding-bottom: 3em;
   min-height: 200px;
+}
+
+.well{
+  box-shadow: 4px 4px 3px @gray-darker;
 }
 
 //.loupe{
