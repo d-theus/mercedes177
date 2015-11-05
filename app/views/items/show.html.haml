@@ -94,9 +94,9 @@
         %br/
         .row
           .col-xs-12
-            %span.text-success.text-nowrap{'ng-if' => 'item.count > 0'}
+            %span.text-nowrap.label.label-success{'ng-if' => 'item.count > 0'}
               %strong В наличии
-            %span.text-danger.text-nowrap{'ng-if' => 'item.count == 0'}
+            %span.text-nowrap.label.label-danger{'ng-if' => 'item.count == 0'}
               %strong Нет в наличии
       - if admin?
         %span
