@@ -6,7 +6,7 @@ ItemCtrl = ($scope, $resource, $location, $modal) ->
 
   $scope.setItem = (item)->
     $scope.item = item
-    $scope.item.currentPhoto = preview: '/images/placeholder.png'
+    $scope.item.currentPhoto = preview: null
     $scope.item.photos = ItemPhoto.query item_id: $scope.item.id, (photos)->
       # success
       #

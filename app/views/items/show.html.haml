@@ -34,8 +34,8 @@
 .row{'ng-if' => 'item.name'}
   .col-xs-5
     .row
-      .col-xs-12.image-container
-        %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview}}"}
+      %center.col-xs-10.col-xs-offset-1.image-container
+        %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview || '#{image_path('placeholder.svg')}'}}"}
         .col-xs-6.image-overlay
           - if admin?
             %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
