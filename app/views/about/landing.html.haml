@@ -15,18 +15,22 @@
       %h2 Авторазбор
 .row
   .col-xs-12.landing-section-short
-    .col-xs-6.text-center
-      %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
-    .col-xs-5.text-center
-      %form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
-        .form-group
-          %label Поиск детали
-          %input.form-control{ 'type' => 'text',
-          'ng-model' => 'query',
-          'placeholder' => 'Начните вводить название детали или серийный номер',
-          'ng-focus' => 'getItems()',
-          'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
-          'typeahead-template-url' => '/templates/catalog/search_result'}
+    .text-info.text-center.lead
+      Сайт находится в разработке.
+    .text-info.text-center.lead
+      Каталог пока недоступен.
+    -#.col-xs-6.text-center
+      -#%a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
+    -#.col-xs-5.text-center
+      -#%form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
+        -#.form-group
+          -#%label Поиск детали
+          -#%input.form-control{ 'type' => 'text',
+          -#'ng-model' => 'query',
+          -#'placeholder' => 'Начните вводить название детали или серийный номер',
+          -#'ng-focus' => 'getItems()',
+          -#'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
+          -#'typeahead-template-url' => '/templates/catalog/search_result'}
 .row
   .col-xs-12.landing-section-short
     .col-xs-4.text-center

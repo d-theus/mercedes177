@@ -6,13 +6,13 @@
 .col-xs-5
   %nav.navbar-nav.pull-right
     %ul.nav.navbar-nav
-      %li
-        %a{ href: '/catalog', title: 'Каталог' , 'data-no-turbolink' => true} Каталог
+      -#%li
+        -#%a{ href: '/catalog', title: 'Каталог' , 'data-no-turbolink' => true} Каталог
       %li
         %a{ href: '/about/info', title: 'Инфо'} Инфо
       %li
         %a{ href: '/about/contacts', title: 'Контакты'} Контакты
-      - unless admin?
+      -#- unless admin?
         %li{'ng-controller' => 'CartCtrl'}
           %a#cart{ href: '', title: 'Корзина', 'ng-click' => 'open()'}
             Корзина
