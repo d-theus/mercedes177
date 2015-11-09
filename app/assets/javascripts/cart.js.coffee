@@ -1,6 +1,6 @@
 @cart = angular.module('cart', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
 
-CartCtrl = ($scope, $resource, $modal, $cookies) ->
+CartCtrl = ($scope, $resource, $modal, $cookies, $location) ->
   class Position
     constructor: (item, @count) ->
       @id = item.id
@@ -37,7 +37,7 @@ CartCtrl = ($scope, $resource, $modal, $cookies) ->
       $scope.positions = (new Position({id: p.id, name: p.name, serial: p.serial, price: p.price}, p.count) for p in pos)
     else
       $scope.positions = []
-      $scope.updateCookies()
+    $scope.$broadcast 'positions:updated', 'stuff'
   
   $scope.updateCookies = ->
     $cookies.putObject('cart-positions', $scope.positions, path: '/')
@@ -48,24 +48,34 @@ CartCtrl = ($scope, $resource, $modal, $cookies) ->
       dupl.add()
     else
       $scope.positions.push new Position(item, count)
-    $scope.updateCookies()
+    $scope.$broadcast 'positions:updated'
 
   $scope.unput = (pos)->
     el = $scope.positions.filter((p) -> p.id == pos.id)[0]
     el.subtract()
-    $scope.updateCookies()
+    $scope.$broadcast 'positions:updated'
 
   $scope.clear = ->
     $scope.positions.splice(0, $scope.positions.length)
-    $scope.updateCookies()
+    $scope.$broadcast 'positions:updated'
 
   $scope.remove = (pos)->
     $scope.positions.splice($scope.positions.indexOf(pos),1)
-    $scope.updateCookies()
+    $scope.$broadcast 'positions:updated'
 
   $scope.summarize = ->
     $scope.positions.reduce ((acc,e) -> acc + (e.price) * e.count), 0
 
-  $scope.getPositions()
+  $scope.updateCheckoutButton = ->
+    $scope.showingCheckoutButton =
+      $scope.positions.length && !$location.absUrl().match(/\/orders\/new/)
 
-@cart.controller 'CartCtrl', ['$scope', '$resource', '$modal', '$cookies', CartCtrl]
+  $scope.init = ->
+    $scope.$on 'positions:updated', $scope.updateCheckoutButton
+    $scope.$on 'positions:updated', $scope.updateCookies
+    $scope.getPositions()
+
+  $scope.init()
+
+
+@cart.controller 'CartCtrl', ['$scope', '$resource', '$modal', '$cookies', '$location', CartCtrl]

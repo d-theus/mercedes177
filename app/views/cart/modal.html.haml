@@ -42,7 +42,7 @@
           %span.fa.fa-rub
           {{ summarize() | currency : '' }}
 
-.modal-footer{ 'ng-if' => 'positions.length'}
+.modal-footer{ 'ng-if' => 'showingCheckoutButton'}
   %a.btn.btn-primary{href: '/orders/new'}
     %span.fa.fa-check
     Заказать
