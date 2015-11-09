@@ -4,21 +4,17 @@
 .row
   .col-xs-10.col-xs-offset-1.well
     .row
-      %center.col-xs-10.col-xs-offset-1.col-md-3
-        %br/
+      .col-xs-12.text-center
         %a.btn.btn-primary.btn-lg{href: '/catalog'}
           %strong Перейти в компактный каталог
-      %center.col-xs-12.col-md-5{'ng-controller' => 'SearchCtrl'}
-        %br/
-        %span.col-xs-4.lead
-          %strong Искать:
-        .col-xs-8
-          %input.form-control{ 'type' => 'text',
-          'placeholder' => 'Начните вводить название или сер. номер',
-          'ng-model' => 'query',
-          'ng-focus' => 'getItems()',
-          'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
-          'typeahead-template-url' => '/templates/catalog/search_result'}
+      .col-xs-10.col-xs-offset-1{'ng-controller' => 'SearchCtrl'}
+        %strong.lead Искать:
+        %input.form-control{ 'type' => 'text',
+        'placeholder' => 'Начните вводить название или сер. номер',
+        'ng-model' => 'query',
+        'ng-focus' => 'getItems()',
+        'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
+        'typeahead-template-url' => '/templates/catalog/search_result'}
     .row
       .col-xs-10.col-xs-offset-1
         - @categories.each do |cat|
