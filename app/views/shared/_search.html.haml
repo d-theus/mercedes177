@@ -1,0 +1,10 @@
+%input.form-control{ 'type' => 'text',
+'ng-model' => 'query',
+'placeholder' => 'Начните вводить название детали или серийный номер',
+'ng-focus' => 'getItems()',
+'typeahead-no-results' => 'noResults',
+'typeahead' => 'item.line for item in items | filter:{line: $viewValue}',
+'typeahead-template-url' => '/templates/catalog/search_result'}
+%br/
+.text-muted.small{'ng-if' => 'noResults'}
+  По этому запросу ничего не найдено.

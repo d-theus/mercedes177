@@ -7,6 +7,10 @@ SearchCtrl = ($scope, $resource) ->
     unless $scope.items?
       $scope.fullItems = Item.query '', ->
         $scope.items = $scope.fullItems
-          .map (e)-> {id: e.id, name: e.name, serial: e.serial}
+          .map (e)->
+            id: e.id
+            name: e.name
+            serial: e.serial
+            line: "#{e.name} [#{e.serial}]"
 
 @search.controller 'SearchCtrl', ['$scope', '$resource', SearchCtrl]

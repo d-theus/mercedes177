@@ -9,12 +9,7 @@
           %strong Перейти в компактный каталог
       .col-xs-10.col-xs-offset-1{'ng-controller' => 'SearchCtrl'}
         %strong.lead Искать:
-        %input.form-control{ 'type' => 'text',
-        'placeholder' => 'Начните вводить название или сер. номер',
-        'ng-model' => 'query',
-        'ng-focus' => 'getItems()',
-        'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
-        'typeahead-template-url' => '/templates/catalog/search_result'}
+        = render partial: 'shared/search'
     .row
       .col-xs-10.col-xs-offset-1
         - @categories.each do |cat|
