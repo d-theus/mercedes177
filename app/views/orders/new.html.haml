@@ -3,7 +3,17 @@
     %h1 Оформление заказа
 
 .well.col-xs-10.col-xs-offset-1{'ng-controller' => 'OrdersCtrl'}
-  .row
+  .row{ 'ng-if' => 'positions.length == 0'}
+    .col-xs-8.col-xs-offset-2.text-center
+      %strong.lead.text-danger
+        Корзина пуста.
+
+  .row{ 'ng-if' => 'positions.length == 0'}
+    .col-xs-12.text-center
+      %a.btn.btn-primary.btn-lg{href: '/catalog'}
+        Перейти в каталог
+
+  .row{ 'ng-if' => 'positions.length'}
     .col-xs-8.col-xs-offset-2
       %h3 Позиции
       %table.table.table-striped.bg-info
@@ -24,7 +34,7 @@
           требуется: #{p.count},
           доступно: #{item.count}
 
-  .row
+  .row{ 'ng-if' => 'positions.length'}
     .col-xs-5.col-xs-offset-7
       %span.pull-left
         %strong Итого:
@@ -32,7 +42,7 @@
         &nbsp;
         %span.lead
           {{ calcTotal() }}
-  .row
+  .row{ 'ng-if' => 'positions.length'}
     .col-xs-8.col-xs-offset-2
       %tabset
         - Order::DELIVERY_METHODS.each do |dm|
@@ -53,5 +63,4 @@
               = f.input :notice, placeholder: 'Ваши комментарии к заказу, например название транспортной компании или когда Вам удобно подъехать за деталью.'
               %center.col-xs-12
                 = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg), 'ng-disabled' => 'isEmpty()'
-                .text-danger{ 'ng-if' => 'isEmpty()'}
-                  %strong Нет позиций!
+
