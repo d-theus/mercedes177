@@ -34,10 +34,12 @@
           {{ calcTotal() }}
   .row
     .col-xs-8.col-xs-offset-2
-      %label Способ доставки
       %tabset
         - Order::DELIVERY_METHODS.each do |dm|
-          %tab{'heading' => dm, 'active' => (@order.delivery_method == dm).to_s}
+          %tab{'active' => (@order.delivery_method == dm).to_s}
+            %tab-heading
+              %span.btn.btn-primary
+                %strong= dm
             = simple_form_for(@order, html: { class: 'form-horizontal'}) do |f|
               = f.input :delivery_method, as: :hidden, input_html: { value: dm }
               = f.input :first_name
