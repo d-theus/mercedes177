@@ -44,13 +44,13 @@
               = f.input :delivery_method, as: :hidden, input_html: { value: dm }
               = f.input :first_name
               = f.input :last_name
-              - if dm == "Почта"
+              - if dm == "Почта" || dm == "ТК"
                 = f.input :middle_name, required: true
               = f.input :phone, placeholder: '84991112233'
               = f.input :email, placeholder: 'somemail@example.com'
               - unless dm == "Самовывоз"
                 = f.input :address, placeholder: 'При доставке почтой обязательно укажите город и индекс.', required: true
-              = f.input :notice, placeholder: 'Ваши комментарии к заказу, например время, в которое вам удобно принять курьера.'
+              = f.input :notice, placeholder: 'Ваши комментарии к заказу, например название транспортной компании или когда Вам удобно подъехать за деталью.'
               %center.col-xs-12
                 = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg), 'ng-disabled' => 'isEmpty()'
                 .text-danger{ 'ng-if' => 'isEmpty()'}

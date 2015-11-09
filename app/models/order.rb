@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   validate  :has_positions?
   has_many :positions, dependent: :destroy
 
-  DELIVERY_METHODS = %w(Самовывоз Курьер Почта)
+  DELIVERY_METHODS = %w(Самовывоз ТК Почта)
   STATUSES = %w(Новый Собирается Готов Отправлен Закрыт Отменен)
 
   def pickup?

@@ -1,5 +1,7 @@
 @orders = angular.module('orders', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'cart'])
 
+#= require orders_constants
+
 OrdersCtrl = ($scope, $resource, $location, $modal) ->
   $scope.clearCart = ->
     $scope.cart.clear()
@@ -18,17 +20,13 @@ OrdersCtrl = ($scope, $resource, $location, $modal) ->
 
 OrdersAdminCtrl = ($scope, $resource) ->
   Order = $resource('/orders.json')
-  $scope.Statuses = ['Новый', 'Собирается', 'Готов', 'Отправлен', 'Закрыт', 'Отменен']
-  $scope.DeliveryMethods = ['Самовывоз', 'Курьер', 'Почта']
-  
+
   $scope.init = ->
     $scope.orders = Order.query ''
 
   $scope.init()
 
 OrderEditCtrl = ($scope, $resource) ->
-  $scope.Statuses = ['Новый', 'Собирается', 'Готов', 'Отправлен', 'Закрыт', 'Отменен']
-  $scope.DeliveryMethods = ['Самовывоз', 'Курьер', 'Почта']
 
 @orders.controller 'OrdersCtrl', ['$scope', '$resource', '$location', '$modal', OrdersCtrl]
 @orders.controller 'OrdersAdminCtrl', ['$scope', '$resource', OrdersAdminCtrl]
