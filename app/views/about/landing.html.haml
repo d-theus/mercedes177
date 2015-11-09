@@ -4,17 +4,16 @@
   = raw 'Б/У и новые запчасти для автомобилей Mercedes'
 
 .row
-  .col-xs-10.col-xs-offset-1.landing-hero
+  .col-xs-12.landing-hero
     %br/
     %br/
     %br/
     %br/
     %br/
-    .col-xs-6.col-xs-offset-3.text-center.well
-      %h1.text-primary
-        Оригинальные автозапчасти Mercedes-Benz из Европы
+    .col-xs-6.col-xs-offset-3.text-center
+      %h1 Оригинальные автозапчасти Mercedes-Benz из Европы
 .row
-  .col-xs-10.col-xs-offset-1.landing-section-short.well
+  .col-xs-12.landing-section-short
     .col-xs-6.text-center
       %a.btn.btn-lg.btn-primary.cta{href: '/catalog', title: 'Каталог', 'data-no-turbolink' => true} Каталог
     .col-xs-5.text-center
@@ -28,7 +27,7 @@
           'typeahead' => 'item.name + " [с.н.:" + item.serial + "]" for item in items | filter:{$: $viewValue}',
           'typeahead-template-url' => '/templates/catalog/search_result'}
 .row
-  .col-xs-10.col-xs-offset-1.landing-section-short.well
+  .col-xs-12.landing-section-short
     .col-xs-4.text-center
       %h2 Только оригинальные детали
     .col-xs-4.text-center

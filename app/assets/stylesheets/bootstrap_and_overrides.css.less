@@ -109,7 +109,7 @@ html{
   //-webkit-background-size: cover;
   //-moz-background-size: cover;
   //-o-background-size: cover;
-  background: @gray;
+  background: lighten(@gray,20%);
   background-size: cover;
   body{
     background: transparent;
@@ -136,10 +136,6 @@ body{
   }
 }
 
-#content{
-  margin-top: 1em;
-}
-
 #footer{
   h6, small {
     color: white;
@@ -153,35 +149,31 @@ body{
 }
 
 .landing-hero{
+  .landing-section;
   background: image-url('bg-lg.jpg') no-repeat center center;
-  box-shadow: 4px 4px 3px @gray-darker;
+  //box-shadow: 4px 4px 3px @gray-darker;
   -webkit-background-size: 100% auto;
   -moz-background-size: 100% auto;
   -o-background-size: 100% auto;
   background-size: 100% auto;
-  .landing-section;
-  .well{
-    background: mix(black, transparent, 60%);
-    //border: 1px solid @gray-lighter;
-    border-color: lighten(mix(black, transparent), 20%);
-    box-shadow: none;
-  }
+  h1 { color: white;}
 }
 
 .landing-section{
+  background: @gray-lighter;
   padding-top: 3em;
   padding-bottom: 3em;
-  min-height: 600px;
+  min-height: 720px;
 }
 
 .landing-section-short{
-  padding-top: 3em;
-  padding-bottom: 3em;
-  min-height: 200px;
+  .landing-section;
+  min-height: 150px;
+  height: 150px;
 }
 
 .well{
-  box-shadow: 4px 4px 3px @gray-darker;
+  box-shadow: 4px 4px 5px @gray;
 }
 
 //.loupe{
