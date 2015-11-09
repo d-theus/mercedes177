@@ -1,27 +1,28 @@
-.well.col-xs-10.col-xs-offset-1{'ng-controller' => 'OrdersCtrl'}
-  %center
+.row.page-heading
+  .col-xs-10.col-xs-offset-1
     %h1 Оформление заказа
 
-  .col-xs-8.col-xs-offset-2
+.well.col-xs-10.col-xs-offset-1{'ng-controller' => 'OrdersCtrl'}
+  .row
+    .col-xs-8.col-xs-offset-2
+      %h3 Позиции
+      %table.table.table-striped.bg-info
+        %tr
+          %th Наименование
+          %th СН
+          %th Количество
 
-    %h3 Позиции
-    %table.table.table-striped.bg-info
-      %tr
-        %th Наименование
-        %th СН
-        %th Количество
+        %tr{ 'ng-repeat' => 'pos in positions'}
+          %td {{ pos.name }}
+          %td {{ pos.serial }}
+          %td {{ pos.count }}
 
-      %tr{ 'ng-repeat' => 'pos in positions'}
-        %td {{ pos.name }}
-        %td {{ pos.serial }}
-        %td {{ pos.count }}
-
-    - @order.positions.to_a.select {|p| not p.errors[:count].blank? }.each do |p|
-      - item = p.item
-      .alert.alert-danger
-        %strong #{item.name}:
-        требуется: #{p.count},
-        доступно: #{item.count}
+      - @order.positions.to_a.select {|p| not p.errors[:count].blank? }.each do |p|
+        - item = p.item
+        .alert.alert-danger
+          %strong #{item.name}:
+          требуется: #{p.count},
+          доступно: #{item.count}
 
   .row
     .col-xs-5.col-xs-offset-7

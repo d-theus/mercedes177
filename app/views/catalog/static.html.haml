@@ -1,11 +1,13 @@
+.row.page-heading
+  .col-xs-10.col-xs-offset-1
+    %h1 Каталог
 .row
   .col-xs-10.col-xs-offset-1.well
     .row
-      %h1.col-xs-12.col-md-4 Каталог
-      %center.col-xs-12.col-md-3
+      %center.col-xs-10.col-xs-offset-1.col-md-3
         %br/
-        %a.btn.btn-primary{href: '/catalog'}
-          Перейти в компактный каталог
+        %a.btn.btn-primary.btn-lg{href: '/catalog'}
+          %strong Перейти в компактный каталог
       %center.col-xs-12.col-md-5{'ng-controller' => 'SearchCtrl'}
         %br/
         %span.col-xs-4.lead

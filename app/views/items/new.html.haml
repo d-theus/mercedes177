@@ -1,13 +1,15 @@
+.row.page-heading
+  .col-xs-10.col-xs-offset-1
+    %h1 Новый товар
+
 .row
-  .col-xs-12.well
-    .row
-      %h1.col-xs-10.col-xs-offset-1
-        Новый товар
-      - if @item.category_id
-        %h2.col-xs-10.col-xs-offset-1
-          В категорию '#{@item.category.name}'
+  .col-xs-8.col-xs-offset-1.well
     .row
       .col-xs-8.col-xs-offset-1
+        - if @item.category_id
+          %h2.col-xs-12.lead
+            В категорию '#{@item.category.name}'
+          %br/
         = simple_form_for @item, html: { class: 'form-horizontal'}, url: '/items.html' do |f|
           = f.input :name
           = f.input :serial

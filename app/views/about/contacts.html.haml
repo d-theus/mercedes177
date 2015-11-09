@@ -1,13 +1,16 @@
-.row
-  .col-xs-8.col-xs-offset-1.col-md-6.col-md-offset-3.well.vcard
-    %h1.text-center Контакты
-    %h2.text-center.text-muted.fn.org Магазин Mercedes177.ru
-    %h3.text-center.text-muted Оригинальные автозапчасти Mercedes-Benz
+.row.page-heading
+  .col-xs-8.col-xs-offset-1.col-md-6.col-md-offset-3
+    %h1 Контакты
+    %h2.fn.org Магазин Mercedes177.ru
+    %h3 Оригинальные автозапчасти Mercedes-Benz
 
-    %section.col-xs-10.col-xs-offset-1
-      %h2
-        %span.fa.fa-xs.fa-lg.fa-phone
-        Телефоны
+.row
+  .col-xs-6
+    %section.col-xs-10.col-xs-offset-1.material-sm
+      .material-heading
+        %h2
+          %span.fa.fa-xs.fa-lg.fa-phone
+          Телефоны
       .col-xs-12.col-xs-offset-0.col-lg-8.col-lg-offset-2
         %p.text-nowrap
           %a.tel.btn.btn-primary.btn-lg{href:'tel:+79647064621'}
@@ -21,10 +24,12 @@
           %span.lead 8 965 357 94 13
           %span.text-muted.lead Ян
 
-    %section.col-xs-10.col-xs-offset-1
-      %h2
-        %span.fa.fa-xs.fa-lg.fa-envelope
-        Электронная почта
+  .col-xs-6
+    %section.col-xs-10.col-xs-offset-1.material-md
+      .material-heading
+        %h2
+          %span.fa.fa-xs.fa-lg.fa-envelope
+          Электронная почта
       .col-xs-12.col-xs-offset-0.col-lg-8.col-lg-offset-2
         %h3 По общим вопросам
         %p.email.text-nowrap
@@ -38,17 +43,13 @@
             %span.fa.fa-envelope.fa-fw.fa-lg
           %span.lead orders@mercedes177.ru
 
-    %section.col-xs-10.col-xs-offset-1
-      %h2
-        %span.fa.fa-xs.fa-lg.fa-skype
-        Skype
-      .col-xs-8.col-xs-offset-2
-        %p.lead mercedes177m
-
-    %section.col-xs-10.col-xs-offset-1
-      %h2
-        %span.fa.fa-xs.fa-lg.fa-map-marker
-        Местонахождение
+.row
+  .col-xs-6
+    %section.col-xs-10.col-xs-offset-1.material-lg
+      .material-heading
+        %h2
+          %span.fa.fa-xs.fa-lg.fa-map-marker
+          Местонахождение
       %address.adr.col-xs-7.col-xs-offset-4
         %span.locality г.Москва,
         %span.street-address ул. Осташковская, 14.
@@ -57,8 +58,17 @@
           Офис и склад находятся на охраняемой территории.
           Чтобы пройти, заранее договаривайтесь о встрече по телефону.
       %center.col-xs-12
-        .well.ym-container
+        .ym-container
           %script{type: "text/javascript", charset: "utf-8", src: "https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=x5wjXGIQoYyq-toz1S59tZE5ufehN0MF&width=500&height=400&lang=ru_RU&sourceType=constructor", async: true}
+
+  .col-xs-6
+    %section.col-xs-10.col-xs-offset-1.material-sm
+      .material-heading
+        %h2
+          %span.fa.fa-xs.fa-lg.fa-skype
+          Skype
+      .col-xs-8.col-xs-offset-2
+        %p.lead mercedes177m
 
 
 - content_for :title do

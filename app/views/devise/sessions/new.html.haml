@@ -1,6 +1,8 @@
-.col-xs-6.col-xs-offset-3.well
-  %h1.text-center Вход администратора
+.row.page-heading
+  .col-xs-10.col-xs-offset-1
+    %h1 Вход администратора
 
+.col-xs-6.col-xs-offset-3.well
   = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal'}) do |f|
     .col-xs-8.col-xs-offset-2
       = f.input :login, required: false, autofocus: true, label: 'Логин'
