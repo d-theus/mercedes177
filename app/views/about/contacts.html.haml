@@ -7,44 +7,55 @@
 
   .row
     .col-xs-6
-      %section.col-xs-10.col-xs-offset-1.material-sm
-        .material-heading
-          %h2
-            %span.fa.fa-xs.fa-lg.fa-phone
-            Телефоны
-        .col-xs-12
-          %p.text-nowrap
-            %a.tel.btn.btn-primary.btn-lg{href:'tel:+79647064621'}
-              %span.fa.fa-phone.fa-fw.fa-lg
-            %span.lead 8 964 706 46 21
-            %span.text-muted.lead Михаил
+      .row
+        %section.col-xs-10.col-xs-offset-1.material-xs
+          .material-heading
+            %h2
+              %span.fa.fa-xs.fa-lg.fa-phone
+              Телефоны
+          .col-xs-12
+            %p.text-nowrap
+              %a.tel.btn.btn-primary.btn-lg{href:'tel:+79647064621'}
+                %span.fa.fa-phone.fa-fw.fa-lg
+              %span.lead 8 964 706 46 21
+              %span.text-muted.lead Михаил
 
-          %p.text-nowrap
-            %a.tel.btn.btn-primary.btn-lg{href:'tel:+79653579413'}
-              %span.fa.fa-phone.fa-fw.fa-lg
-            %span.lead 8 965 357 94 13
-            %span.text-muted.lead Ян
+            %p.text-nowrap
+              %a.tel.btn.btn-primary.btn-lg{href:'tel:+79653579413'}
+                %span.fa.fa-phone.fa-fw.fa-lg
+              %span.lead 8 965 357 94 13
+              %span.text-muted.lead Ян
+      %br/
+      %br/
+      .row
+        %section.col-xs-10.col-xs-offset-1.material-xs
+          .material-heading
+            %h2
+              %span.fa.fa-xs.fa-lg.fa-skype
+              Skype
+          .col-xs-12.text-center
+            %p.lead mercedes177m
+      %br/
+      %br/
+      .row
+        %section.col-xs-10.col-xs-offset-1.material-sm
+          .material-heading
+            %h2
+              %span.fa.fa-xs.fa-lg.fa-envelope
+              Электронная почта
+          .col-xs-12
+            %h3 По общим вопросам
+            %p.email.text-nowrap
+              %a.btn.btn-primary.btn-lg{href:'mailto:contact@mercedes177.ru'}
+                %span.fa.fa-envelope.fa-fw.fa-lg
+              %span.lead contact@mercedes177.ru
 
-    .col-xs-6
-      %section.col-xs-10.col-xs-offset-1.material-md
-        .material-heading
-          %h2
-            %span.fa.fa-xs.fa-lg.fa-envelope
-            Электронная почта
-        .col-xs-12
-          %h3 По общим вопросам
-          %p.email.text-nowrap
-            %a.btn.btn-primary.btn-lg{href:'mailto:contact@mercedes177.ru'}
-              %span.fa.fa-envelope.fa-fw.fa-lg
-            %span.lead contact@mercedes177.ru
+            %h3 По вопросам заказов
+            %p.email.text-nowrap
+              %a.btn.btn-primary.btn-lg{href:'mailto:orders@mercedes177.ru'}
+                %span.fa.fa-envelope.fa-fw.fa-lg
+              %span.lead orders@mercedes177.ru
 
-          %h3 По вопросам заказов
-          %p.email.text-nowrap
-            %a.btn.btn-primary.btn-lg{href:'mailto:orders@mercedes177.ru'}
-              %span.fa.fa-envelope.fa-fw.fa-lg
-            %span.lead orders@mercedes177.ru
-
-  .row
     .col-xs-6
       %section.col-xs-10.col-xs-offset-1.material-lg
         .material-heading
@@ -62,14 +73,6 @@
           .ym-container
             %script{type: "text/javascript", charset: "utf-8", src: "https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=x5wjXGIQoYyq-toz1S59tZE5ufehN0MF&width=500&height=400&lang=ru_RU&sourceType=constructor", async: true}
 
-    .col-xs-6
-      %section.col-xs-10.col-xs-offset-1.material-sm
-        .material-heading
-          %h2
-            %span.fa.fa-xs.fa-lg.fa-skype
-            Skype
-        .col-xs-12.text-center
-          %p.lead mercedes177m
 
 
   - content_for :title do
