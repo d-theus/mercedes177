@@ -49,6 +49,7 @@
   %br/
   .row{ 'ng-if' => 'positions.length'}
     .col-xs-8.col-xs-offset-2
+      %label *&nbsp;Как будете получать заказ?
       %tabset
         - Order::DELIVERY_METHODS.each do |dm|
           %tab{'active' => (@order.delivery_method == dm).to_s}

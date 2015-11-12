@@ -19,6 +19,7 @@ OrdersCtrl = ($scope, $resource, $location, $modal) ->
   $scope.isEmpty = ->
     $scope.positions.length == 0
 
+
   $scope.init()
 
 OrdersAdminCtrl = ($scope, $resource) ->
