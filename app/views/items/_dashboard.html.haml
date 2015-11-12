@@ -1,0 +1,73 @@
+.row
+  .col-xs-5{'ng-show' => '!editing.price'}
+    .row
+      .col-xs-12
+        %strong.lead {{ item.price }}
+        %span.fa.fa-rub
+    %br/
+    .row
+      .col-xs-12
+        %span.text-nowrap.label.label-success{'ng-if' => 'item.count > 0'}
+          %strong В наличии
+        %span.text-nowrap.label.label-danger{'ng-if' => 'item.count == 0'}
+          %strong Нет в наличии
+  - if admin?
+    %span
+      %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
+        %span.fa.fa-edit
+    .col-xs-8
+      - item_field_for 'price' do
+        .form-group.col-xs-8
+          .input-group
+            .input-group-addon
+              %span.fa.fa-rub
+            %input.form-control{type: :number, 'ng-model' => 'item.price'}
+        - v_submit_tag
+    %br/
+    %br/
+    %span
+      %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("count")', 'ng-show' => '!editing.count'}
+        %span.fa.fa-edit
+    .col-xs-8
+      - item_field_for 'count' do
+        .form-group.col-xs-8
+          .input-group
+            .input-group-addon
+              %span.fa.fa-rub
+            %input.form-control{type: :number, min: '0', 'ng-model' => 'item.count'}
+        - v_submit_tag
+
+  - unless admin?
+    .col-xs-7{'ng-if' => 'item.count > 0'}
+      .row
+        .col-xs-12.text-center
+          %a.btn.btn-primary.btn-block{'ng-click' => 'putToCartAndProceed()'}
+            %span.fa.fa-money
+            %strong Купить
+      %br/
+      .row
+        .col-xs-12.text-center
+          %a.btn.btn-primary.btn-block{'ng-click' => 'putToCart()'}
+            %span.fa.fa-shopping-cart
+            %strong В корзину
+
+%br/
+%br/
+.row
+  .col-xs-12{'ng-show' => '!editing.description'}
+    - if admin?
+      .col-xs-2.pull-right
+        %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("description")'}
+          %span.fa.fa-edit
+    {{ item.description }}
+
+  - if admin?
+    .col-xs-12{'ng-show' => 'editing.description'}
+      - item_form_for 'description' do
+        .form-group
+          %textarea.form-control{ 'ng-model' => 'item.description'}
+        - v_submit_tag
+
+  .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
+    %h6 Примечания:
+    {{ item.notice }}

@@ -1,0 +1,18 @@
+%center.col-xs-12
+  %h2.center-block
+    Пока ничего не выбрано.
+  %h3.center-block
+    Чтобы выбрать деталь
+  %h4.center-block
+    %span.fa.fa-arrow-left
+    найдите её в нужной категории
+    %br/
+    %br/
+    или
+    %br/
+    %br/
+    воспользуйтесь поиском:
+%center.col-xs-6.col-xs-offset-3{'ng-controller' => 'SearchCtrl'}
+  = render partial: 'shared/search'
+  %br/
+  %br/

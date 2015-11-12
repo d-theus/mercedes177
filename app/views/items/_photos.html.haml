@@ -1,0 +1,51 @@
+.row
+  %center.col-xs-10.col-xs-offset-1.image-container
+    %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview || '#{image_path('placeholder.svg')}'}}"}
+    .col-xs-6.image-overlay
+      - if admin?
+        %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
+          %span.fa.fa-edit
+
+      %button.btn.btn-primary{ type: :button, 'ng-click' => 'openPhotoPreview()', 'ng-if' => 'item.photos.length'}
+        %span.fa.fa-arrows-alt
+.row{ 'ng-if' => 'item.photos.length'}
+  .col-xs-12
+    %br/
+    %br
+    %a{'ng-click' => 'setPhoto(photo)', 'ng-repeat' => 'photo in item.photos'}
+      %img{'ng-src' => '{{photo.thumb}}', width: '50px'}
+- if admin?
+  .row
+    %br/
+    %br/
+    .panel.panel-info{'ng-if' => 'editing.photos'}
+      .panel-heading
+        %button.btn.btn-danger.pull-right{ type: :button, 'ng-click' => 'toggleControl("photos")'}
+          %span.fa.fa-times
+        .panel-title Добавить фотографии
+        %hr
+      .panel-body
+        .row
+          .col-xs-10.col-xs-offset-1
+            - item_form_for 'photos', multipart: true do
+              .form-group{'ng-if' => 'files.length'}
+                .row{'ng-repeat' => 'file in files'}
+                  %img.col-xs-3{ 'ng-src' => '{{file.data}}' }
+                  .col-xs-7
+                    {{ file.name }}
+                  .pull-right
+                  .col-xs-2
+                    %button.btn.btn-danger{ type: :button, 'ng-click' => 'removeFile(file.name)'}
+                      %span.fa.fa-times
+                  %br/
+                  %br/
+              .form-group{'ng-show' => 'editing.photos == "choose"'}
+                %input{type: :file, onchange: 'angular.element(this).scope().uploadPhoto(this.files[0])'}
+              %button.btn.btn-primary{ type: :button, 'ng-click' => 'chooseFile()', 'ng-show' => 'editing.photos == "prompt"'}
+                %span.fa.fa-plus
+              %br/
+              %br/
+              .col-xs-offset-10
+                %button.btn.btn-primary{ type: :button, 'ng-click' => 'savePhotos()', 'ng-show' => 'files.length'}
+                  %span.fa.fa-check
+
