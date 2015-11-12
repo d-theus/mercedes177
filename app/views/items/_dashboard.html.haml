@@ -39,17 +39,17 @@
 
   - unless admin?
     .col-xs-7{'ng-if' => 'item.count > 0'}
-      .row
-        .col-xs-12.text-center
-          %a.btn.btn-primary.btn-block{'ng-click' => 'putToCartAndProceed()'}
-            %span.fa.fa-money
-            %strong Купить
+      %a.btn.btn-primary.btn-block{'ng-click' => 'putToCartAndProceed()'}
+        %span.fa.fa-money.fa-fw
+        %strong Купить
       %br/
-      .row
-        .col-xs-12.text-center
-          %a.btn.btn-primary.btn-block{'ng-click' => 'putToCart()'}
-            %span.fa.fa-shopping-cart
-            %strong В корзину
+      %a.btn.btn-primary.btn-block{'ng-click' => 'putToCart()'}
+        %span.fa.fa-shopping-cart.fa-fw
+        %strong В корзину
+      %br/
+      %a.btn.btn-default.btn-block{href: '#'}
+        %span.fa.fa-question.fa-fw
+        Задать вопрос
 
 %br/
 %br/
