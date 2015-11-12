@@ -4,9 +4,13 @@
 
 window.Zoom =
   enabled: false
+  __options:
+    width: 300
+    round: true
+    scaleWidth: 3280
   on: ->
     $('.ok-listener').remove()
-    $('.with-loupe').okzoom()
+    $('.with-loupe').okzoom(Zoom.__options)
     Zoom.enabled = true
 
   off: ->
@@ -18,3 +22,4 @@ window.Zoom =
 
   toggle: ->
     if Zoom.enabled then Zoom.off() else Zoom.on()
+
