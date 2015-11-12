@@ -35,13 +35,18 @@
           доступно: #{item.count}
 
   .row{ 'ng-if' => 'positions.length'}
-    .col-xs-5.col-xs-offset-7
-      %span.pull-left
+    .col-xs-8.col-xs-offset-2
+      %a.btn.btn-primary{'ng-click' => 'openCart()'}
+        %span.fa.fa-fw.fa-shopping-cart
+        Редактировать позиции
+      %span.pull-right
         %strong Итого:
         %span.fa.fa-rub
         &nbsp;
         %span.lead
           {{ calcTotal() }}
+  %br/
+  %br/
   .row{ 'ng-if' => 'positions.length'}
     .col-xs-8.col-xs-offset-2
       %tabset

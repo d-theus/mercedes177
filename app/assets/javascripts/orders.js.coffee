@@ -6,6 +6,9 @@ OrdersCtrl = ($scope, $resource, $location, $modal) ->
   $scope.clearCart = ->
     $scope.cart.clear()
 
+  $scope.openCart = ->
+    $scope.cart.open()
+
   $scope.calcTotal = ->
     $scope.positions.reduce ((acc,e) -> acc + (e.price) * e.count), 0
 
