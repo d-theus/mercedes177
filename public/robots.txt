@@ -6,3 +6,6 @@
 
 User-agent: *
 Disallow: /about/policy
+
+User-agent: *
+Disallow: /contact

@@ -1,0 +1,8 @@
+ru:
+  simple_form:
+    labels:
+      contact_message:
+        name: Имя
+        phone: Телефон
+        email: Эл. почта
+        text: Текст сообщения

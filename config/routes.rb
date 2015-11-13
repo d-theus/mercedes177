@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get 'orders/received'
   resources :orders
 
+  get 'contact', controller: 'contact', action: 'new'
+  post 'contact', controller: 'contact', action: 'create'
+
   resources :items, defaults: { format: :json} do
     resources :photos, only: [:index, :create]
   end

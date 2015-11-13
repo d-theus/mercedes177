@@ -260,6 +260,9 @@ ru:
       order:
         one: 'Заказ'
         other: 'Заказы'
+      contact_message:
+        one: 'Сообщение'
+        other: 'Сообщения'
     attributes:
       order:
         first_name: Имя
@@ -280,6 +283,11 @@ ru:
         notice: Примечания
         price: Цена
         serial: Серийный номер
+      contact_message:
+        name: Имя
+        phone: Телефон
+        email: Эл. почта
+        text: Текст сообщения
   order_status:
     new: Новый
     processing: Собирается

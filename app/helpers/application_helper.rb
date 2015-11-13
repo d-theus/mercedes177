@@ -5,7 +5,8 @@ module ApplicationHelper
     'about'    => 'about',
     'orders'   => 'orders',
     'sessions' => 'catalog',
-    'items'    => 'search'
+    'items'    => 'search',
+    'contact'  => 'about'
   }
 
   def title_tag
