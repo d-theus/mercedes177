@@ -43,7 +43,10 @@ CategoriesCtrl = ($scope, $resource, $location, $modal) ->
           if cat.id == cid
             cat.current = true
 
-    $scope.allItems = Item.query '', ->
+    allItemsQuery = Item.query ''
+
+    allItemsQuery.$promise.then (items)->
+      $scope.allItems = items
       if (iid = Number($location.search().item))
         for item in $scope.allItems
           if item.id == iid
