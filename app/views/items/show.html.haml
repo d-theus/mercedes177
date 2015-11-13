@@ -4,7 +4,10 @@
   .col-xs-5
     = render partial: 'items/photos'
   .col-xs-5.col-xs-offset-1
-    = render partial: 'items/dashboard'
+    - if admin?
+      = render partial: 'items/dashboard_admin'
+    - else
+      = render partial: 'items/dashboard_user'
 
 .row{'ng-if' => '!item'}
   = render partial: 'items/no_item'

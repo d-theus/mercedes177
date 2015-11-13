@@ -1,0 +1,38 @@
+.row
+  .col-xs-5{'ng-show' => '!editing.price'}
+    .row
+      .col-xs-12
+        %strong.lead {{ item.price }}
+        %span.fa.fa-rub
+    %br/
+    .row
+      .col-xs-12
+        %span.text-nowrap.label.label-success{'ng-if' => 'item.count > 0'}
+          %strong В наличии
+        %span.text-nowrap.label.label-danger{'ng-if' => 'item.count == 0'}
+          %strong Нет в наличии
+    %br/
+    %br/
+    %span
+  .col-xs-7{'ng-if' => 'item.count > 0'}
+    %a.btn.btn-primary.btn-block{'ng-click' => 'putToCartAndProceed()'}
+      %span.fa.fa-money.fa-fw
+      %strong Купить
+    %br/
+    %a.btn.btn-primary.btn-block{'ng-click' => 'putToCart()'}
+      %span.fa.fa-shopping-cart.fa-fw
+      %strong В корзину
+    %br/
+    %a.btn.btn-default.btn-block{href: '#'}
+      %span.fa.fa-question.fa-fw
+      Задать вопрос
+
+%br/
+%br/
+.row
+  .col-xs-12
+    {{ item.description }}
+
+  .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
+    %h6 Примечания:
+    {{ item.notice }}

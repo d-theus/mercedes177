@@ -11,10 +11,9 @@
           %strong В наличии
         %span.text-nowrap.label.label-danger{'ng-if' => 'item.count == 0'}
           %strong Нет в наличии
-  - if admin?
-    %span
-      %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
-        %span.fa.fa-edit
+  %span
+    %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
+      %span.fa.fa-edit
     .col-xs-8
       - item_field_for 'price' do
         .form-group.col-xs-8
@@ -36,21 +35,6 @@
               %span.fa.fa-rub
             %input.form-control{type: :number, min: '0', 'ng-model' => 'item.count'}
         - v_submit_tag
-
-  - unless admin?
-    .col-xs-7{'ng-if' => 'item.count > 0'}
-      %a.btn.btn-primary.btn-block{'ng-click' => 'putToCartAndProceed()'}
-        %span.fa.fa-money.fa-fw
-        %strong Купить
-      %br/
-      %a.btn.btn-primary.btn-block{'ng-click' => 'putToCart()'}
-        %span.fa.fa-shopping-cart.fa-fw
-        %strong В корзину
-      %br/
-      %a.btn.btn-default.btn-block{href: '#'}
-        %span.fa.fa-question.fa-fw
-        Задать вопрос
-
 %br/
 %br/
 .row
@@ -61,12 +45,11 @@
           %span.fa.fa-edit
     {{ item.description }}
 
-  - if admin?
-    .col-xs-12{'ng-show' => 'editing.description'}
-      - item_form_for 'description' do
-        .form-group
-          %textarea.form-control{ 'ng-model' => 'item.description'}
-        - v_submit_tag
+  .col-xs-12{'ng-show' => 'editing.description'}
+    - item_form_for 'description' do
+      .form-group
+        %textarea.form-control{ 'ng-model' => 'item.description'}
+      - v_submit_tag
 
   .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
     %h6 Примечания:
