@@ -28,6 +28,17 @@
                   %a{ href: '', 'ng-click' => 'filters.count = 0'}
                     %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === 0}"}
                     Архив
+                %li.divider
+                %li.text-muted.text-center
+                  Кузов
+                %li{ role: :menuitem}
+                  %a{ href: '', 'ng-click' => 'filters.body = null'}
+                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === null}"}
+                    Все
+                %li{ role: :menuitem, 'ng-repeat' => 'body in bodies'}
+                  %a{ href: '', 'ng-click' => 'filters.body = ""'}
+                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === ''}"}
+                    {{ body }}
           - if admin?
             %li
               %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}

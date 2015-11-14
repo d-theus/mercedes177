@@ -38,19 +38,42 @@
 %br/
 %br/
 .row
-  .col-xs-12{'ng-show' => '!editing.description'}
-    - if admin?
-      .col-xs-2.pull-right
-        %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("description")'}
+  .col-xs-12
+    .row
+      .col-xs-6
+        %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("body")', 'ng-show' => '!editing.body'}
           %span.fa.fa-edit
-    {{ item.description }}
+        %h4 Кузов
+        - item_field_for 'body' do
+          .form-group.col-xs-8
+            .input-group
+              %input.form-control{type: :text, 'ng-model' => 'item.body'}
+          - v_submit_tag
+        {{ item.body }}
+      .col-xs-6
+        %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("year")', 'ng-show' => '!editing.year'}
+          %span.fa.fa-edit
+        %h4 Год выпуска
+        - item_field_for 'year' do
+          .form-group.col-xs-8
+            .input-group
+              %input.form-control{type: :year, 'ng-model' => 'item.year'}
+          - v_submit_tag
+        {{ item.year }}
+    %br/
+    .row
+      .col-xs-12{'ng-show' => '!editing.description'}
+        .col-xs-2.pull-right
+          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("description")'}
+            %span.fa.fa-edit
+        {{ item.description }}
 
-  .col-xs-12{'ng-show' => 'editing.description'}
-    - item_form_for 'description' do
-      .form-group
-        %textarea.form-control{ 'ng-model' => 'item.description'}
-      - v_submit_tag
+      .col-xs-12{'ng-show' => 'editing.description'}
+        - item_form_for 'description' do
+          .form-group
+            %textarea.form-control{ 'ng-model' => 'item.description'}
+          - v_submit_tag
 
-  .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
-    %h6 Примечания:
-    {{ item.notice }}
+      .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
+        %h6 Примечания:
+        {{ item.notice }}

@@ -52,7 +52,17 @@ CategoriesCtrl = ($scope, $resource, $location, $modal) ->
           if item.id == iid
             $scope.setItem(item)
 
-    $scope.filters = { count: '!0' }
+    allItemsQuery.$promise.then (items)->
+      $scope.bodies =
+        items.reduce (ary,v)->
+          body = v['body']
+          ary.push(body) if body && ary.indexOf(body) < 0
+          ary
+        , []
+
+
+
+    $scope.filters = { count: '!0', body: null }
 
   $scope.init()
 
