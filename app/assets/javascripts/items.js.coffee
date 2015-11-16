@@ -95,12 +95,10 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
     window.location.reload()
 
   $scope.putToCart = ()->
-    console.log 'Putting to cart'
-    angular.element("#cart").scope().put($scope.item)
+    $scope.$emit 'cart:put', $scope.item
 
   $scope.putToCartAndProceed = ()->
-    $scope.putToCart()
-    window.location = '/orders/new'
+    $scope.$emit 'cart:put-and-checkout', $scope.item
 
   $scope.init = ->
     $rootScope.$on 'item:changed', $scope.setItem

@@ -1,6 +1,6 @@
 @cart = angular.module('cart', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
 
-CartCtrl = ($scope, $resource, $modal, $cookies, $location) ->
+CartCtrl = ($scope, $rootScope, $resource, $modal, $cookies, $location) ->
   class Position
     constructor: (item, @count) ->
       @id = item.id
@@ -73,9 +73,14 @@ CartCtrl = ($scope, $resource, $modal, $cookies, $location) ->
   $scope.init = ->
     $scope.$on 'positions:updated', $scope.updateCheckoutButton
     $scope.$on 'positions:updated', $scope.updateCookies
+    $rootScope.$on 'cart:put', (e,item, count)->
+      $scope.put(item, count)
+    $rootScope.$on 'cart:put-and-checkout', (e, item, count)->
+      $scope.put item, count
+      window.location = '/orders/new'
     $scope.getPositions()
 
   $scope.init()
 
 
-@cart.controller 'CartCtrl', ['$scope', '$resource', '$modal', '$cookies', '$location', CartCtrl]
+@cart.controller 'CartCtrl', ['$scope', '$rootScope', '$resource', '$modal', '$cookies', '$location', CartCtrl]
