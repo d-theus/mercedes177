@@ -1,6 +1,6 @@
 @catalog = angular.module('catalog', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'item', 'search', 'cart'])
 
-CategoriesCtrl = ($scope, $resource, $location, $modal) ->
+CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
   $scope.editing = false
 
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
@@ -9,9 +9,16 @@ CategoriesCtrl = ($scope, $resource, $location, $modal) ->
   $scope.updateLocation = (cat)->
     $location.search('cat', if cat.current then cat.id else null )
 
-  $scope.setItem = (item)->
-    $('#catalog_container').scope().setItem(item)
-    $location.search('item', item.id)
+  $scope.setCategory = ->
+    cid = Number($location.search().cat)
+    for cat in $scope.categories
+      cat.current = false
+      if cat.id == cid
+        cat.current = true
+
+  $scope.setItem = (id)->
+    $location.search('item', id)
+    $scope.$emit 'item:changed'
 
   $scope.openNewDialog = ->
     $scope.newCategory = new Category
@@ -37,20 +44,17 @@ CategoriesCtrl = ($scope, $resource, $location, $modal) ->
     cat.$remove()
 
   $scope.init = ->
-    $scope.categories = Category.query '', ->
-      if (cid = Number($location.search().cat))
-        for cat in $scope.categories
-          if cat.id == cid
-            cat.current = true
+    $rootScope.$on "category:changed", $scope.setCategory
+
+    categoriesQuery = Category.query ''
+    categoriesQuery.$promise.then (categories)->
+      $scope.categories = categories
+      $scope.setCategory()
 
     allItemsQuery = Item.query ''
 
     allItemsQuery.$promise.then (items)->
       $scope.allItems = items
-      if (iid = Number($location.search().item))
-        for item in $scope.allItems
-          if item.id == iid
-            $scope.setItem(item)
 
     allItemsQuery.$promise.then (items)->
       $scope.bodies =
@@ -60,11 +64,30 @@ CategoriesCtrl = ($scope, $resource, $location, $modal) ->
           ary
         , []
 
-
-
     $scope.filters = { count: '!0', body: null }
 
   $scope.init()
 
 
-@catalog.controller 'CategoriesCtrl', ['$scope', '$resource', '$location', '$modal', CategoriesCtrl]
+NavigationCtrl = ($scope, $rootScope, $location)->
+  $scope.history = []
+  $scope.init = ->
+    $rootScope.$on 'location:changed', (to)->
+      $scope.history.push($location.search(to))
+
+    $rootScope.$on 'location:back', ->
+      $location.search($scope.history.pop() || "")
+
+  $scope.clear = ->
+    $scope.history.splice(0, $scope.history.length)
+    $location.search('item', null)
+    $location.search('cat', null)
+    $scope.$emit 'category:changed'
+    $scope.$emit 'item:changed'
+
+  $scope.init()
+
+@catalog.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', CategoriesCtrl]
+@catalog.controller 'NavigationCtrl', ['$scope', '$rootScope', '$location', NavigationCtrl]
+
+

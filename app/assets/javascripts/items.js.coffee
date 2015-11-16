@@ -1,16 +1,17 @@
 @item = angular.module('item', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
-ItemCtrl = ($scope, $resource, $location, $modal) ->
+ItemCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
   ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'})
   $scope.editing = { }
 
-  $scope.setItem = (item)->
-    $scope.item = item
-    $scope.item.currentPhoto = preview: null
-    $scope.item.photos = ItemPhoto.query item_id: $scope.item.id, (photos)->
-      # success
-      #
-      $scope.item.currentPhoto = photos[0] if photos[0]
+  $scope.setItem = ->
+    $scope.item = null
+    return unless iid = Number($location.search().item)
+    Item.get id: iid, (response)->
+      $scope.item = response
+      $scope.item.currentPhoto = preview: null
+      $scope.item.photos = ItemPhoto.query item_id: $scope.item.id, (photos)->
+        $scope.item.currentPhoto = photos[0] if photos[0]
 
   $scope.toggleControl = (ct, val = null)->
     if typeof($scope.editing[ct]) != undefined
@@ -101,5 +102,11 @@ ItemCtrl = ($scope, $resource, $location, $modal) ->
     $scope.putToCart()
     window.location = '/orders/new'
 
-@item.controller 'ItemCtrl', ['$scope', '$resource', '$location', '$modal', ItemCtrl]
+  $scope.init = ->
+    $rootScope.$on 'item:changed', $scope.setItem
+    $scope.setItem()
+
+  $scope.init()
+
+@item.controller 'ItemCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', ItemCtrl]
 
