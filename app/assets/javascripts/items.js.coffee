@@ -19,6 +19,7 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
     .then (item)->
       return (ItemPhoto.query item_id: $scope.item.id).$promise
     .then (photos)->
+      $scope.item.photos = photos
       $scope.item.currentPhoto = photos[0] if photos[0]
       return $q.resolve(true)
     .then ->
