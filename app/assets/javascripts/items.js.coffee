@@ -1,23 +1,36 @@
 @item = angular.module('item', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
-ItemCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
+ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
   ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'})
   $scope.editing = { }
+  $scope.ready = false
 
   $scope.setItem = ->
-    $scope.item = null
-    return unless iid = Number($location.search().item)
-    Item.get id: iid, (response)->
+    $scope.ready = false
+    unless iid = Number($location.search().item)
+      $scope.item = null
+      $scope.ready = true
+      return
+    (Item.get id: iid).$promise
+    .then (response)->
       $scope.item = response
       $scope.item.currentPhoto = preview: null
-      $scope.item.photos = ItemPhoto.query item_id: $scope.item.id, (photos)->
-        $scope.item.currentPhoto = photos[0] if photos[0]
+      return $q.resolve($scope.item)
+    .then (item)->
+      return (ItemPhoto.query item_id: $scope.item.id).$promise
+    .then (photos)->
+      $scope.item.currentPhoto = photos[0] if photos[0]
+      return $q.resolve(true)
+    .then ->
+      $scope.ready = true
+      return $q.resolve($scope.ready)
 
   $scope.toggleControl = (ct, val = null)->
     if typeof($scope.editing[ct]) != undefined
       $scope.editing[ct] = val || !$scope.editing[ct]
     else
       $scope.editing[ct] = val || true
+      # FIXME
       console.log "switched control '#{ct}' to #{$scope.editing[ct]}"
 
   $scope.setPhoto = (photo)->
@@ -101,10 +114,11 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
     $scope.$emit 'cart:put-and-checkout', $scope.item
 
   $scope.init = ->
+    $scope.ready = false
     $rootScope.$on 'item:changed', $scope.setItem
     $scope.setItem()
 
   $scope.init()
 
-@item.controller 'ItemCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', ItemCtrl]
+@item.controller 'ItemCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', ItemCtrl]
 

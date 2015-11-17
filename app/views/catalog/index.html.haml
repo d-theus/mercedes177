@@ -51,8 +51,10 @@
               %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
                 %span.fa.fa-plus
 
-    %accordion#catalog_list_accordion
-      %span.fa.fa-gear.fa-spin{ 'ng-if' => '!categories.length' }
+    %center{'ng-if' => '!ready'}
+      %span.fa.fa-lg.fa-gear.fa-spin
+    %accordion#catalog_list_accordion{'ng-if' => 'ready'}
+      -#%span.fa.fa-gear.fa-spin{ 'ng-if' => '!categories.length' }
       %accordion-group{ 'ng-show' => 'categories.length',
         'ng-repeat' => 'cat in categories',
         'heading' => '{{cat.name}}',

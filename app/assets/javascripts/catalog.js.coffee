@@ -1,7 +1,8 @@
 @catalog = angular.module('catalog', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'item', 'search', 'cart'])
 
-CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
+CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
   $scope.editing = false
+  $scope.ready= false
 
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
   Item =     $resource('/items/:id',      {id: '@id'})
@@ -46,17 +47,17 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
   $scope.init = ->
     $rootScope.$on "category:changed", $scope.setCategory
 
-    categoriesQuery = Category.query ''
-    categoriesQuery.$promise.then (categories)->
+    categoriesQuery = (Category.query '').$promise
+    categoriesQuery.then (categories)->
       $scope.categories = categories
       $scope.setCategory()
 
-    allItemsQuery = Item.query ''
+    itemsQuery = (Item.query '').$promise
 
-    allItemsQuery.$promise.then (items)->
+    itemsQuery.then (items)->
       $scope.allItems = items
 
-    allItemsQuery.$promise.then (items)->
+    itemsQuery.then (items)->
       $scope.bodies =
         items.reduce (ary,v)->
           body = v['body']
@@ -65,6 +66,9 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal) ->
         , []
 
     $scope.filters = { count: '!0', body: null }
+    $q.all([categoriesQuery, itemsQuery])
+      .then ->
+        $scope.ready = true
 
   $scope.init()
 
@@ -87,7 +91,7 @@ NavigationCtrl = ($scope, $rootScope, $location)->
 
   $scope.init()
 
-@catalog.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', CategoriesCtrl]
+@catalog.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', CategoriesCtrl]
 @catalog.controller 'NavigationCtrl', ['$scope', '$rootScope', '$location', NavigationCtrl]
 
 
