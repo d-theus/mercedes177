@@ -16,16 +16,22 @@
             .input-group
               %input.form-control{type: :text, 'ng-model' => 'item.name'}
           - v_submit_tag
-  .row
-    .col-xs-11
-      %h2{title: 'Серийный номер'}
-        %span{ 'ng-show' => '!editing.serial'}
-          SN: {{ item.serial }}
-          - if admin?
+  - if admin?
+    .row
+      .col-xs-11
+        %h2{title: 'Серийный номер'}
+          %span{ 'ng-show' => '!editing.serial'}
+            SN: {{ item.serial }}
             %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("serial")'}
               %span.fa.fa-edit
-        - item_field_for 'serial' do
-          .form-group.col-xs-8
-            .input-group
-              %input.form-control{type: :text, 'ng-model' => 'item.serial'}
-          - v_submit_tag
+          - item_field_for 'serial' do
+            .form-group.col-xs-8
+              .input-group
+                %input.form-control{type: :text, 'ng-model' => 'item.serial'}
+            - v_submit_tag
+  - else
+    .row{'ng-if' => 'item.serial'}
+      .col-xs-11
+        %h2{title: 'Серийный номер'}
+          %span{ 'ng-show' => '!editing.serial'}
+            SN: {{ item.serial }}
