@@ -29,10 +29,16 @@
 
 %br/
 %br/
+.row{'ng-if' => 'item.body'}
+  .col-xs-12
+    .lead.strong
+      Кузов: {{item.body}}
+
 .row
   .col-xs-12
     {{ item.description }}
 
-  .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
+.row{'ng-if' => 'item.notice'}
+  .col-xs-12.alert.alert-warning
     %h6 Примечания:
     {{ item.notice }}
