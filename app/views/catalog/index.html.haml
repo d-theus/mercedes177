@@ -2,7 +2,11 @@
   .col-xs-3.col-xs-offset-1{'ng-controller' => 'NavigationCtrl'}
     %br/
     %button.btn.btn-primary{type: :button, 'ng-click' => 'clear()'}
-      %span.fa.fa-fw.fa-lg.fa-arrow-left
+      %span.fa.fa-fw.fa-lg.fa-home
+      %br/
+      %span.small.text-primary Начало
+    %button.btn.btn-primary{type: :button, 'ng-click' => 'back()', 'ng-enabled' => 'history.length'}
+      %span.fa.fa-fw.fa-lg.fa-arrow-left{'ng-class' => '{"text-muted": history.length == 0}'}
       %br/
       %span.small.text-primary Назад
       
@@ -67,6 +71,7 @@
             'ng-if' => 'cat.item_count == 0' }
             %span.fa.fa-trash-o
         .list-group{ name: 'categories'}
+          - # FIXME:
           %a.list-group-item.clearfix{'href' => '',
             'ng-click' => 'setItem(item.id)',
             'ng-repeat' => 'item in allItems | filter: filters',

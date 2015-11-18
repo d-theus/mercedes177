@@ -116,7 +116,7 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
 
   $scope.init = ->
     $scope.ready = false
-    $rootScope.$on 'item:changed', $scope.setItem
+    $rootScope.$on 'item:tochange', $scope.setItem
     $scope.setItem()
 
   $scope.init()
