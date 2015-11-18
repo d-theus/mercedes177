@@ -271,6 +271,15 @@ ru:
         notice: Примечание
         address: Адрес
         delivery_method: Способ доставки
+      item:
+        body: Кузов
+        category: Категория
+        count: Количество
+        description: Описание
+        name: Название
+        notice: Примечания
+        price: Цена
+        serial: Серийный номер
   order_status:
     new: Новый
     processing: Собирается
