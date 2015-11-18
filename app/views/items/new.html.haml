@@ -13,7 +13,7 @@
         = simple_form_for @item, html: { class: 'form-horizontal'}, url: '/items.html' do |f|
           = f.input :name
           = f.input :serial
-          = f.input :body
+          = f.input :body, input_html: {'ng-model' => 'body', typeahead: "body for body in #{@bodies} | filter:$viewValue"}
           = f.input :price
           = f.input :count, input_html: { value: 1}
           = f.input :description

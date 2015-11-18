@@ -36,6 +36,7 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new(category_id: params[:category_id])
+    @bodies = Item.select('body').uniq.map(&:body).to_json
     respond_to do |f|
       f.html
     end
