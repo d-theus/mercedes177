@@ -8,16 +8,16 @@ SearchCtrl = ($scope, $resource, $q, $filter, $modal, $location) ->
       query = (Item.query '').$promise
       query
         .then (result)->
-          $scope.fullItems = result
+          $scope.items = result.map (e)->
+            e.line = "#{e.name} [#{e.serial}]"
+            e
           $q.resolve result
-        .then (fullItems)->
-          $scope.items = fullItems.map (e)->
-            id: e.id
-            name: e.name
-            serial: e.serial
-            line: "#{e.name} [#{e.serial}]"
 
   $scope.showResults = ->
+    if !$scope.query || $scope.query == ''
+      alert 'Пустой запрос'
+      return
+    
     $scope.results = $filter('filter')($scope.items, {line: $scope.query})
 
     $scope.modal = $modal.open(
