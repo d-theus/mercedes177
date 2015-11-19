@@ -27,7 +27,7 @@ SearchCtrl = ($scope, $resource, $q, $filter, $modal, $location) ->
 
   $scope.viewItem = (id)->
     $location.search('item', id)
-    $scope.$emit 'item:changed'
+    $scope.$emit 'item:tochange'
     $scope.modal.close() if $scope.modal
 
 

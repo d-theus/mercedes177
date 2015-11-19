@@ -9,6 +9,7 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
 
   $scope.updateLocation = (cat)->
     $location.search('cat', if cat.current then cat.id else null )
+    $scope.$emit 'category:changed'
 
   $scope.setCategory = ->
     cid = Number($location.search().cat)
@@ -18,8 +19,9 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
         cat.current = true
 
   $scope.setItem = (id)->
+    oldId = $location.search().item
     $location.search('item', id)
-    $scope.$emit 'item:changed'
+    $scope.$emit 'item:tochange', oldId, id
 
   $scope.openNewDialog = ->
     $scope.newCategory = new Category
@@ -45,7 +47,7 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
     cat.$remove()
 
   $scope.init = ->
-    $rootScope.$on "category:changed", $scope.setCategory
+    $rootScope.$on "category:tochange", $scope.setCategory
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->
@@ -73,21 +75,37 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
   $scope.init()
 
 
-NavigationCtrl = ($scope, $rootScope, $location)->
+NavigationCtrl = ($scope, $rootScope, $location, $route)->
   $scope.history = []
   $scope.init = ->
-    $rootScope.$on 'location:changed', (to)->
-      $scope.history.push($location.search(to))
-
-    $rootScope.$on 'location:back', ->
-      $location.search($scope.history.pop() || "")
+    $rootScope.$on 'item:tochange', $scope._writeHistory
 
   $scope.clear = ->
-    $scope.history.splice(0, $scope.history.length)
-    $location.search('item', null)
-    $location.search('cat', null)
-    $scope.$emit 'category:changed'
-    $scope.$emit 'item:changed'
+    $scope._withLockedHistory ->
+      $scope.history.splice(0, $scope.history.length)
+      $location.search('item', null)
+      $location.search('cat', null)
+      $scope.$emit 'category:tochange'
+      $scope.$emit 'item:tochange'
+
+  $scope.back = ->
+    $scope._withLockedHistory ->
+      id = $scope.history.pop()
+      if id
+        $location.search('item', id)
+        $scope.$emit 'item:tochange'
+
+  $scope._writeHistory = (e, oldId, newId)->
+    $scope._withLockedHistory ->
+      id = oldId || $location.search().item || null
+      if id && (Number($scope.history[$scope.history.length - 1]) != Number(id))
+        $scope.history.push id
+
+  $scope._withLockedHistory = (fn)->
+    return if $scope.historyLocked
+    $scope.historyLocked = true
+    fn.call()
+    $scope.historyLocked = false
 
   $scope.init()
 
