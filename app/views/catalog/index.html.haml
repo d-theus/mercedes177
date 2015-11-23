@@ -43,12 +43,12 @@
                 %li.text-muted.text-center
                   Кузов
                 %li{ role: :menuitem}
-                  %a{ href: '', 'ng-click' => 'filters.body = null'}
-                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === null}"}
+                  %a{ href: '', 'ng-click' => 'filters.body = undefined'}
+                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body == undefined}"}
                     Все
                 %li{ role: :menuitem, 'ng-repeat' => 'body in bodies'}
-                  %a{ href: '', 'ng-click' => 'filters.body = ""'}
-                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === ''}"}
+                  %a{ href: '', 'ng-click' => 'filters.body = body'}
+                    %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === body}"}
                     {{ body }}
           - if admin?
             %li
