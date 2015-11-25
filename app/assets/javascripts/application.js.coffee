@@ -19,6 +19,7 @@
 #= require angular-cookies
 #= require angular-ui-bootstrap
 #= require angular-ui-bootstrap-tpls
+#= require angular-filter.min
 #= require catalog
 #= require cart
 #= require items

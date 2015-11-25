@@ -1,4 +1,4 @@
-@search = angular.module('search', ['ngResource', 'ngAnimate', 'ui.bootstrap'])
+@search = angular.module('search', ['ngResource', 'ngAnimate', 'ui.bootstrap', 'angular.filter'])
 
 SearchCtrl = ($scope, $resource, $q, $filter, $modal, $location) ->
   Item = $resource('/items/:id')
