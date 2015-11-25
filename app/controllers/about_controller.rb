@@ -10,4 +10,7 @@ class AboutController < ApplicationController
 
   def policy
   end
+
+  def offer
+  end
 end

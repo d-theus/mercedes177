@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   get 'about/info'
   get 'about/contacts'
   get 'about/policy'
+  get 'about/offer'
 end
