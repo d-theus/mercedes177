@@ -1,8 +1,8 @@
 .row.page-heading
-  .col-xs-10.col-xs-offset-1
+  .col-xs-12.col-md-10.col-md-offset-1
     %h1 Оформление заказа
 
-.well.col-xs-10.col-xs-offset-1{'ng-controller' => 'OrdersCtrl'}
+.well.col-xs-12.col-md-10.col-md-offset-1{'ng-controller' => 'OrdersCtrl'}
   .row{ 'ng-if' => 'positions.length == 0'}
     .col-xs-8.col-xs-offset-2.text-center
       %strong.lead.text-danger
