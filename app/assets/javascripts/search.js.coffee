@@ -18,7 +18,7 @@ SearchCtrl = ($scope, $resource, $q, $filter, $modal, $location) ->
       alert 'Пустой запрос'
       return
     
-    $scope.results = $filter('filter')($scope.items, {line: $scope.query})
+    $scope.results = $filter('fuzzy')($scope.items, $scope.query)
 
     $scope.modal = $modal.open(
       scope: $scope,
@@ -26,7 +26,7 @@ SearchCtrl = ($scope, $resource, $q, $filter, $modal, $location) ->
       templateUrl: '/templates/shared/search_results')
 
   $scope.viewItem = (id)->
-    $location.search('item', id)
+    window.location = "/catalog#?item=#{id}"
     $scope.$emit 'item:tochange'
     $scope.modal.close() if $scope.modal
 
