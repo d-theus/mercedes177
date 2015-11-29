@@ -1,12 +1,12 @@
 .row
-  .col-xs-5{'ng-show' => '!editing.price'}
+  .col-xs-12.col-sm-5{'ng-show' => '!editing.price'}
     .row
-      .col-xs-12
+      .col-xs-12.text-center
         %strong.lead {{ item.price }}
         %span.fa.fa-rub
     %br/
     .row
-      .col-xs-12
+      .col-xs-12.text-center
         %span.text-nowrap.label.label-success{'ng-if' => 'item.count > 0'}
           %strong В наличии
         %span.text-nowrap.label.label-danger{'ng-if' => 'item.count == 0'}
@@ -14,7 +14,7 @@
     %br/
     %br/
     %span
-  .col-xs-7{'ng-if' => 'item.count > 0'}
+  .col-xs-12.col-sm-7{'ng-if' => 'item.count > 0'}
     %a.btn.btn-primary.btn-block{'ng-click' => 'putToCartAndProceed()'}
       %span.fa.fa-money.fa-fw
       %strong Купить
@@ -29,8 +29,8 @@
 
 %br/
 %br/
-.row.panel
-  .col-xs-12
+.row
+  %center.col-xs-12.panel
     .row
       .col-xs-12.text-center
         %h3 Описание

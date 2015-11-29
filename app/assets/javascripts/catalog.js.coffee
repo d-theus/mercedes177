@@ -1,6 +1,6 @@
 @catalog = angular.module('catalog', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'item', 'search', 'cart'])
 
-CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
+CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window) ->
   $scope.editing = false
   $scope.ready= false
 
@@ -46,8 +46,13 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
     $scope.categories.splice($scope.categories.indexOf(cat), 1)
     cat.$remove()
 
+  $scope.toggleMaximized = ->
+    $scope.maximized = !$scope.maximized
+    $window.scrollTo(0,180)
+
   $scope.init = ->
     $rootScope.$on "category:tochange", $scope.setCategory
+    $rootScope.$on "item:tochange", $scope.toggleMaximized
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->
@@ -109,7 +114,7 @@ NavigationCtrl = ($scope, $rootScope, $location, $route)->
 
   $scope.init()
 
-@catalog.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', CategoriesCtrl]
+@catalog.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', '$window', CategoriesCtrl]
 @catalog.controller 'NavigationCtrl', ['$scope', '$rootScope', '$location', NavigationCtrl]
 
 

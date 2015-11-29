@@ -296,20 +296,26 @@ body{
 
 #catalog_list{
   @media only screen and (max-width: @screen-sm){
-    position: absolute;
+    position: fixed;
     z-index: 10;
-    width: 90%;
+    width: 96%;
     right: 100%;
+    top: 250px;
     margin-right: -3em;
+    background: none;
+    box-shadow: none;
+    border: transparent;
     &.in{
-      left: 5%;
+      .well;
+      left: 2%;
+      position: absolute;
+      top: 80px;
     }
 
     .dropdown-menu{
       background: white;
       margin-top: 3em;
     }
-    transition: left 0.5s;
   }
 }
 //.loupe{

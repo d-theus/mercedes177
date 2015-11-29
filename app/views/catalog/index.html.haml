@@ -55,7 +55,7 @@
               %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
                 %span.fa.fa-plus
           %li.pull-right.visible-xs-inline-block
-            %button.btn.btn-default{type: :button, 'ng-click' => 'maximized = !maximized'}
+            %button.btn.btn-default{type: :button, 'ng-click' => 'toggleMaximized()'}
               %span.fa.fa-chevron-left{ 'ng-if' => 'maximized'}
               %span.fa.fa-chevron-right{ 'ng-if' => '!maximized'}
 
@@ -83,7 +83,7 @@
             = raw '{{ item.name }}'
             %span.pull-right
               = raw '{{item.serial}}'
-  .col-sm-9.col-sm-offset-0.col-xs-10.col-xs-offset-1.container
+  .col-sm-9.col-sm-offset-0.col-xs-12.col-xs-offset-0.container
     .col-xs-12.well#catalog_container{'ng-controller' => 'ItemCtrl'}
       =render template: 'items/show', layout: false
 
