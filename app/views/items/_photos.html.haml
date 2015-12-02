@@ -5,9 +5,12 @@
       - if admin?
         %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
           %span.fa.fa-edit
+        %button.btn.btn-danger{ type: :button, 'ng-click' => 'deletePhoto()', 'ng-show' => '!editing.photos && item.currentPhoto.preview'}
+          %span.fa.fa-times
 
       %button.btn.btn-primary{ type: :button, 'ng-click' => 'openPhotoPreview()', 'ng-if' => 'item.photos.length'}
         %span.fa.fa-arrows-alt
+
 .row{ 'ng-if' => 'item.photos.length'}
   .col-xs-12
     %br/

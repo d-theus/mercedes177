@@ -90,6 +90,10 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
     $scope.editing.photos = false
     $scope.setItem($scope.item)
 
+  $scope.deletePhoto = ->
+    ItemPhoto.delete(id: $scope.item.currentPhoto.id, item_id: $scope.item.id)
+    $scope.$emit 'item:tochange'
+
   $scope.openPhotoPreview = ()->
     modal = $modal.open(
       scope: $scope

@@ -8,12 +8,12 @@ class PhotosController < ApplicationController
     render nothing: true
   end
 
-  def destoy
+  def destroy
     respond_with Photo.delete(params[:id])
   end
 
   def index
-    respond_with Item.find(params[:item_id]).photos.map { |p| {full: p.image_url, preview: p.image_url(:preview), thumb: p.image_url(:thumb)}}
+    respond_with Item.find(params[:item_id]).photos.map { |p| {full: p.image_url, preview: p.image_url(:preview), thumb: p.image_url(:thumb), id: p.id}}
   end
 
   private
