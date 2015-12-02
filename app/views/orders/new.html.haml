@@ -56,17 +56,41 @@
             %tab-heading
               %span.btn.btn-primary
                 %strong= dm
-            = simple_form_for(@order, html: { class: 'form-horizontal'}) do |f|
-              = f.input :delivery_method, as: :hidden, input_html: { value: dm }
-              = f.input :first_name
-              = f.input :last_name
-              - if dm == "Почта" || dm == "ТК"
-                = f.input :middle_name, required: true
-              = f.input :phone, placeholder: '84991112233'
-              = f.input :email, placeholder: 'somemail@example.com'
-              - unless dm == "Самовывоз"
-                = f.input :address, placeholder: 'При доставке почтой обязательно укажите город и индекс.', required: true
-              = f.input :notice, placeholder: 'Ваши комментарии к заказу, например название транспортной компании или когда Вам удобно подъехать за деталью.'
-              %center.col-xs-12
-                = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg), 'ng-disabled' => 'isEmpty()'
+            %br/
+            .row
+              .col-xs-10.col-xs-offset-1.small
+                - if dm == "Самовывоз"
+                  %p
+                    %strong Адрес склада:
+                    г. Москва, ул. Осташковская, 14.
+                  %p.text-muted
+                    Офис и склад находятся на охраняемой территории.
+                    О&nbsp;посещении заранее договаривайтесь по&nbsp;телефону.
+                    Подробнее в разделе
+                    = succeed '.' do
+                      %a{ href: about_info_path } &laquo;Инфо&raquo;
+                - else
+                  %p
+                    Заказ отправляется
+                    %strong после полной предоплаты.
+                    Услуги транспортной компании оплачиваются заказчиком в
+                    полном объеме. Подробнее в разделе
+                    = succeed '.' do
+                      %a{ href: about_contacts_path } &laquo;Контакты&raquo;
+            %br/
+            .row
+              .col-xs-12
+              = simple_form_for(@order, html: { class: 'form-horizontal'}) do |f|
+                = f.input :delivery_method, as: :hidden, input_html: { value: dm }
+                = f.input :first_name
+                = f.input :last_name
+                - if dm == "Доставка"
+                  = f.input :middle_name, required: true
+                = f.input :phone, placeholder: '84991112233'
+                = f.input :email, placeholder: 'somemail@example.com'
+                - unless dm == "Самовывоз"
+                  = f.input :address, placeholder: 'При доставке за пределы Москвы укажите город.', required: true
+                = f.input :notice, placeholder: 'Ваши комментарии к заказу, например название транспортной компании или когда Вам удобно подъехать за деталью.'
+                %center.col-xs-12
+                  = f.submit 'Оставить заказ', class: %i(btn btn-primary btn-lg), 'ng-disabled' => 'isEmpty()'
 
