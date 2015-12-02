@@ -3,8 +3,8 @@
     %h1.text-center О нас
 
 .row
-  .col-xs-12.col-xs-offset-0.col-md-10.col-md-offset-1
-    .col-xs-12.col-sm-6
+  .col-xs-12.col-md-6
+    .row
       %section.col-xs-10.col-xs-offset-1.material-sm
         .material-heading
           %h2
@@ -16,43 +16,43 @@
           Из Европы
         %p.lead
           Тёплый и сухой склад в Москве
-      
-    .col-xs-12.col-sm-6
-      %section.col-xs-10.col-xs-offset-1.material-sm
-        .material-heading
-          %h2
-            %span.fa.fa-lg.fa-fw.fa-money
-            Оплата
-        %p
-          Возможны следующие варианты оплаты:
-          %ul
-            %li Наличными при самовывозе.
-            %li Безналичный рассчет при заказе почтой или транспортной кампанией.
-            %li
-              %small.text-muted Скоро будет доступен безналичный рассчет для заказов с самовывозом и курьером.
-
-.row
-  .col-xs-12.col-xs-offset-0.col-md-10.col-md-offset-1
-    .col-xs-12.col-sm-6
+    .row.hidden-xs.hidden-sm
+      %br/
+      %br/
+      %br/
+    .row
       %section.col-xs-10.col-xs-offset-1.material-sm
         .material-heading
           %h2
             %span.fa.fa-lg.fa-fw.fa-thumbs-up
             Гарантии
-
-    .col-xs-12.col-sm-6
-      %section.col-xs-10.col-xs-offset-1.material-sm
+      
+  .col-xs-12.col-md-6
+    .row
+      %section.col-xs-10.col-xs-offset-1.material-lg
         .material-heading
           %h2
-            %span.fa.fa-lg.fa-fw.fa-truck
-            Доставка
-        %h4 Транспортной компанией
-        %h4 Почтой
-        %h4 Самовывоз
-        %a.text-info{href: about_contacts_path}
-          Посмотреть адрес
+            %span.fa.fa-lg.fa-fw.fa-money
+            Оплата и получение
+        %h3 Самовывоз
+        %p
+          Склад находится по адресу: г. Москва, ул. Осташковская, 14.
+          Вход на территорию охраняется&nbsp;―&nbsp;заранее
+          договаривайтесь о посещении. Также см. 
+          = succeed '.' do
+            %a{href: about_contacts_path} контакты
+        %h3 Доставка
+        %h4 По Москве
+        %p Платная. В пределах МКАД.
 
-        Детали и подробности уточняются с менеджером по телефону.
+        %h4 По России
+        %p
+          Заказ отправляется после
+          = succeed '.' do
+            %strong полной&nbsp;предоплаты
+          Доставка осуществляется транспортной компанией(ТК) Вашего
+          выбора. Доставка по Москве до офиса ТК платная. Услуги ТК
+          оплачиваются заказчиком.
 
 - content_for(:title) do
   = raw 'О нас'
