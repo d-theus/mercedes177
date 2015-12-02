@@ -1,40 +1,45 @@
 .row
-  .col-xs-5{'ng-show' => '!editing.price'}
-    .row
-      .col-xs-12
+  .col-xs-12
+    .row{'ng-show' => '!editing.price'}
+      .col-xs-3
+        Цена: 
+      .col-xs-7
         %strong.lead {{ item.price }}
         %span.fa.fa-rub
-    %br/
-    .row
+      .col-xs-2
+        %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
+          %span.fa.fa-edit
+    .row{'ng-show' => 'editing.price'}
       .col-xs-12
-        %span.text-nowrap.label.label-success{'ng-if' => 'item.count > 0'}
-          %strong В наличии
-        %span.text-nowrap.label.label-danger{'ng-if' => 'item.count == 0'}
-          %strong Нет в наличии
-  %span
-    %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("price")', 'ng-show' => '!editing.price'}
-      %span.fa.fa-edit
-    .col-xs-8
-      - item_field_for 'price' do
-        .form-group.col-xs-8
-          .input-group
-            .input-group-addon
-              %span.fa.fa-rub
-            %input.form-control{type: :number, 'ng-model' => 'item.price'}
-        - v_submit_tag
+        - item_field_for 'price' do
+          .form-group.col-xs-8
+            .input-group
+              .input-group-addon
+                %span.fa.fa-rub
+              %input.form-control{type: :number, 'ng-model' => 'item.price'}
+          - v_submit_tag
+
     %br/
-    %br/
-    %span
-      %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("count")', 'ng-show' => '!editing.count'}
-        %span.fa.fa-edit
-    .col-xs-8
-      - item_field_for 'count' do
-        .form-group.col-xs-8
-          .input-group
-            .input-group-addon
-              %span.fa.fa-rub
-            %input.form-control{type: :number, min: '0', 'ng-model' => 'item.count'}
-        - v_submit_tag
+
+    .row{'ng-show' => '!editing.count'}
+      .col-xs-5
+        На складе:
+      .col-xs-5
+        %span
+          {{ item.count }}
+        %span шт.
+      .col-xs-2
+        %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("count")', 'ng-show' => '!editing.count'}
+          %span.fa.fa-edit
+    .row{'ng-show' => 'editing.count'}
+      .col-xs-12
+        - item_field_for 'count' do
+          .form-group.col-xs-8
+            .input-group
+              .input-group-addon
+                шт.
+              %input.form-control{type: :number, min: '0', 'ng-model' => 'item.count'}
+          - v_submit_tag
 %br/
 %br/
 .row

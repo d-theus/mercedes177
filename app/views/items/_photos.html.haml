@@ -13,7 +13,8 @@
     %br/
     %br
     %a{'ng-click' => 'setPhoto(photo)', 'ng-repeat' => 'photo in item.photos'}
-      %img{'ng-src' => '{{photo.thumb}}', width: '50px'}
+      .col-xs-4
+        %img.img-responsive{'ng-src' => '{{photo.thumb}}'}
 - if admin?
   .row
     %br/
