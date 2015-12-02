@@ -112,6 +112,13 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
     window.location = '#' + $location.url()
     window.location.reload()
 
+  $scope.archive = ->
+    Item.update({
+      id: $scope.item.id
+      count: 0
+    })
+    $scope.$emit 'item:tochange'
+
   $scope.putToCart = ()->
     $scope.$emit 'cart:put', $scope.item
 

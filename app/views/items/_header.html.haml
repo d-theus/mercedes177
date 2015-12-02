@@ -1,7 +1,9 @@
 - if admin?
-  .col-xs-1.pull-right
+  .col-xs-4.pull-right.text-right
+    %button.btn.btn-danger.btn-lg{ type: :button, 'ng-click' => 'archive()'}
+      %span.fa.fa-folder.fa-fw
     %button.btn.btn-danger.btn-lg{ type: :button, 'ng-click' => 'delete()'}
-      %span.fa.fa-trash-o
+      %span.fa.fa-trash-o.fa-fw
 .col-xs-12.col-sm-offset-1.col-sm-offset-1
   .row
     .col-xs-12.col-sm-11
