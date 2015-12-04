@@ -48,11 +48,12 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
 
   $scope.toggleMaximized = ->
     $scope.maximized = !$scope.maximized
-    $window.scrollTo(0,180)
+    $window.scrollTo(0,130)
 
   $scope.init = ->
     $rootScope.$on "category:tochange", $scope.setCategory
     $rootScope.$on "item:tochange", $scope.toggleMaximized
+    $rootScope.$on "catalog:maximize", $scope.toggleMaximized
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->
@@ -80,7 +81,7 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
   $scope.init()
 
 
-NavigationCtrl = ($scope, $rootScope, $location, $route)->
+CatalogCtrl = ($scope, $rootScope, $location, $route)->
   $scope.history = []
   $scope.init = ->
     $rootScope.$on 'item:tochange', $scope._writeHistory
@@ -112,9 +113,12 @@ NavigationCtrl = ($scope, $rootScope, $location, $route)->
     fn.call()
     $scope.historyLocked = false
 
+  $scope.maximize = ->
+    $scope.$emit 'catalog:maximize'
+
   $scope.init()
 
 @catalog.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', '$window', CategoriesCtrl]
-@catalog.controller 'NavigationCtrl', ['$scope', '$rootScope', '$location', NavigationCtrl]
+@catalog.controller 'CatalogCtrl', ['$scope', '$rootScope', '$location', CatalogCtrl]
 
 

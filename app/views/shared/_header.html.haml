@@ -24,7 +24,7 @@
     %ul.nav.navbar-nav
       %li
         - if controller_name == 'catalog' and action_name == 'index'
-          %a{ href: '', title: 'Каталог', 'ng-controller' => 'NavigationCtrl', 'ng-click' => 'clear()'}
+          %a{ href: '', title: 'Каталог', 'ng-controller' => 'CatalogCtrl', 'ng-click' => 'clear()'}
             Каталог
         - else
           %a{ href: '/catalog', title: 'Каталог'} Каталог
