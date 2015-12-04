@@ -16,8 +16,9 @@
 .row
   .col-sm-3.well#catalog_list{'ng-controller' => 'CategoriesCtrl', 'ng-init' => 'maximized = false', 'ng-cloak' => true, 'ng-class' => '{in: maximized}'}
     .row
-      .col-xs-12.navbar
-        %strong.navbar-brand Категории
+      .col-xs-12.text-center
+        %h3 Категории
+      .col-xs-10.col-xs-offset-1.navbar
         %ul.nav.navbar-nav.nav-pills
           %li
             .btn-group{ 'is-open' => false, 'dropdown' => true}
