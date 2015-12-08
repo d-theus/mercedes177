@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
   respond_to :json
 
   def create
-    Item.find(params[:item_id]).photos.create(image: params[:data])
+    Item.find(params[:item_id]).photos.create!(image: params[:data])
     render nothing: true
   end
 
