@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_filter :admin?, except: [:index]
+  before_filter :authenticate_admin!, except: [:show, :index]
 
   respond_to :json
 
