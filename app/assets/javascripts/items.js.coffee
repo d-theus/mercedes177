@@ -84,7 +84,7 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
   $scope.savePhotos = ()->
     for file in $scope.files
       photo = new ItemPhoto
-      photo.image = file.data
+      photo.data = file.data
       photo.$save(item_id: $scope.item.id)
     $scope.files.splice(0)
     $scope.editing.photos = false
