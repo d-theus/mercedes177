@@ -46,14 +46,23 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
     $scope.categories.splice($scope.categories.indexOf(cat), 1)
     cat.$remove()
 
-  $scope.toggleMaximized = ->
-    $scope.maximized = !$scope.maximized
+  $scope.toggleMaximized = (value = null)->
+    if value != null
+      $scope.maximized = value
+    else
+      $scope.maximized = !$scope.maximized
     $window.scrollTo(0,130)
+
+  $scope.maximize = ->
+    $scope.toggleMaximized(true)
+
+  $scope.minimize = ->
+    $scope.toggleMaximized(false)
 
   $scope.init = ->
     $rootScope.$on "category:tochange", $scope.setCategory
-    $rootScope.$on "item:tochange", $scope.toggleMaximized
-    $rootScope.$on "catalog:maximize", $scope.toggleMaximized
+    $rootScope.$on "item:tochange", $scope.minimize
+    $rootScope.$on "catalog:maximize", $scope.maximize
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->
