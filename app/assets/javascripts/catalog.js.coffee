@@ -73,7 +73,7 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
           ary
         , []
 
-    $scope.filters = { count: '!0', body: null }
+    $scope.filters = { count: '!0', body: undefined }
     $q.all([categoriesQuery, itemsQuery])
       .then ->
         $scope.ready = true
