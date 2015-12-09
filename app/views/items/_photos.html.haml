@@ -15,9 +15,10 @@
   .col-xs-12
     %br/
     %br
-    %a{'ng-click' => 'setPhoto(photo)', 'ng-repeat' => 'photo in item.photos'}
-      .col-xs-4
-        %img.img-responsive{'ng-src' => '{{photo.thumb}}'}
+    .row{'ng-repeat' => 'row in item.photos | chunkBy: 3'}
+      .col-xs-4{'ng-repeat' => 'photo in row'}
+        %a.thumbnail{'href' => '', 'ng-click' => 'setPhoto(photo)'}
+          %img.img-responsive{'ng-src' => '{{photo.thumb}}'}
 - if admin?
   .row
     %br/
