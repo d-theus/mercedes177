@@ -275,9 +275,9 @@ body{
 }
 
 @material-height-xs:   320px;
-@material-height-sm:   420px;
+@material-height-sm:   408px;
 @material-height-md:   720px;
-@material-height-lg:   960px;
+@material-height-lg:   888px;
 
 .material-heights(@height-base){
   @media only screen and (min-width: @screen-xs){
@@ -347,6 +347,16 @@ body{
   word-wrap: normal;
   background: transparent;
   text-align: left;
+}
+
+.contact-line{
+  .text-nowrap;
+  font-weight: bold;
+  font-size: floor((@font-size-base * 1.35));
+}
+.contact-line-bl{
+  font-weight: bold;
+  font-size: floor((@font-size-base * 1.35));
 }
 //.loupe{
   //z-index: 999;
