@@ -2,8 +2,9 @@
   .col-xs-12.col-sm-5{'ng-show' => '!editing.price'}
     .row
       .col-xs-12.text-center
-        %strong.lead {{ item.price }}
-        %span.fa.fa-rub
+        %strong.lead.text-nowrap
+          {{ item.price }}
+          %span.fa.fa-rub
     %br/
     .row
       .col-xs-12.text-center
@@ -41,7 +42,8 @@
     %br/
     .row
       .col-xs-12
-        {{ item.description }}
+        .description
+          {{ item.description }}
     %br/
     .row{'ng-if' => 'item.notice'}
       .col-xs-12.text-warning

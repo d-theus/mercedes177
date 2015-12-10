@@ -61,7 +61,8 @@
         .col-xs-2.pull-right
           %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("description")'}
             %span.fa.fa-edit
-        {{ item.description }}
+        .description
+          {{ item.description }}
 
       .col-xs-12{'ng-show' => 'editing.description'}
         - item_form_for 'description' do
