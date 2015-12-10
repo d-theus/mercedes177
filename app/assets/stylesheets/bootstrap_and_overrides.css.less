@@ -129,16 +129,41 @@ body{
 #header{
   background: mix(black, transparent, 80%);
   font-size: 1.2em;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  //padding-top: 1em;
+  padding-bottom: .3em;
   width: 100%;
 
   .brand{
-    font-size: 2em;
     font-family: @font-family-serif;
-    line-height: 0;
+    .logo{
+      @media only screen and (min-width: 96px){
+        width: 96px;
+      }
+      @media only screen and (min-width: @screen-xs){
+        width: 128px;
+      }
+      @media only screen and (min-width: @screen-sm){
+        width: 128px;
+      }
+      @media only screen and (min-width: @screen-md){
+        width: 144px;
+      }
+      @media only screen and (min-width: @screen-lg){
+        width: 108px;
+      }
+    }
+    .brandline{
+      @media only screen and (max-width: 479px){
+        font-size: 1.5em;
+        text-align: center;
+      }
+      @media only screen and (min-width: 480px){
+        font-size: 2em;
+        text-align: left;
+      }
+    }
     .tagline{
-      font-size: .5em;
+      font-size: 1em;
       font-family: @font-family-sans-serif;
     }
   }
