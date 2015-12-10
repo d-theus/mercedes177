@@ -19,12 +19,15 @@
 @grid-float-breakpoint: @screen-sm-max;
 
 @font-size-base: 16px;
-@media screen and (max-width: @grid-float-breakpoint){
-  @font-size-base: 24px;
-}
 @font-family-sans-serif: Jura;
 @font-family-serif: Tinos;
-//h1,h2{ font-family: @font-family-serif}
+@headings-font-weight: 500;
+@font-size-h1: floor((@font-size-base * 2.4));
+@font-size-h2: floor((@font-size-base * 1.85));
+@font-size-h3: floor((@font-size-base * 1.5));
+@font-size-h4: floor((@font-size-base * 1.25));
+@font-size-h5: @font-size-base;
+@font-size-h6: floor((@font-size-base * 0.85));
 
 @link-color: mix(@brand-primary, black, 85%);
 @link-hover-color: @gray-lighter;
