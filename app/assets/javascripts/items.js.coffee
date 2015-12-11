@@ -31,8 +31,6 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
       $scope.editing[ct] = val || !$scope.editing[ct]
     else
       $scope.editing[ct] = val || true
-      # FIXME
-      console.log "switched control '#{ct}' to #{$scope.editing[ct]}"
 
   $scope.setPhoto = (photo)->
     $scope.item.currentPhoto = photo
@@ -53,8 +51,6 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
       upd.id = $scope.item.id
       upd[attr] = $scope.item[attr]
       Item.update upd, ->
-        # success
-        #
         $scope.editing[attr] = false
 
   $scope.chooseFile = ()->
