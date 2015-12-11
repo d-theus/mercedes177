@@ -30,5 +30,7 @@ module Mercedes
     config.assets.precompile += %w(okzoom.min.js)
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
     config.assets.paths << "#{Rails}/vendor/assets/twitter/bootstrap/fonts"
+
+    config.filter_parameters += [:password, :data]
   end
 end
