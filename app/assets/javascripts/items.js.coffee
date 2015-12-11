@@ -67,7 +67,7 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
     fr = new FileReader()
     fr.onloadend = (e)->
       $scope.$apply ->
-        $scope.files.push { data: e.target.result, name: file.name, lastmod: file.lastModified }
+        $scope.files.push { data: e.target.result, name: file.name, lastmod: file.lastModified, progress: 0 }
         $scope.editing.photos = "prompt"
     fr.readAsDataURL(file)
 
@@ -78,13 +78,18 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
         break
 
   $scope.savePhotos = ()->
-    for file in $scope.files
+    rs = $scope.files.map (file)->
       photo = new ItemPhoto
       photo.data = file.data
-      photo.$save(item_id: $scope.item.id)
-    $scope.files.splice(0)
-    $scope.editing.photos = false
-    $scope.setItem($scope.item)
+      file.progress = 10
+      promise = photo.$save(item_id: $scope.item.id)
+      promise.then ->
+        file.progress = 100
+
+    $q.all(rs).then ->
+      $scope.files.splice(0)
+      $scope.editing.photos = false
+      $scope.setItem($scope.item)
 
   $scope.deletePhoto = ->
     ItemPhoto.delete(id: $scope.item.currentPhoto.id, item_id: $scope.item.id)

@@ -40,8 +40,10 @@
                     {{ file.name }}
                   .pull-right
                   .col-xs-2
-                    %button.btn.btn-danger{ type: :button, 'ng-click' => 'removeFile(file.name)'}
+                    %button.btn.btn-danger{ 'ng-if' => 'file.progress == 0', type: :button, 'ng-click' => 'removeFile(file.name)'}
                       %span.fa.fa-times
+                    %span.fa.fa-spin.fa-gear{ 'ng-if' => 'file.progress < 100 && file.progress > 0'}
+                    %span.fa.fa-fw.fa-check{ 'ng-if' => 'file.progress == 100'}
                   %br/
                   %br/
               .form-group{'ng-show' => 'editing.photos == "choose"'}
