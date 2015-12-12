@@ -36,7 +36,7 @@
               .form-group{'ng-if' => 'files.length'}
                 .row{'ng-repeat' => 'file in files'}
                   %img.col-xs-3{ 'ng-src' => '{{file.data}}' }
-                  .col-xs-7
+                  %pre.col-xs-7
                     {{ file.name }}
                   .pull-right
                   .col-xs-2
@@ -47,7 +47,7 @@
                   %br/
                   %br/
               .form-group{'ng-show' => 'editing.photos == "choose"'}
-                %input{type: :file, onchange: 'angular.element(this).scope().uploadPhoto(this.files[0])'}
+                %input{type: :file, accept: 'image/*', multiple: true, onchange: 'angular.element(this).scope().uploadPhotos(this.files)'}
               %button.btn.btn-primary{ type: :button, 'ng-click' => 'chooseFile()', 'ng-show' => 'editing.photos == "prompt"'}
                 %span.fa.fa-plus
               %br/

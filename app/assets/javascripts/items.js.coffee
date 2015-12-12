@@ -1,5 +1,5 @@
 @item = angular.module('item', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
-ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
+ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
   ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'})
   $scope.editing = { }
@@ -57,19 +57,29 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
     $scope.files ||= []
     $scope.editing.photos = "choose"
 
-  $scope.uploadPhoto = (file)->
-    return unless file
-    for f in $scope.files
-      if file.lastModified == f.lastmod
-        if file.name == f.name
-          alert 'Похоже, такой файл уже выбран!'
+  $scope.uploadPhotos = (files)->
+    return unless ($scope.editing.photos == "choose") && files && files[0]
+    count0 = $scope.files.length
+
+    for newf in files
+      for oldf in $scope.files
+        if newf.lastModified == oldf.lastmod && newf.name == oldf.name
+          alert "Похоже, файл #{newf.name} уже выбран! Отмена."
           return
-    fr = new FileReader()
-    fr.onloadend = (e)->
-      $scope.$apply ->
-        $scope.files.push { data: e.target.result, name: file.name, lastmod: file.lastModified, progress: 0 }
-        $scope.editing.photos = "prompt"
-    fr.readAsDataURL(file)
+
+    Array::forEach.call files, (file)->
+      upload = { name: file.name, lastmod: file.lastModified, progress: 0 }
+
+      fr = new FileReader()
+      fr.onloadend = (e)->
+          upload.data = e.target.result
+
+          $timeout ->
+            $scope.files.push upload
+            if ($scope.files.length - count0) == files.length
+              $scope.editing.photos = "prompt"
+              Array::splice(files, 0, files.length)
+      fr.readAsDataURL(file)
 
   $scope.removeFile = (name)->
     for f, id in $scope.files
@@ -133,5 +143,5 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q) ->
 
   $scope.init()
 
-@item.controller 'ItemCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', ItemCtrl]
+@item.controller 'ItemCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', '$timeout', ItemCtrl]
 
