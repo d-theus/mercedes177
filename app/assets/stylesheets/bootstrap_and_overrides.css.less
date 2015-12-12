@@ -238,29 +238,50 @@ body{
   .material-heights(@material-height-lg);
 }
 
+@landing-hero-height-xs:   320px;
+@landing-hero-height-sm:   430px;
+@landing-hero-height-md:   640px;
+@landing-hero-height-lg:   720px;
+@landing-hero-height-xl:   1080px;
 .landing-hero{
   .landing-section-lg;
-  background: image-url('bg-lg.jpg') no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   padding-top: auto;
   padding-bottom: auto;
-  //background-size: 100% auto;
-  //background-size: auto 100%;
-  background-size: cover;
   h1,h2 { color: white;}
-  @media only screen and (min-width: @screen-xs){
-    height: @material-height-sm;
+  @media only screen and (max-width: @screen-sm){
+    background: transparent;
   }
   @media only screen and (min-width: @screen-sm){
-    height: @material-height-sm;
+    height: @landing-hero-height-sm;
+    background: image-url('bg-sm.jpg') no-repeat center center;;
+    -webkit-background-size: 100% auto;
+    -moz-background-size:    100% auto;
+    -o-background-size:      100% auto;
+    background-size:         100% auto;
   }
   @media only screen and (min-width: @screen-md){
-    height: @material-height-sm;
+    height: @landing-hero-height-sm;
+    background: image-url('bg-md.jpg') no-repeat center center;;
+    -webkit-background-size: 100% auto;
+    -moz-background-size:    100% auto;
+    -o-background-size:      100% auto;
+    background-size:         100% auto;
   }
   @media only screen and (min-width: @screen-lg){
-    height: @material-height-lg;
+    height: @landing-hero-height-lg;
+    background: image-url('bg-lg.jpg') no-repeat center center;;
+    -webkit-background-size: 100% auto;
+    -moz-background-size:    100% auto;
+    -o-background-size:      100% auto;
+    background-size:         100% auto;
+  }
+  @media only screen and (min-width: 1921px){
+    height: @landing-hero-height-xl;
+    background: image-url('bg-xl.jpg') no-repeat center center;;
+    -webkit-background-size: 100% auto;
+    -moz-background-size:    100% auto;
+    -o-background-size:      100% auto;
+    background-size:         100% auto;
   }
 }
 
