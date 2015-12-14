@@ -41,6 +41,23 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
     , ->
       delete $scope.newCategory
 
+  $scope.openEditDialog = (cat)->
+    $scope.category = cat
+    m = $modal.open(
+      scope: $scope
+      templateUrl: '/templates/categories/edit_modal'
+    )
+
+    m.result.then ->
+      Category.update id: $scope.category.id, name: $scope.category.name, ->
+        delete $scope.category
+      , (e)->
+        msgs = []
+        for field, msg of e.data.errors
+          msgs.push "#{field}: #{msg}"
+        alert "ОШИБКА!" + msgs.join('/n')
+
+
   $scope.delete = (cat)->
     return unless confirm "Действительно удалить категорию\n'#{cat.name}'"
     $scope.categories.splice($scope.categories.indexOf(cat), 1)
