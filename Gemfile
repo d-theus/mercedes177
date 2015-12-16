@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'spring',        group: :development
 gem 'sitemap_generator'
+gem 'whenever'
 
 gem 'capistrano', group: :development
 gem 'capistrano-rbenv', group: :development

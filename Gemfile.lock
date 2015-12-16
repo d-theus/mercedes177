@@ -65,6 +65,7 @@ GEM
       xpath (~> 2.0)
     carrierwave-base64 (2.1.1)
       carrierwave (>= 0.8.0, < 0.11.0)
+    chronic (0.10.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -230,6 +231,8 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     will_paginate (3.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -268,4 +271,5 @@ DEPENDENCIES
   thin
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
+  whenever
   will_paginate
