@@ -27,7 +27,7 @@ module Mercedes
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :ru
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.woff *.ttf *.svg *.eot)
-    config.assets.precompile += %w(okzoom.min.js)
+    config.assets.precompile += %w(okzoom.min.js catalog.js cart.js items.js search.js orders.js about.js)
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
     config.assets.paths << "#{Rails}/vendor/assets/twitter/bootstrap/fonts"
 

@@ -5,6 +5,7 @@ gem 'rails', '4.1.7'
 gem 'pg'
 gem 'less-rails'
 gem 'uglifier', '>= 1.3.0'
+gem 'yui-compressor'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer',  platforms: :ruby
 gem 'haml-rails'

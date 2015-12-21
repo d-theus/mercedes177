@@ -13,20 +13,8 @@
 #= require jquery
 #= require jquery_ujs
 #= require twitter/bootstrap
-#= require angular
-#= require angular-resource
-#= require angular-animate
-#= require angular-cookies
-#= require angular-ui-bootstrap
-#= require angular-ui-bootstrap-tpls
-#= require angular-filter.min
-#= require catalog
-#= require cart
-#= require items
-#= require search
-#= require orders
-#= require about
 #= require zoom
+#= require angular-bundle
 ready = ->
   $('#content').css({
     'min-height': $(window).height() - $('#header').height() - 20
