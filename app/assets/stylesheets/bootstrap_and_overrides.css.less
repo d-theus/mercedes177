@@ -132,12 +132,15 @@ body{
 #header{
   background: mix(black, transparent, 80%);
   font-size: 1.2em;
-  //padding-top: 1em;
+  padding-top: 1em;
   padding-bottom: .3em;
   width: 100%;
 
+  div:first-of-type{
+    margin-top: -0.3em;
+  }
+
   .brand{
-    font-family: @font-family-serif;
     .logo{
       @media only screen and (min-width: 96px){
         width: 96px;
