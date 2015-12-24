@@ -3,6 +3,7 @@
 CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window) ->
   $scope.editing = false
   $scope.ready= false
+  $scope.maximized = not $location.search().item
 
   Category = $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}})
   Item =     $resource('/items/:id',      {id: '@id'})

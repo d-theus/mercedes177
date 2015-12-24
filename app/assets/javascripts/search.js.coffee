@@ -30,5 +30,9 @@ SearchCtrl = ($scope, $resource, $q, $filter, $modal, $location) ->
     $scope.$emit 'item:tochange'
     $scope.modal.close() if $scope.modal
 
+  $scope.onSelect = ($item, $model, $label)->
+    window.location = "/catalog#?item=#{$item.id}"
+    window.location.reload()
+
 
 @search.controller 'SearchCtrl', ['$scope', '$resource', '$q', '$filter', '$modal', '$location', SearchCtrl]
