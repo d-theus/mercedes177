@@ -13,6 +13,7 @@ class PhotosController < ApplicationController
   end
 
   def index
-    respond_with Item.find(params[:item_id]).photos.map { |p| {full: p.image_url, preview: p.image_url(:preview), thumb: p.image_url(:thumb), id: p.id}}
+    item = Item.includes(:photos).find(params[:item_id])
+    respond_with(photos: item.photos.map(&:to_h), featured: item.featured_photo.try(:to_h) )
   end
 end

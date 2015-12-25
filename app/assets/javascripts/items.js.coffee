@@ -1,7 +1,7 @@
 @item = angular.module('item', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap'])
 ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
-  ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'})
+  ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'}, { query: { isArray: false}})
   $scope.editing = { }
   $scope.ready = false
 
@@ -18,9 +18,10 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
       return $q.resolve($scope.item)
     .then (item)->
       return (ItemPhoto.query item_id: $scope.item.id).$promise
-    .then (photos)->
-      $scope.item.photos = photos
-      $scope.item.currentPhoto = photos[0] if photos[0]
+    .then (resp)->
+      $scope.item.photos = resp.photos
+      $scope.item.featuredPhoto = resp.featured
+      $scope.item.currentPhoto = resp.featured || $scope.item.photos[0]
       return $q.resolve(true)
     .then ->
       $scope.ready = true
@@ -103,6 +104,10 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
 
   $scope.deletePhoto = ->
     ItemPhoto.delete(id: $scope.item.currentPhoto.id, item_id: $scope.item.id)
+    $scope.$emit 'item:tochange'
+
+  $scope.featurePhoto = ->
+    Item.update(id: $scope.item.id, featured_photo_id: $scope.item.currentPhoto.id)
     $scope.$emit 'item:tochange'
 
   $scope.openPhotoPreview = ()->
