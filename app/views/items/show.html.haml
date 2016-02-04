@@ -7,7 +7,7 @@
 .row{'ng-if' => 'ready && item'}
   .col-xs-10.col-xs-offset-1.col-md-8.col-md-offset-2
     = render partial: 'items/photos'
-.row
+.row{'ng-if' => 'ready && item'}
   .col-xs-10.col-xs-offset-1.col-md-8.col-md-offset-2
     - if admin?
       = render partial: 'items/dashboard_admin'
