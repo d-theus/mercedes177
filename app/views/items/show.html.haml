@@ -5,9 +5,10 @@
 .row{'ng-if' => 'ready && item'}
   = render partial: 'items/header'
 .row{'ng-if' => 'ready && item'}
-  .col-xs-10.col-xs-offset-1.col-sm-5
+  .col-xs-10.col-xs-offset-1.col-md-8.col-md-offset-2
     = render partial: 'items/photos'
-  .col-xs-10.col-xs-offset-1.col-sm-5.col-sm-offset-1
+.row
+  .col-xs-10.col-xs-offset-1.col-md-8.col-md-offset-2
     - if admin?
       = render partial: 'items/dashboard_admin'
     - else

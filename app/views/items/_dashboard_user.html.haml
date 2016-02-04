@@ -1,13 +1,33 @@
 .row
+  %center.col-xs-12
+    .row
+      .col-xs-12.text-center
+        %h3 Характеристики
+    .row
+      .col-xs-10.col-xs-offset-1.panel
+        %table.table.table-hover
+          %tr{'ng-if' => 'item.body'}
+            %td Кузов
+            %td {{item.body}}
+          - [*1..8].each do |i|
+            %tr
+              %td характеристика#{i}
+              %td значение#{i}
+    -#.row
+      -#.col-xs-12
+        -#.description
+          -#{{ item.description }}
+.row
   .col-xs-12.col-sm-5{'ng-show' => '!editing.price'}
     .row
       .col-xs-12.text-center
         %strong.lead.text-nowrap
+          Цена:&nbsp;
           {{ item.price }}
           %span.fa.fa-rub
     %br/
     .row
-      .col-xs-12.text-center
+      .col-xs-12.text-center.lead
         %span.text-nowrap.label.label-success{'ng-if' => 'item.count > 0'}
           %strong В наличии
         %span.text-nowrap.label.label-danger{'ng-if' => 'item.count == 0'}
@@ -28,24 +48,7 @@
       %span.fa.fa-question.fa-fw
       Задать вопрос
 
-%br/
-%br/
-.row
-  %center.col-xs-12.panel
-    .row
-      .col-xs-12.text-center
-        %h3 Описание
-    .row{'ng-if' => 'item.body'}
-      .col-xs-12
-        .lead.strong
-          Кузов: {{item.body}}
-    %br/
-    .row
-      .col-xs-12
-        .description
-          {{ item.description }}
-    %br/
     .row{'ng-if' => 'item.notice'}
       .col-xs-12.text-warning
-        %h5 Примечания:
+        %h3 Примечания
         {{ item.notice }}

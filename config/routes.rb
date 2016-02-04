@@ -26,9 +26,9 @@ Rails.application.routes.draw do
     get 'static', to: 'catalog#static'
   end
 
-  root to: 'about#landing'
   get 'about/info'
   get 'about/contacts'
   get 'about/policy'
   get 'about/offer'
+  root to: 'catalog#index'
 end
