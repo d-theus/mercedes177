@@ -1,42 +1,21 @@
-@font-face{
-  font-family: 'Tinos';
-  src: font-url('Tinos-Italic.ttf') format('truetype');
-  font-style: italic;
-  font-weight: normal;
+.new-font-face(@name; @file; @style: normal; @weight: normal){
+  @font-face{
+    font-family: @name;
+    src: font-url(@file) format('truetype');
+    font-style: @style;
+    font-weight: @weight;
+  }
 }
-@font-face{
-  font-family: 'Tinos';
-  src: font-url('Tinos-Regular.ttf') format('truetype');
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face{
-  font-family: 'Tinos';
-  src: font-url('Tinos-Bold.ttf') format('truetype');
-  font-style: normal;
-  font-weight: bold;
-}
-@font-face{
-  font-family: 'Tinos';
-  src: font-url('Tinos-BoldItalic.ttf') format('truetype');
-  font-style: italic;
-  font-weight: bold;
-}
-@font-face{
-  font-family: 'Jura';
-  src: font-url('Jura-Regular.ttf') format('truetype');
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face{
-  font-family: 'Jura';
-  src: font-url('Jura-Light.ttf') format('truetype');
-  font-style: normal;
-  font-weight: oblique;
-}
-@font-face{
-  font-family: 'Jura';
-  src: font-url('Jura-DemiBold.ttf') format('truetype');
-  font-style: normal;
-  font-weight: bold;
-}
+
+.new-font-face('Roboto Black', 'Roboto-Black.ttf');
+.new-font-face('Roboto Black', 'Roboto-BlackItalic.ttf', italic);
+.new-font-face('Roboto', 'Roboto-Bold.ttf', normal, bold);
+.new-font-face('Roboto', 'Roboto-BoldItalic.ttf', italic, bold);
+.new-font-face('Roboto', 'Roboto-Regular.ttf');
+.new-font-face('Roboto', 'Roboto-LightItalic.ttf', italic);
+.new-font-face('Roboto Light', 'Roboto-Light.ttf');
+.new-font-face('Roboto Condensed', 'RobotoCondensed-Regular.ttf');
+.new-font-face('Roboto Medium', 'Roboto-Medium.ttf');
+
+@font-family-sans-serif: Roboto Light;
+h1,h2,h3,h4,h5,h6 { font-family: Roboto; }

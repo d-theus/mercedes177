@@ -8,11 +8,10 @@
     'typeahead-on-select' => 'onSelect($item, $model, $label)',
     'typeahead-template-url' => '/templates/catalog/search_result'}
   %span.input-group-btn
-    %button.btn.btn-primary{'type' => 'button',
-      'ng-click' => 'showResults()'}
+    %a.btn{ 'ng-click' => 'showResults()'}
       %span.fa.fa-fw.fa-search
 %br/
 %span.fa.fa-gear.fa-spin{'ng-show' => 'loading'}
-.text-muted.small{'ng-if' => 'noResults'}
+.small{'ng-if' => 'noResults'}
   По этому запросу ничего не найдено.
 

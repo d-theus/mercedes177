@@ -19,8 +19,9 @@
 @grid-float-breakpoint: @screen-sm-max;
 
 @font-size-base: 14px;
-@font-family-sans-serif: Jura;
-@font-family-serif: Tinos;
+@font-family-base: Roboto Light;
+//@font-family-sans-serif: Jura;
+//@font-family-serif: Tinos;
 @headings-font-weight: 500;
 @font-size-h1: floor((@font-size-base * 2.4));
 @font-size-h2: floor((@font-size-base * 1.85));
@@ -49,7 +50,7 @@
 
 @jumbotron-bg: transparent;
 
-@input-bg: @brand-primary;
+@input-bg: @gray-lighter;
 @input-bg-disabled: mix(@gray-lighter, transparent);
 @input-color: @gray-darker;
 @input-color-placeholder: mix(black, @input-bg);
@@ -135,23 +136,25 @@ body{
 
   .brand{
     .logo{
-      @media only screen and (min-width: 96px){
-        width: 96px;
-      }
-      @media only screen and (min-width: @screen-xs){
-        width: 128px;
-      }
-      @media only screen and (min-width: @screen-sm){
-        width: 128px;
-      }
-      @media only screen and (min-width: @screen-md){
-        width: 144px;
-      }
-      @media only screen and (min-width: @screen-lg){
-        width: 108px;
-      }
+      height: 76px;
+      //@media only screen and (min-width: 96px){
+        //width: 96px;
+      //}
+      //@media only screen and (min-width: @screen-xs){
+        //width: 128px;
+      //}
+      //@media only screen and (min-width: @screen-sm){
+        //width: 128px;
+      //}
+      //@media only screen and (min-width: @screen-md){
+        //width: 144px;
+      //}
+      //@media only screen and (min-width: @screen-lg){
+        //width: 98px;
+      //}
     }
     .brandline{
+      font-family: @font-family-serif;
       @media only screen and (max-width: 479px){
         font-size: 1.5em;
         text-align: center;
@@ -163,7 +166,7 @@ body{
     }
     .tagline{
       font-size: 1em;
-      font-family: @font-family-sans-serif;
+      font-family: @font-family-serif;
     }
   }
 }
@@ -376,3 +379,9 @@ body{
 //.modal-body{
   //z-index: 998;
 //}
+
+#catalog_list_accordion{
+  h4>a{
+    font-family: @font-family-base;
+  }
+}

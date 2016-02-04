@@ -13,6 +13,3 @@
       = render partial: 'items/dashboard_admin'
     - else
       = render partial: 'items/dashboard_user'
-
-.row{'ng-if' => 'ready && !item'}
-  = render partial: 'items/no_item'

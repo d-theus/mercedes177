@@ -1,14 +1,19 @@
 .row
-  .col-xs-12.bg-primary
-    %ul.nav.nav-justified.lead
-      %li
-        %a{href: '#'} W212
-      %li
-        %a{href: '#'} W211
-      %li
-        %a{href: '#'} W240
-      %li
-        %a{href: '#'} W180
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-lg-8.col-lg-offset-2.bg-primary
+    .row
+      .col-xs-10.col-xs-offset-1.col-md-8.col-md-offset-2
+        %br/
+        = render partial: 'shared/search'
+    .row
+      %ul.nav.nav-justified.lead
+        %li
+          %a{href: '#'} W212
+        %li
+          %a{href: '#'} W211
+        %li
+          %a{href: '#'} W240
+        %li
+          %a{href: '#'} W180
 
   -#.row
     -#%center.col-xs-12
@@ -26,7 +31,8 @@
           -#%br/
           -#%span.small.text-primary Категории
       
-
+%br/
+%br/
 .row
   .col-md-3#catalog_list{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true, 'ng-class' => '{in: maximized}'}
     .well
@@ -36,44 +42,44 @@
         .col-xs-1
           %button.btn.btn-danger.hidden-lg.hidden-md.pull-right{type: :button, 'ng-click' => 'toggleMaximized()'}
             %span.fa.fa-times
-      .row
-        .col-xs-10.col-xs-offset-1.navbar
-          %ul.nav.navbar-nav.nav-pills
-            %li
-              .btn-group{ 'is-open' => false, 'dropdown' => true}
-                %button.btn.btn-primary.navbar-btn#catalog_list_filter_toggle{'dropdown-toggle' => true }
-                  %span.fa.fa-filter
-                  Фильтр
-                %ul.dropdown-menu{ 'aria-labelledby' => 'catalog_list_filter_toggle'}
-                  %li.text-muted.text-center
-                    По наличию
-                  %li{ role: :menuitem}
-                    %a{ href: '', 'ng-click' => 'filters.count = ""'}
-                      %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === ''}"}
-                      Все
-                  %li{ role: :menuitem}
-                    %a{ href: '', 'ng-click' => 'filters.count = "!0"'}
-                      %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === '!0'}"}
-                      В наличии
-                  %li{ role: :menuitem}
-                    %a{ href: '', 'ng-click' => 'filters.count = 0'}
-                      %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === 0}"}
-                      Архив
-                  %li.divider
-                  %li.text-muted.text-center
-                    Кузов
-                  %li{ role: :menuitem}
-                    %a{ href: '', 'ng-click' => 'filters.body = undefined'}
-                      %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body == undefined}"}
-                      Все
-                  %li{ role: :menuitem, 'ng-repeat' => 'body in bodies'}
-                    %a{ href: '', 'ng-click' => 'filters.body = body'}
-                      %span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === body}"}
-                      {{ body }}
-            - if admin?
+      - if admin?
+        .row
+          .col-xs-10.col-xs-offset-1.navbar
+            %ul.nav.navbar-nav.nav-pills
               %li
                 %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
                   %span.fa.fa-plus
+              -#%li
+              -#.btn-group{ 'is-open' => false, 'dropdown' => true}
+                -#%button.btn.btn-primary.navbar-btn#catalog_list_filter_toggle{'dropdown-toggle' => true }
+                  -#%span.fa.fa-filter
+                  -#Фильтр
+                -#%ul.dropdown-menu{ 'aria-labelledby' => 'catalog_list_filter_toggle'}
+                  -#%li.text-muted.text-center
+                    -#По наличию
+                  -#%li{ role: :menuitem}
+                    -#%a{ href: '', 'ng-click' => 'filters.count = ""'}
+                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === ''}"}
+                      -#Все
+                  -#%li{ role: :menuitem}
+                    -#%a{ href: '', 'ng-click' => 'filters.count = "!0"'}
+                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === '!0'}"}
+                      -#В наличии
+                  -#%li{ role: :menuitem}
+                    -#%a{ href: '', 'ng-click' => 'filters.count = 0'}
+                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === 0}"}
+                      -#Архив
+                  -#%li.divider
+                  -#%li.text-muted.text-center
+                    -#Кузов
+                  -#%li{ role: :menuitem}
+                    -#%a{ href: '', 'ng-click' => 'filters.body = undefined'}
+                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body == undefined}"}
+                      -#Все
+                  -#%li{ role: :menuitem, 'ng-repeat' => 'body in bodies'}
+                    -#%a{ href: '', 'ng-click' => 'filters.body = body'}
+                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === body}"}
+                      -#{{ body }}
 
       %center{'ng-if' => '!ready'}
         %span.fa.fa-lg.fa-gear.fa-spin
