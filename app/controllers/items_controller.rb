@@ -31,7 +31,20 @@ class ItemsController < ApplicationController
   end
 
   def index
-    respond_with Item.order('name ASC')
+    @items = if params[:category_id]
+               Item.where(category_id: params[:category_id]) .order('name ASC')
+             else
+               Item.order('name ASC')
+             end
+             .map do |item| 
+               {
+                 id:   item.id,
+                 name: item.name,
+                 serial: item.serial,
+                 featured_photo: item.featured_photo.try(:image).try(:url)
+               }
+             end
+    respond_with @items
   end
 
   def new

@@ -1,30 +1,37 @@
-.col-xs-10.col-sm-7.col-md-6.col-lg-5
-  %a.brand{ title: 'mercedes177 | Оригинальные запчасти из Европы', href: '/'}
-    .row
+%header.container-fluid.navbar.navbar-inverse#header
+  .navbar-header
+    %a.navbar-brand{ title: 'Mercedes177 | Оригинальные запчасти из Европы', href: '/'}
       .col-xs-3
         = image_tag 'logo.svg', class: 'logo'
       .col-xs-9
-        %span.brandline Mercedes 177
-        %br/
-        %small.tagline Оригинальные запчасти из Европы
-.col-sm-2.hidden-xs
-  %a.tel.text-nowrap{href:'tel:+79647064621'}
-    %span.fa.fa-fw.fa-sm.fa-phone
-    %span.small 8 964 706 46 21
-  %br/
-  %a.tel.text-nowrap{href:'tel:+79651340430'}
-    %span.fa.fa-fw.fa-sm.fa-phone
-    %span.small 8 965 134 04 30
-.col-xs-12.visible-xs-inline-block.text-center
-  %br/
-  %br/
-  %a.tel.text-nowrap.btn.btn-lg.btn-primary{href:'tel:+79647064621'}
-    %span.fa.fa-fw.fa-phone
-    Позвонить
-.col-xs-5.col-sm-4.pull-right
-  %button.navbar-toggle.collapsed{type: 'button', data: { toggle: 'collapse', target: '#navbar_nav'}}
+        .row
+          .col-xs-12.brandline Mercedes 177
+        .row
+          .col-xs-12.tagline Оригинальные&nbsp;запчасти из&nbsp;Европы
+  %button.navbar-toggle.collapsed#navbar_toggle{type: 'button', data: { toggle: 'collapse', target: '#navbar_nav'}}
     %span.fa.fa-bars.btn.btn-lg.btn-primary
-  %nav.collapse.navbar-collapse#navbar_nav
+  %nav.navbar-right.collapse.navbar-collapse#navbar_nav
+    .visible-xs-block
+      %br/
+      %br/
+    .navbar-text.navbar-twoline.text-center.hidden-xs
+      .row
+        .col-xs-12
+          %a.tel.text-nowrap.text-inverse{href:'tel:+79647064621'}
+            %span.fa.fa-fw.fa-sm.fa-phone
+            %span.small 8 964 706 46 21
+      .row
+        .col-xs-12
+          %a.tel.text-nowrap.text-inverse{href:'tel:+79651340430'}
+            %span.fa.fa-fw.fa-sm.fa-phone
+            %span.small 8 965 134 04 30
+    .col-xs-12.visible-xs-inline-block.text-center
+      %a.tel.text-nowrap.btn.btn-lg.btn-primary{href:'tel:+79647064621'}
+        %span.fa.fa-fw.fa-phone
+        Позвонить (+79647064621)
+    .visible-xs-block
+      %br/
+      %br/
     %ul.nav.navbar-nav
       %li
         - if controller_name == 'catalog' and action_name == 'index'
@@ -54,4 +61,6 @@
             %li.divider
             %li{role: :menuitem}
               %a{href: destroy_admin_session_path, 'data-method' => :delete} Выйти
-  -#%span.fa.fa-chevron-down.visible-xs-block#go_down_tip
+    .navbar-text.visible-xs-inline
+      %center
+        %span.fa.fa-chevron-up.toggle#navbar_toggle_2{data: { toggle: 'collapse', target: '#navbar_nav'}}

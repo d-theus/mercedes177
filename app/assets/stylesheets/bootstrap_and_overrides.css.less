@@ -20,8 +20,6 @@
 
 @font-size-base: 14px;
 @font-family-base: Roboto Light;
-//@font-family-sans-serif: Jura;
-//@font-family-serif: Tinos;
 @headings-font-weight: 500;
 @font-size-h1: floor((@font-size-base * 2.4));
 @font-size-h2: floor((@font-size-base * 1.85));
@@ -30,7 +28,13 @@
 @font-size-h5: @font-size-base;
 @font-size-h6: floor((@font-size-base * 0.85));
 
-@link-color: mix(@brand-primary, white, 15%);
+@navbar-height: 82px;
+@navbar-inverse-color: #eee;
+@navbar-inverse-link-color: #eee;
+@navbar-inverse-link-hover-color: #222;
+@navbar-inverse-link-hover-bg: #eee;
+
+@link-color: @brand-primary;
 @link-hover-color: mix(@brand-primary, #6666ff);
 @link-hover-decoration: none;
 @headings-color: @gray-darker;
@@ -40,8 +44,9 @@
 @border-radius-base: 2px;
 
 @component-active-bg: darken(@brand-primary, 15%);
-@component-active-color: black;
+@component-active-color: white;
 @nav-link-hover-bg: @gray-lighter;
+@nav-link-color: @gray-lighter;
 
 @grid-float-breakpoint: @screen-sm-max;
 
@@ -122,53 +127,56 @@ body{
   background: transparent;
 }
 
+.logo{
+  height: @navbar-height - @navbar-padding-vertical;
+  display: inline-block;
+  padding: 0;
+}
+
+.navbar-brand{
+  @media only screen and (max-width: @screen-sm){
+    padding-left: 2px;
+  }
+  padding-top: @navbar-padding-vertical/2;
+  padding-bottom: @navbar-padding-vertical/2;
+}
+
+.text-inverse{
+  color: @navbar-inverse-color;
+}
 
 #header{
-  background: mix(black, transparent, 80%);
+  @media only screen and (max-width: @screen-sm){
+    padding-left: 4px;
+  }
   font-size: 1.2em;
-  padding-top: 1em;
-  padding-bottom: .3em;
-  width: 100%;
 
-  div:first-of-type{
-    margin-top: -0.3em;
+  .brandline{
+    color: darken(white, 5%);
+    font-family: @font-family-serif;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 4px;
+    margin-top: 0;
+    padding-top: @navbar-padding-vertical /4;
+    margin-left: @navbar-padding-horizontal;
   }
 
-  .brand{
-    .logo{
-      height: 76px;
-      //@media only screen and (min-width: 96px){
-        //width: 96px;
-      //}
-      //@media only screen and (min-width: @screen-xs){
-        //width: 128px;
-      //}
-      //@media only screen and (min-width: @screen-sm){
-        //width: 128px;
-      //}
-      //@media only screen and (min-width: @screen-md){
-        //width: 144px;
-      //}
-      //@media only screen and (min-width: @screen-lg){
-        //width: 98px;
-      //}
-    }
-    .brandline{
-      font-family: @font-family-serif;
-      @media only screen and (max-width: 479px){
-        font-size: 1.5em;
-        text-align: center;
-      }
-      @media only screen and (min-width: 480px){
-        font-size: 2em;
-        text-align: left;
-      }
-    }
-    .tagline{
-      font-size: 1em;
-      font-family: @font-family-serif;
-    }
+  .tagline{
+    color: darken(white, 5%);
+    font-size: 11px;
+    text-align: center;
+    font-family: @font-family-sans-serif;
+    margin-bottom: 4px;
+    margin-top: 0;
+    margin-left: @navbar-padding-horizontal;
   }
+}
+
+.navbar-twoline{
+  margin-top: 0;
+  padding-top: @navbar-padding-vertical/2 ;
 }
 
 #navbar_nav{
@@ -176,6 +184,7 @@ body{
     @media screen and (max-width: @grid-float-breakpoint){
       font-size: 1.5em;
       text-align: center;
+      color: darken(white, 5%);
     }
   }
 
@@ -371,17 +380,4 @@ body{
 .contact-line-bl{
   font-weight: bold;
   font-size: floor((@font-size-base * 1.35));
-}
-//.loupe{
-  //z-index: 999;
-//}
-
-//.modal-body{
-  //z-index: 998;
-//}
-
-#catalog_list_accordion{
-  h4>a{
-    font-family: @font-family-base;
-  }
 }

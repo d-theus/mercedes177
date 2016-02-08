@@ -1,11 +1,7 @@
 .row
-  .col-xs-12.col-sm-10.col-sm-offset-1.col-lg-8.col-lg-offset-2.bg-primary
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-lg-8.col-lg-offset-2.well
     .row
-      .col-xs-10.col-xs-offset-1.col-md-8.col-md-offset-2
-        %br/
-        = render partial: 'shared/search'
-    .row
-      %ul.nav.nav-justified.lead
+      %ul.nav.nav-justified
         %li
           %a{href: '#'} W212
         %li
@@ -15,26 +11,10 @@
         %li
           %a{href: '#'} W180
 
-  -#.row
-    -#%center.col-xs-12
-      -#.btn-group{'ng-controller' => 'CatalogCtrl'}
-        -#%button.btn.btn-primary{type: :button, 'ng-click' => 'clear()'}
-          -#%span.fa.fa-fw.fa-lg.fa-home
-          -#%br/
-          -#%span.small.text-primary Начало
-        -#%button.btn.btn-primary{type: :button, 'ng-click' => 'back()', 'ng-enabled' => 'history.length'}
-          -#%span.fa.fa-fw.fa-lg.fa-arrow-left{'ng-class' => '{"text-muted": history.length == 0}'}
-          -#%br/
-          -#%span.small.text-primary Назад
-        -#%button.btn.btn-primary.hidden-lg.hidden-md{type: :button, 'ng-click' => 'maximize()'}
-          -#%span.fa.fa-fw.fa-lg.fa-bars
-          -#%br/
-          -#%span.small.text-primary Категории
-      
+
 %br/
-%br/
-.row
-  .col-md-3#catalog_list{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true, 'ng-class' => '{in: maximized}'}
+.row{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true}
+  .col-md-3#catalog_list
     .well
       .row
         .col-xs-10.col-xs-offset-1.text-center
@@ -83,36 +63,42 @@
 
       %center{'ng-if' => '!ready'}
         %span.fa.fa-lg.fa-gear.fa-spin
-      %accordion#catalog_list_accordion{'ng-if' => 'ready'}
-        %accordion-group{ 'ng-show' => 'categories.length',
-          'ng-repeat' => 'cat in categories',
-          'heading' => '{{cat.name}}',
-          'template-url' => '/templates/categories/panel',
-          'ng-click' => 'updateLocation(cat)',
-          'is-open' => 'cat.current' }
+      %ul.nav.nav-stacked.nav-pills
+        %li{ 'ng-show' => 'categories.length',
+        'ng-repeat' => 'cat in categories',
+        'ng-class' => '{active: cat.current}'}
+          %a{'ng-click' => 'changeCategory(cat.id)', href: ''} {{cat.name}}
           - if admin?
             %button.btn.btn-danger.btn-sm.pull-right{ type: :button,
               'ng-click' => 'delete(cat)',
               'ng-if' => 'cat.item_count == 0' }
               %span.fa.fa-trash-o
-          .list-group{ name: 'categories'}
             %a.list-group-item.clearfix{'href' => '',
-              'ng-click' => 'setItem(item.id)',
-              'ng-repeat' => 'item in allItems | filter: filters',
-              'ng-if' => 'item.category_id == cat.id'}
-              = raw '{{ item.name }}'
-              %span.pull-right
-                = raw '{{item.serial}}'
-            - if admin?
-              %a.list-group-item.clearfix{'href' => '',
-                'ng-click' => 'openEditDialog(cat)'}
-                %span.text-info
-                  %span.fa.fa-edit
-                  %strong
-                    ПРАВИТЬ КАТЕГОРИЮ
+              'ng-click' => 'openEditDialog(cat)'}
+              %span.text-info
+                %span.fa.fa-edit
+                %strong
+                  ПРАВИТЬ КАТЕГОРИЮ
   .col-md-9.col-xs-12
-    .well#catalog_container{'ng-controller' => 'ItemCtrl'}
-      =render template: 'items/show', layout: false
+    .well#catalog_container{'ng-controller' => 'CatalogCtrl'}
+      %a.text-center{'ng-click' => 'clearItem()', href: '', 'ng-if' => 'selectedItem'}
+        %span.fa.fa-fw.fa-lg.fa-arrow-left
+        %br/
+        %span.small.text-primary В категорию
+      -#%button.btn.btn-primary{type: :button, 'ng-click' => 'back()', 'ng-enabled' => 'history.length'}
+        -#%span.fa.fa-fw.fa-lg.fa-arrow-left{'ng-class' => '{"text-muted": history.length == 0}'}
+        -#%br/
+        -#%span.small.text-primary Назад
+      -#%button.btn.btn-primary.hidden-lg.hidden-md{type: :button, 'ng-click' => 'maximize()'}
+        -#%span.fa.fa-fw.fa-lg.fa-bars
+        -#%br/
+        -#%span.small.text-primary Категории
+      %br/
+      %div{ 'ng-if' => 'selectedItem' }
+        %div{'ng-controller' => 'ItemCtrl'} 
+          =render template: 'items/show', layout: false
+      %div{ 'ng-if' => '!selectedItem'}
+        =render template: 'items/index', layout: false
 
 - content_for :title do
   = raw 'Каталог'

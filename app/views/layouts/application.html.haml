@@ -8,6 +8,7 @@
     = meta_description
     = javascript_include_tag 'application'
     = javascript_include_tag 'catalog'
+    = javascript_include_tag 'categories'
     = javascript_include_tag 'cart'
     = javascript_include_tag 'items'
     = javascript_include_tag 'search'
@@ -18,10 +19,9 @@
     = render file: 'layouts/_ga'
     = render file: 'layouts/_ym'
   %body{'data-no-turbolink' => (controller_name == 'catalog' && 'true')}
+    = render partial: 'shared/header'
     .container-fluid
       .row
-        %header.col-xs-12#header
-          = render partial: 'shared/header'
       - if notice or alert
         .row
           .col-xs-10.col-xs-offset-1

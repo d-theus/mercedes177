@@ -1,0 +1,13 @@
+.row
+  .col-xs-12{'ng-if' => 'currentCategory'}
+    .row{ 'ng-repeat' => 'row in currentCategory.items | chunkBy: 3'}
+      .col-xs-4{ 'ng-repeat' => 'item in row'}
+        .col-xs-12.panel
+          .col-xs-12
+            %a{ 'ng-click' => 'changeItem(item.id)', href: '' }
+              %img.img-responsive{ 'ng-if' => 'item.featured_photo', 'ng-src' => '{{item.featured_photo}}' }
+              %img.img-responsive{ 'ng-if' => '!item.featured_photo', 'ng-src' => "#{image_path('placeholder.svg')}" }
+          %br/
+          .col-xs-12
+            %h4 {{item.name}}
+

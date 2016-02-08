@@ -20,5 +20,10 @@ ready = ->
     'min-height': $(window).height() - $('#header').height() - 20
   })
 
+  $('#navbar_toggle').click ->
+    $(this).hide()
+  $('#navbar_toggle_2').click ->
+    $('#navbar_toggle').show()
+
 $(document).ready ready
 $(document).on 'page:load', ready

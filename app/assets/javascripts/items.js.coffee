@@ -3,15 +3,15 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
   Item = $resource('/items/:id', {id: '@id' }, {update: {method: 'PUT'}})
   ItemPhoto = $resource('/items/:item_id/photos/:id', { item_id: '@item_id', id: '@id'}, { query: { isArray: false}})
   $scope.editing = { }
-  $scope.ready = false
 
-  $scope.setItem = ->
+  $scope.setItem = (id)->
+    console.log 'setItem()'
     $scope.ready = false
-    unless iid = Number($location.search().item)
+    unless Number(id)
       $scope.item = null
       $scope.ready = true
       return
-    (Item.get id: iid).$promise
+    (Item.get id: id).$promise
     .then (response)->
       $scope.item = response
       $scope.item.currentPhoto = preview: null
@@ -143,8 +143,11 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
 
   $scope.init = ->
     $scope.ready = false
-    $rootScope.$on 'item:tochange', $scope.setItem
-    $scope.setItem()
+    $rootScope.$on 'item:change', (_, id)->
+      console.log 'item:change catched'
+      $scope.setItem(id)
+
+    $scope.$emit 'item_controller:ready'
 
   $scope.init()
 
