@@ -81,10 +81,11 @@
                   ПРАВИТЬ КАТЕГОРИЮ
   .col-md-9.col-xs-12
     .well#catalog_container{'ng-controller' => 'CatalogCtrl'}
-      %a.text-center{'ng-click' => 'clearItem()', href: '', 'ng-if' => 'selectedItem'}
-        %span.fa.fa-fw.fa-lg.fa-arrow-left
-        %br/
-        %span.small.text-primary В категорию
+      %a.btn.btn-sm{'ng-click' => 'clearItem()', href: '', 'ng-if' => 'selectedItem'}
+        %span.small.text-primary
+          %span.fa.fa-sm.fa-chevron-left
+          Назад в категорию
+          %strong &laquo;{{currentCategory.name}}&raquo;
       -#%button.btn.btn-primary{type: :button, 'ng-click' => 'back()', 'ng-enabled' => 'history.length'}
         -#%span.fa.fa-fw.fa-lg.fa-arrow-left{'ng-class' => '{"text-muted": history.length == 0}'}
         -#%br/
@@ -93,11 +94,12 @@
         -#%span.fa.fa-fw.fa-lg.fa-bars
         -#%br/
         -#%span.small.text-primary Категории
-      %br/
       %div{ 'ng-if' => 'selectedItem' }
         %div{'ng-controller' => 'ItemCtrl'} 
           =render template: 'items/show', layout: false
       %div{ 'ng-if' => '!selectedItem'}
+        %h2 Категория: {{currentCategory.name}}
+        %br/
         =render template: 'items/index', layout: false
 
 - content_for :title do
