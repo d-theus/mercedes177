@@ -85,7 +85,7 @@
     .col-md-9.col-xs-12
       .well#catalog_container{ 'ng-show' => 'selectedCategory || selectedItem' }
         .row
-        %a.btn.btn-sm{'ng-click' => 'clearItem()', href: '', 'ng-show' => 'selectedItem'}
+        %a.btn.btn-sm{'ng-click' => 'clearItem()', href: '', 'ng-show' => 'selectedItem && selectedCategory'}
           %span.small.text-primary
             %span.fa.fa-sm.fa-chevron-left
             Назад в категорию
@@ -98,7 +98,27 @@
           %br/
           =render template: 'items/index', layout: false
 
-- content_for :title do
-  = raw 'Каталог'
-- content_for :meta_description do
-  = raw 'Найдите интересующую Вас деталь в каталоге.'
+      .row#catalog_empty{ 'ng-show' => '!(selectedCategory || selectedItem)' }
+        .col-xs-12
+          %img.img-responsive{src: image_path('bg-lg.jpg')}
+        .col-xs-12
+          .well
+            .row
+              %center.col-xs-10.col-xs-offset-1
+                %form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
+                  .form-group
+                    %label Поиск детали
+                    = render partial: 'shared/search'
+            .row
+              .col-xs-12.col-sm-4.text-center
+                %h3 Только оригинальные детали
+              .col-xs-12.col-sm-4.text-center
+                %h3 Отличное состояние
+              .col-xs-12.col-sm-4.text-center
+                %h3 Тёплый сухой склад
+
+
+- content_for(:title) do
+  = raw 'Авторазбор в Москве'
+- content_for(:meta_description) do
+  = raw 'Б/У и новые запчасти для автомобилей Mercedes'
