@@ -86,19 +86,18 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
   $scope.init = ->
 
     $rootScope.$on "category:change", (_, id)->
+      console.log 'category:change catched'
       $scope.setCategory(id)
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->
       $scope.categories = categories
+      $scope.ready = true
+      $scope.$emit 'category_controller:ready'
 
 
     $scope.filters = { count: '!0', body: undefined }
 
-    $q.all([categoriesQuery])
-      .then ->
-        $scope.ready = true
-        $rootScope.$emit 'category_controller:ready'
 
   $scope.init()
 

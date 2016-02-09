@@ -13,22 +13,43 @@
 
 
 %br/
-.row{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true}
-  .col-md-3#catalog_list
-    .well
-      .row
-        .col-xs-10.col-xs-offset-1.text-center
-          %h3 Категории
-        .col-xs-1
-          %button.btn.btn-danger.hidden-lg.hidden-md.pull-right{type: :button, 'ng-click' => 'toggleMaximized()'}
-            %span.fa.fa-times
-      - if admin?
+.row.container-fluid{'ng-controller' => 'CatalogCtrl'}
+  .row{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true}
+    .col-md-3#catalog_list
+      .well
         .row
-          .col-xs-10.col-xs-offset-1.navbar
-            %ul.nav.navbar-nav.nav-pills
-              %li
-                %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
-                  %span.fa.fa-plus
+          .col-xs-10.col-xs-offset-1.text-center
+            %h3 Категории
+          .col-xs-1
+            %button.btn.btn-danger.hidden-lg.hidden-md.pull-right{type: :button, 'ng-click' => 'toggleMaximized()'}
+              %span.fa.fa-times
+        - if admin?
+          .row
+            .col-xs-10.col-xs-offset-1.navbar
+              %ul.nav.navbar-nav.nav-pills
+                %li
+                  %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
+                    %span.fa.fa-plus
+        %center{'ng-if' => '!ready'}
+          %span.fa.fa-lg.fa-gear.fa-spin
+        %ul.nav.nav-stacked.nav-pills
+          %li{ 'ng-show' => 'categories.length',
+          'ng-repeat' => 'cat in categories',
+          'ng-class' => '{active: cat.current}'}
+            %a{'ng-click' => 'changeCategory(cat.id)', href: ''} {{cat.name}}
+            - if admin?
+              %button.btn.btn-danger.btn-sm.pull-right{ type: :button,
+                'ng-click' => 'delete(cat)',
+                'ng-if' => 'cat.item_count == 0' }
+                %span.fa.fa-trash-o
+              %a.list-group-item.clearfix{'href' => '',
+                'ng-click' => 'openEditDialog(cat)'}
+                %span.text-info
+                  %span.fa.fa-edit
+                  %strong
+                    ПРАВИТЬ КАТЕГОРИЮ
+
+
               -#%li
               -#.btn-group{ 'is-open' => false, 'dropdown' => true}
                 -#%button.btn.btn-primary.navbar-btn#catalog_list_filter_toggle{'dropdown-toggle' => true }
@@ -61,46 +82,21 @@
                       -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === body}"}
                       -#{{ body }}
 
-      %center{'ng-if' => '!ready'}
-        %span.fa.fa-lg.fa-gear.fa-spin
-      %ul.nav.nav-stacked.nav-pills
-        %li{ 'ng-show' => 'categories.length',
-        'ng-repeat' => 'cat in categories',
-        'ng-class' => '{active: cat.current}'}
-          %a{'ng-click' => 'changeCategory(cat.id)', href: ''} {{cat.name}}
-          - if admin?
-            %button.btn.btn-danger.btn-sm.pull-right{ type: :button,
-              'ng-click' => 'delete(cat)',
-              'ng-if' => 'cat.item_count == 0' }
-              %span.fa.fa-trash-o
-            %a.list-group-item.clearfix{'href' => '',
-              'ng-click' => 'openEditDialog(cat)'}
-              %span.text-info
-                %span.fa.fa-edit
-                %strong
-                  ПРАВИТЬ КАТЕГОРИЮ
-  .col-md-9.col-xs-12
-    .well#catalog_container{'ng-controller' => 'CatalogCtrl'}
-      %a.btn.btn-sm{'ng-click' => 'clearItem()', href: '', 'ng-if' => 'selectedItem'}
-        %span.small.text-primary
-          %span.fa.fa-sm.fa-chevron-left
-          Назад в категорию
-          %strong &laquo;{{currentCategory.name}}&raquo;
-      -#%button.btn.btn-primary{type: :button, 'ng-click' => 'back()', 'ng-enabled' => 'history.length'}
-        -#%span.fa.fa-fw.fa-lg.fa-arrow-left{'ng-class' => '{"text-muted": history.length == 0}'}
-        -#%br/
-        -#%span.small.text-primary Назад
-      -#%button.btn.btn-primary.hidden-lg.hidden-md{type: :button, 'ng-click' => 'maximize()'}
-        -#%span.fa.fa-fw.fa-lg.fa-bars
-        -#%br/
-        -#%span.small.text-primary Категории
-      %div{ 'ng-if' => 'selectedItem' }
-        %div{'ng-controller' => 'ItemCtrl'} 
-          =render template: 'items/show', layout: false
-      %div{ 'ng-if' => '!selectedItem'}
-        %h2 Категория: {{currentCategory.name}}
-        %br/
-        =render template: 'items/index', layout: false
+    .col-md-9.col-xs-12
+      .well#catalog_container{ 'ng-show' => 'selectedCategory || selectedItem' }
+        .row
+        %a.btn.btn-sm{'ng-click' => 'clearItem()', href: '', 'ng-show' => 'selectedItem'}
+          %span.small.text-primary
+            %span.fa.fa-sm.fa-chevron-left
+            Назад в категорию
+            %strong &laquo;{{currentCategory.name}}&raquo;
+        %div{ 'ng-show' => 'selectedItem' }
+          %div{'ng-controller' => 'ItemCtrl'} 
+            =render template: 'items/show', layout: false
+        %div{ 'ng-if' => '!selectedItem'}
+          %h2 Категория: {{currentCategory.name}}
+          %br/
+          =render template: 'items/index', layout: false
 
 - content_for :title do
   = raw 'Каталог'
