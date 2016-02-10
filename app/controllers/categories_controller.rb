@@ -12,14 +12,15 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    respond_with Category.find(params[:id])
+    respond_with Category.find(params[:id]).as_json
   end
 
   def index
     respond_with Category
     .joins('LEFT JOIN items on items.category_id = categories.id GROUP BY categories.id')
-    .select('categories.*, COUNT(items.id) AS item_count')
+    .select('categories.id, categories.name, COUNT(items.id) AS item_count')
     .order('name ASC')
+    .as_json
   end
 
   def destroy

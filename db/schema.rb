@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225065806) do
+ActiveRecord::Schema.define(version: 20160209141821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,13 +57,13 @@ ActiveRecord::Schema.define(version: 20151225065806) do
     t.string   "serial"
     t.float    "price"
     t.integer  "count",             default: 0, null: false
-    t.text     "description"
     t.text     "notice"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "body"
     t.integer  "featured_photo_id"
+    t.json     "properties"
   end
 
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree

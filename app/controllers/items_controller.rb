@@ -23,7 +23,14 @@ class ItemsController < ApplicationController
   end
 
   def update
-    respond_with Item.update(params[:id], item_params)
+    @item = Item.find(params[:id])
+    @item.update_attributes(item_params)
+    @item.properties = params[:properties] if params[:properties]
+    if @item.save
+      render nothing: true, status: :ok
+    else
+      render nothing: true, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -35,16 +42,8 @@ class ItemsController < ApplicationController
                Item.where(category_id: params[:category_id]) .order('name ASC')
              else
                Item.order('name ASC')
-             end
-             .map do |item| 
-               {
-                 id:   item.id,
-                 name: item.name,
-                 serial: item.serial,
-                 featured_photo: item.featured_photo.try(:image).try(:url)
-               }
-             end
-    respond_with @items
+             end.select(:id, :name, :serial, :featured_photo_id)
+             render json: @items, each_serializer: ItemCardSerializer
   end
 
   def new
@@ -58,6 +57,6 @@ class ItemsController < ApplicationController
   private
   
   def item_params
-    params.require(:item).permit(:name, :serial, :price, :count, :description, :notice, :category, :category_id, :body, :year, :featured_photo_id)
+    params.require(:item).permit(:name, :serial, :price, :count, :notice, :category, :category_id, :body, :year, :featured_photo_id)
   end
 end

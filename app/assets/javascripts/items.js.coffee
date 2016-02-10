@@ -22,6 +22,7 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
       $scope.item.photos = resp.photos
       $scope.item.featuredPhoto = resp.featured
       $scope.item.currentPhoto = resp.featured || $scope.item.photos[0]
+      $scope.item.properties ||= {}
       return $q.resolve(true)
     .then ->
       $scope.ready = true
@@ -119,6 +120,12 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
     )
     modal.result.then ->
       Zoom.off()
+
+  $scope.removeProperty = (name)->
+    delete $scope.item.properties[name]
+
+  $scope.addProperty = (name = 'название характеристики')->
+    $scope.item.properties[name] = ''
 
   $scope.delete = ()->
     return unless confirm "Удалить товар\n#{$scope.item.name}?"

@@ -57,19 +57,48 @@
         {{ item.body }}
     %br/
     .row
-      .col-xs-12{'ng-show' => '!editing.description'}
+      %h3 Характеристики
+      .col-xs-12{'ng-show' => '!editing.properties'}
         .col-xs-2.pull-right
-          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("description")'}
+          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("properties")'}
             %span.fa.fa-edit
-        .description
-          {{ item.description }}
+        %table.table.table-hover
+          %tr{ 'ng-repeat' => '(name, val) in item.properties'}
+            %td {{name}}
+            %td {{val}}
 
-      .col-xs-12{'ng-show' => 'editing.description'}
-        - item_form_for 'description' do
+      .col-xs-12{'ng-show' => 'editing.properties'}
+        .row
+          .col-xs-6.text-center
+            Название характеристики
+          .col-xs-6.text-center
+            Значение
+        %br/
+        - item_form_for 'properties' do
+          .form-group{ 'ng-repeat' => '(pname, pval) in item.properties'}
+            .col-xs-5.text-right
+              %input.form-control{ type: :text, 'ng-model' => 'pname'}
+            .col-xs-5
+              %input.form-control{ type: :text, 'ng-model' => 'item.properties[pname]'}
+            .col-xs-1
+              %button.btn.btn-danger.btn-sm{type: :button, 'ng-click' => 'removeProperty(pname)'}
+                %span.fa.fa-times
           .form-group
-            %textarea.form-control{ 'ng-model' => 'item.description'}
+            .col-xs-6.col-xs-offset-2.text-right
+              %input.form-control{ type: :text, 'ng-model' => 'newPropertyName', placeholder: 'Новая характеристика'}
+            .col-xs-2
+              %button.btn.btn-info.btn-sm{type: :button, 'ng-click' => 'addProperty(newPropertyName)', 'ng-enable' => 'newPropertyName.length'}
+                %span.fa.fa-plus
           - v_submit_tag
 
       .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
+        .col-xs-2.pull-right
+          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("notice")'}
+            %span.fa.fa-edit
         %h6 Примечания:
-        {{ item.notice }}
+        .col-xs-12{'ng-if' => '!editing.notice'}
+          {{ item.notice }}
+        .col-xs-12{'ng-if' => 'editing.notice'}
+          - item_form_for 'notice' do
+            %textarea.form-control{'ng-model' => 'item.notice'}
+            - v_submit_tag

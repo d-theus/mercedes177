@@ -5,8 +5,9 @@ class Item < ActiveRecord::Base
   before_save :set_featured_photo
 
   validates :name, presence: true
-  validates :description, presence: true
   validates :category, presence: true
+
+  store_accessor :properties
 
   def featured_photo
     featured_photo_id && photos.find(featured_photo_id)

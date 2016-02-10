@@ -20,7 +20,7 @@ gem 'mini_magick'
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate'
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
+gem 'active_model_serializers'
 gem 'spring',        group: :development
 gem 'sitemap_generator'
 gem 'whenever'

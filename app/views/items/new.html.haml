@@ -16,13 +16,15 @@
           = f.input :body, input_html: {'ng-model' => 'body', typeahead: "body for body in #{@bodies} | filter:$viewValue"}
           = f.input :price
           = f.input :count, input_html: { value: 1}
-          = f.input :description
           = f.input :notice, placeholder: "Информация о доставке и еще что-то, что напрямую не касается самой детали."
           = f.association :category
           = f.submit 'Создать', class: %i(btn btn-lg btn-primary)
           %br/
           %br/
-          %small.alert.alert-warning
+          %p.alert.alert-warning.text-center
             %span.fa.fa-info
             &nbsp;
-            Фотографии можно будет добавить на странице товара (перенаправит автоматически).
+            %strong Фотографии
+            и
+            %strong доп. характеристики
+            можно будет добавить на странице товара (перенаправит автоматически).

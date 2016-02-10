@@ -5,8 +5,8 @@
         .col-xs-12.panel
           .col-xs-12
             %a{ 'ng-click' => 'changeItem(item.id)', href: '' }
-              %img.img-responsive{ 'ng-if' => 'item.featured_photo', 'ng-src' => '{{item.featured_photo}}' }
-              %img.img-responsive{ 'ng-if' => '!item.featured_photo', 'ng-src' => "#{image_path('placeholder.svg')}" }
+              %img.img-responsive{ 'ng-if' => 'item.thumb', 'ng-src' => '{{item.thumb}}' }
+              %img.img-responsive{ 'ng-if' => '!item.thumb', 'ng-src' => "#{image_path('placeholder.svg')}" }
           %br/
           .col-xs-12
             %h4 {{item.name}}

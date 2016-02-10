@@ -9,10 +9,9 @@
           %tr{'ng-if' => 'item.body'}
             %td Кузов
             %td {{item.body}}
-          - [*1..8].each do |i|
-            %tr
-              %td характеристика#{i}
-              %td значение#{i}
+          %tr{ 'ng-repeat' => '(name, val) in item.properties'}
+            %td {{name}}
+            %td {{val}}
     -#.row
       -#.col-xs-12
         -#.description
