@@ -19,14 +19,12 @@
       .well
         .row
           .col-xs-10.col-xs-offset-1.text-center
-            .col-xs-2.pull-right
-              %br/
-              %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
-                %span.fa.fa-plus
+            - if admin?
+              .col-xs-2.pull-right
+                %br/
+                %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
+                  %span.fa.fa-plus
             %h3 Категории
-          .col-xs-1
-            %button.btn.btn-danger.hidden-lg.hidden-md.pull-right{type: :button, 'ng-click' => 'toggleMaximized()'}
-              %span.fa.fa-times
         %center{'ng-if' => '!ready'}
           %span.fa.fa-lg.fa-gear.fa-spin
         %ul.nav.nav-stacked.nav-pills
