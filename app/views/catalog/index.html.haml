@@ -19,17 +19,14 @@
       .well
         .row
           .col-xs-10.col-xs-offset-1.text-center
+            .col-xs-2.pull-right
+              %br/
+              %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
+                %span.fa.fa-plus
             %h3 Категории
           .col-xs-1
             %button.btn.btn-danger.hidden-lg.hidden-md.pull-right{type: :button, 'ng-click' => 'toggleMaximized()'}
               %span.fa.fa-times
-        - if admin?
-          .row
-            .col-xs-10.col-xs-offset-1.navbar
-              %ul.nav.navbar-nav.nav-pills
-                %li
-                  %button.btn.btn-info.navbar-btn{ type: :button, 'ng-click' => 'openNewDialog()'}
-                    %span.fa.fa-plus
         %center{'ng-if' => '!ready'}
           %span.fa.fa-lg.fa-gear.fa-spin
         %ul.nav.nav-stacked.nav-pills
@@ -38,49 +35,46 @@
           'ng-class' => '{active: cat.current}'}
             %a{'ng-click' => 'changeCategory(cat.id)', href: ''} {{cat.name}}
             - if admin?
-              %button.btn.btn-danger.btn-sm.pull-right{ type: :button,
+              %button.btn.btn-danger.btn-sm{ type: :button,
                 'ng-click' => 'delete(cat)',
                 'ng-if' => 'cat.item_count == 0' }
                 %span.fa.fa-trash-o
-              %a.list-group-item.clearfix{'href' => '',
+              %a{ href: '',
                 'ng-click' => 'openEditDialog(cat)'}
-                %span.text-info
-                  %span.fa.fa-edit
-                  %strong
-                    ПРАВИТЬ КАТЕГОРИЮ
+                %small.text-info &nbsp;&nbsp;&nbsp;редактировать
+                  
 
-
-              -#%li
-              -#.btn-group{ 'is-open' => false, 'dropdown' => true}
-                -#%button.btn.btn-primary.navbar-btn#catalog_list_filter_toggle{'dropdown-toggle' => true }
-                  -#%span.fa.fa-filter
-                  -#Фильтр
-                -#%ul.dropdown-menu{ 'aria-labelledby' => 'catalog_list_filter_toggle'}
-                  -#%li.text-muted.text-center
-                    -#По наличию
-                  -#%li{ role: :menuitem}
-                    -#%a{ href: '', 'ng-click' => 'filters.count = ""'}
-                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === ''}"}
-                      -#Все
-                  -#%li{ role: :menuitem}
-                    -#%a{ href: '', 'ng-click' => 'filters.count = "!0"'}
-                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === '!0'}"}
-                      -#В наличии
-                  -#%li{ role: :menuitem}
-                    -#%a{ href: '', 'ng-click' => 'filters.count = 0'}
-                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === 0}"}
-                      -#Архив
-                  -#%li.divider
-                  -#%li.text-muted.text-center
-                    -#Кузов
-                  -#%li{ role: :menuitem}
-                    -#%a{ href: '', 'ng-click' => 'filters.body = undefined'}
-                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body == undefined}"}
-                      -#Все
-                  -#%li{ role: :menuitem, 'ng-repeat' => 'body in bodies'}
-                    -#%a{ href: '', 'ng-click' => 'filters.body = body'}
-                      -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === body}"}
-                      -#{{ body }}
+            -#%li
+            -#.btn-group{ 'is-open' => false, 'dropdown' => true}
+              -#%button.btn.btn-primary.navbar-btn#catalog_list_filter_toggle{'dropdown-toggle' => true }
+                -#%span.fa.fa-filter
+                -#Фильтр
+              -#%ul.dropdown-menu{ 'aria-labelledby' => 'catalog_list_filter_toggle'}
+                -#%li.text-muted.text-center
+                  -#По наличию
+                -#%li{ role: :menuitem}
+                  -#%a{ href: '', 'ng-click' => 'filters.count = ""'}
+                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === ''}"}
+                    -#Все
+                -#%li{ role: :menuitem}
+                  -#%a{ href: '', 'ng-click' => 'filters.count = "!0"'}
+                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === '!0'}"}
+                    -#В наличии
+                -#%li{ role: :menuitem}
+                  -#%a{ href: '', 'ng-click' => 'filters.count = 0'}
+                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === 0}"}
+                    -#Архив
+                -#%li.divider
+                -#%li.text-muted.text-center
+                  -#Кузов
+                -#%li{ role: :menuitem}
+                  -#%a{ href: '', 'ng-click' => 'filters.body = undefined'}
+                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body == undefined}"}
+                    -#Все
+                -#%li{ role: :menuitem, 'ng-repeat' => 'body in bodies'}
+                  -#%a{ href: '', 'ng-click' => 'filters.body = body'}
+                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === body}"}
+                    -#{{ body }}
 
     .col-md-9.col-xs-12
       .well#catalog_container{ 'ng-show' => 'selectedCategory || selectedItem' }
