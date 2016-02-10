@@ -13,6 +13,10 @@ class Item < ActiveRecord::Base
     featured_photo_id && photos.find(featured_photo_id)
   end
 
+  def featured_or_first_photo
+      featured_photo || photos.first
+  end
+
   private
 
   def set_featured_photo
