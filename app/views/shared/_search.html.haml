@@ -1,7 +1,7 @@
 .input-group
   %input.form-control{ 'type' => 'text',
     'ng-model' => 'query',
-    'placeholder' => 'Начните вводить название детали или серийный номер',
+    'placeholder' => 'Название или номер',
     'ng-focus' => 'getItems()',
     'typeahead-no-results' => 'noResults',
     'typeahead' => 'item.line for item in items | fuzzy: $viewValue',

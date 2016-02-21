@@ -9,20 +9,16 @@
         %a{href: '#'} W240
       %li
         %a{href: '#'} W180
-    -#.col-xs-6
-      -#%form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
-        -#.form-group
-          -#= render partial: 'shared/search'
-        -#.form-group
-          -#%label Поиск детали
 
-
-
-%br/
 .row.container-fluid{'ng-controller' => 'CatalogCtrl'}
   .row{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true}
-    .col-md-3#catalog_list
-      .well
+    .col-md-3
+
+      %center.well{ 'ng-controller' => 'SearchCtrl'}
+        %h3 Поиск детали
+        = render partial: 'shared/search'
+
+      .well#catalog_list
         .row
           .col-xs-10.col-xs-offset-1.text-center
             - if admin?
@@ -46,39 +42,6 @@
               %a{ href: '',
                 'ng-click' => 'openEditDialog(cat)'}
                 %small.text-info &nbsp;&nbsp;&nbsp;редактировать
-                  
-
-            -#%li
-            -#.btn-group{ 'is-open' => false, 'dropdown' => true}
-              -#%button.btn.btn-primary.navbar-btn#catalog_list_filter_toggle{'dropdown-toggle' => true }
-                -#%span.fa.fa-filter
-                -#Фильтр
-              -#%ul.dropdown-menu{ 'aria-labelledby' => 'catalog_list_filter_toggle'}
-                -#%li.text-muted.text-center
-                  -#По наличию
-                -#%li{ role: :menuitem}
-                  -#%a{ href: '', 'ng-click' => 'filters.count = ""'}
-                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === ''}"}
-                    -#Все
-                -#%li{ role: :menuitem}
-                  -#%a{ href: '', 'ng-click' => 'filters.count = "!0"'}
-                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === '!0'}"}
-                    -#В наличии
-                -#%li{ role: :menuitem}
-                  -#%a{ href: '', 'ng-click' => 'filters.count = 0'}
-                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.count === 0}"}
-                    -#Архив
-                -#%li.divider
-                -#%li.text-muted.text-center
-                  -#Кузов
-                -#%li{ role: :menuitem}
-                  -#%a{ href: '', 'ng-click' => 'filters.body = undefined'}
-                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body == undefined}"}
-                    -#Все
-                -#%li{ role: :menuitem, 'ng-repeat' => 'body in bodies'}
-                  -#%a{ href: '', 'ng-click' => 'filters.body = body'}
-                    -#%span.fa.fa-fw{'ng-class' => "{'fa-check': filters.body === body}"}
-                    -#{{ body }}
 
     .col-md-9.col-xs-12
       .well#catalog_container{ 'ng-show' => 'selectedCategory || selectedItem' }
