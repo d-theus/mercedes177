@@ -117,7 +117,7 @@
 html{
   height: 100%;
   min-height: 100%;
-  background: desaturate(lighten(mix(@gray, navy), 20), 35);
+  background: @brand-primary;
 }
 
 
@@ -209,6 +209,10 @@ body{
   }
 }
 
+#content{
+  min-height: 80vh;
+}
+
 #footer{
   h6, small {
     color: white;
@@ -294,7 +298,7 @@ body{
 }
 
 .well{
-  box-shadow: 4px 4px 5px @gray;
+  box-shadow: 4px 4px 5px @gray-darker;
 }
 
 @material-height-xs:   320px;
@@ -373,11 +377,15 @@ body{
   .carousel{
     .carousel-caption{
       h1,h2,h3,h4,h5,h6,p,span,a{
-      color: white;
-      font-family: Roboto Light;
-      font-weight: 400;
-      text-shadow: black 0 0 4px;
-    }
+        color: white;
+        font-family: Roboto Light;
+        font-weight: 400;
+        text-shadow: black 0 0 4px;
+      }
+      &.top{
+        top: 0;
+        bottom: auto;
+      }
     }
   }
 }
