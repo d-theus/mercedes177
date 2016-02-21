@@ -365,6 +365,23 @@ body{
   }
 }
 
+#w_bar{
+  padding: 0;
+}
+
+#catalog_empty{
+  .carousel{
+    .carousel-caption{
+      h1,h2,h3,h4,h5,h6,p,span,a{
+      color: white;
+      font-family: Roboto Light;
+      font-weight: 400;
+      text-shadow: black 0 0 4px;
+    }
+    }
+  }
+}
+
 .description{
   white-space: pre-line;
   word-wrap: normal;
@@ -380,4 +397,11 @@ body{
 .contact-line-bl{
   font-weight: bold;
   font-size: floor((@font-size-base * 1.35));
+}
+
+.item-card{
+  cursor: pointer;
+  &:hover{
+    box-shadow: @brand-primary 0 0 2px;
+  }
 }

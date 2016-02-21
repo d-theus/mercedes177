@@ -1,5 +1,5 @@
 class ItemCardSerializer < ActiveModel::Serializer
-  attributes :id, :name, :serial, :thumb
+  attributes :id, :name, :serial, :thumb, :price, :count
 
   def thumb
     object.featured_or_first_photo

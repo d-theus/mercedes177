@@ -1,15 +1,21 @@
 .row
-  .col-xs-12.col-sm-10.col-sm-offset-1.col-lg-8.col-lg-offset-2.well
-    .row
-      %ul.nav.nav-justified
-        %li
-          %a{href: '#'} W212
-        %li
-          %a{href: '#'} W211
-        %li
-          %a{href: '#'} W240
-        %li
-          %a{href: '#'} W180
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-lg-8.col-lg-offset-2.well#w_bar
+    %ul.nav.nav-justified
+      %li
+        %a{href: '#'} W212
+      %li
+        %a{href: '#'} W211
+      %li
+        %a{href: '#'} W240
+      %li
+        %a{href: '#'} W180
+    -#.col-xs-6
+      -#%form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
+        -#.form-group
+          -#= render partial: 'shared/search'
+        -#.form-group
+          -#%label Поиск детали
+
 
 
 %br/
@@ -91,23 +97,16 @@
           =render template: 'items/index', layout: false
 
       .row#catalog_empty{ 'ng-show' => '!(selectedCategory || selectedItem)' }
-        .col-xs-12
-          %img.img-responsive{src: image_path('bg-lg.jpg')}
-        .col-xs-12
-          .well
-            .row
-              %center.col-xs-10.col-xs-offset-1
-                %form.form-horizontal{name: 'search', 'ng-controller' => 'SearchCtrl'}
-                  .form-group
-                    %label Поиск детали
-                    = render partial: 'shared/search'
-            .row
-              .col-xs-12.col-sm-4.text-center
-                %h3 Только оригинальные детали
-              .col-xs-12.col-sm-4.text-center
-                %h3 Отличное состояние
-              .col-xs-12.col-sm-4.text-center
-                %h3 Тёплый сухой склад
+        .carousel
+          .carousel-inner
+            %img.img-responsive{src: image_path('bg-lg.jpg')}
+          .carousel-caption
+            .col-xs-12.col-sm-4.text-center
+              %h3 Только оригинальные детали
+            .col-xs-12.col-sm-4.text-center
+              %h3 Отличное состояние
+            .col-xs-12.col-sm-4.text-center
+              %h3 Тёплый сухой склад
 
 
 - content_for(:title) do

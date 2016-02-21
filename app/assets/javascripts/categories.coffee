@@ -70,6 +70,12 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
     $scope.categories.splice($scope.categories.indexOf(cat), 1)
     cat.$remove()
 
+  $scope.putItemToCart = (item)->
+    $scope.$emit 'cart:put', item, 1
+
+  $scope.putItemToCartAndProceed = (item)->
+    $scope.$emit 'cart:put-and-checkout', item, 1
+
   $scope.toggleMaximized = (value = null)->
     if value != null
       $scope.maximized = value

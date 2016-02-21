@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
                Item.where(category_id: params[:category_id]) .order('name ASC')
              else
                Item.order('name ASC')
-             end.select(:id, :name, :serial, :featured_photo_id)
+             end.select(:id, :name, :serial, :price, :count, :featured_photo_id)
              render json: @items, each_serializer: ItemCardSerializer
   end
 
