@@ -31,7 +31,10 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
           $scope.currentCategory.items = items
 
   $scope.clearCategory = ->
-    $scope.currentCategory = null
+    $scope.$emit 'filter:tochange', null
+
+  $scope.setFilter = (filter)->
+    $scope.bodyFilter = filter
 
   $scope.openNewDialog = ->
     $scope.newCategory = new Category
@@ -100,6 +103,10 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
         $scope.setCategory(id)
       else
         $scope.clearCategory()
+
+    $rootScope.$on 'filter:change', (_, filter)->
+      console.log 'filter:change catched'
+      $scope.setFilter(filter)
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->

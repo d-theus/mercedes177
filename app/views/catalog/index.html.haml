@@ -1,16 +1,11 @@
 .row.container-fluid
   .col-xs-12.well#w_bar
-    %ul.nav.nav-justified
-      %li
-        %a{href: '#'} W163
-      %li
-        %a{href: '#'} W203
-      %li
-        %a{href: '#'} W204
-      %li
-        %a{href: '#'} W211
-      %li
-        %a{href: '#'} ВСЕ
+    %ul.nav.nav-pills.nav-justified{ 'ng-controller' => 'CatalogCtrl' }
+      - %w(W163 W203 W204 W211).each do |body|
+        %li{ 'ng-class' => "{active: (selectedFilter === '#{body}')}"}
+          %a{href: '', 'ng-click' => "setFilter('#{body}')"}= body
+      %li{ 'ng-class' => "{ active: !selectedFilter }" }
+        %a{href: '', 'ng-click' => 'setFilter(null)'} ВСЕ
 
 .row.container-fluid{'ng-controller' => 'CatalogCtrl'}
   .row{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true}
@@ -63,9 +58,10 @@
             .col-xs-9
               %h2
                 Категория: {{currentCategory.name}}
-                \/&nbsp;W211&nbsp;
-                %a.text-danger{'ng-click' => 'clearFilters()', 'href' => '#' }
-                  %span.fa.fa-times
+                %span{'ng-if' => 'bodyFilter'}
+                  \/&nbsp;{{bodyFilter}}&nbsp;
+                  %a.text-danger{'ng-click' => 'clearFilter()', 'href' => '' }
+                    %span.fa.fa-times
           %br/
           =render template: 'items/index', layout: false
 

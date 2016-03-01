@@ -16,6 +16,10 @@ CatalogCtrl = ($scope, $rootScope, $location, $route)->
       $location.search('item', Number(id) )
       $scope.$emit 'item:change', id
       $scope._update()
+    $scope.$on 'filter:tochange', (_, filter)->
+      $location.search('filter', filter)
+      $scope.$emit 'filter:change', id
+      $scope._update()
 
     $rootScope.$on '$locationChangeSuccess', ->
       $scope._update()
@@ -25,6 +29,10 @@ CatalogCtrl = ($scope, $rootScope, $location, $route)->
     $scope.$on 'category_controller:ready', (e)->
       console.log 'category_controller:ready'
       $scope.selectedCategory && $scope.$emit('category:change',  $scope.selectedCategory)
+
+    $scope.$on 'category_controller:ready', (e)->
+      console.log 'category_controller:ready'
+      $scope.selectedCategory && $scope.$emit('filter:change',  $scope.selectedFilter)
 
     $scope.$on 'item_controller:ready', (e)->
       console.log 'item_controller:ready'
@@ -40,19 +48,30 @@ CatalogCtrl = ($scope, $rootScope, $location, $route)->
     $scope._update()
     $scope.$emit 'category:change', null
 
+  $scope.setFilter = (filter)->
+    $location.search('filter', filter)
+    $scope._update()
+    $scope.$emit 'filter:change', filter
+
+  $scope.clearFilter = ->
+    $location.search('filter', null)
+    $scope._update()
+    $scope.$emit 'filter:change', null
+
   $scope.clear = ->
     $location.search('cat', null)
     $location.search('item', null)
+    $location.search('filter', null)
     $scope._update()
     $scope.$emit 'category:change'
     $scope.$emit 'item:change'
+    $scope.$emit 'filter:change'
 
   $scope._update = ->
     $scope.selectedItem = $location.search().item
     $scope.selectedCategory = $location.search().cat
+    $scope.selectedFilter = $location.search().filter
     $scope.showContainer = $scope.selectedCategory || $scope.selectedItem
-    console.log 'showConainer'
-    console.log $scope.showContainer
 
   $scope.init()
 
