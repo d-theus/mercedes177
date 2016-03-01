@@ -1,18 +1,20 @@
-.row
-  .col-xs-12.col-sm-10.col-sm-offset-1.col-lg-8.col-lg-offset-2.well#w_bar
+.row.container-fluid
+  .col-xs-12.well#w_bar
     %ul.nav.nav-justified
       %li
-        %a{href: '#'} W212
+        %a{href: '#'} W163
+      %li
+        %a{href: '#'} W203
+      %li
+        %a{href: '#'} W204
       %li
         %a{href: '#'} W211
       %li
-        %a{href: '#'} W240
-      %li
-        %a{href: '#'} W180
+        %a{href: '#'} ВСЕ
 
 .row.container-fluid{'ng-controller' => 'CatalogCtrl'}
   .row{'ng-controller' => 'CategoriesCtrl', 'ng-cloak' => true}
-    .col-md-3
+    %aside.col-md-3
 
       %center.well{ 'ng-controller' => 'SearchCtrl'}
         %h3 Поиск детали
@@ -27,21 +29,23 @@
                 %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
                   %span.fa.fa-plus
             %h3 Категории
-        %center{'ng-if' => '!ready'}
-          %span.fa.fa-lg.fa-gear.fa-spin
-        %ul.nav.nav-stacked.nav-pills
-          %li{ 'ng-show' => 'categories.length',
-          'ng-repeat' => 'cat in categories',
-          'ng-class' => '{active: cat.current}'}
-            %a{'ng-click' => 'changeCategory(cat.id)', href: ''} {{cat.name}}
-            - if admin?
-              %button.btn.btn-danger.btn-sm{ type: :button,
-                'ng-click' => 'delete(cat)',
-                'ng-if' => 'cat.item_count == 0' }
-                %span.fa.fa-trash-o
-              %a{ href: '',
-                'ng-click' => 'openEditDialog(cat)'}
-                %small.text-info &nbsp;&nbsp;&nbsp;редактировать
+        %br/
+        .row
+          %center{'ng-if' => '!ready'}
+            %span.fa.fa-lg.fa-gear.fa-spin
+          %ul.nav.nav-stacked.nav-pills
+            %li{ 'ng-show' => 'categories.length',
+            'ng-repeat' => 'cat in categories',
+            'ng-class' => '{active: cat.current}'}
+              %a{'ng-click' => 'changeCategory(cat.id)', href: ''} {{cat.name}}
+              - if admin?
+                %button.btn.btn-danger.btn-sm{ type: :button,
+                  'ng-click' => 'delete(cat)',
+                  'ng-if' => 'cat.item_count == 0' }
+                  %span.fa.fa-trash-o
+                %a{ href: '',
+                  'ng-click' => 'openEditDialog(cat)'}
+                  %small.text-info &nbsp;&nbsp;&nbsp;редактировать
 
     .col-md-9.col-xs-12
       .well#catalog_container{ 'ng-show' => 'showContainer' }
@@ -55,25 +59,32 @@
           %div{'ng-controller' => 'ItemCtrl'} 
             =render template: 'items/show', layout: false
         %div{ 'ng-if' => '!selectedItem'}
-          %h2 Категория: {{currentCategory.name}}
+          .row
+            .col-xs-9
+              %h2
+                Категория: {{currentCategory.name}}
+                \/&nbsp;W211&nbsp;
+                %a.text-danger{'ng-click' => 'clearFilters()', 'href' => '#' }
+                  %span.fa.fa-times
           %br/
           =render template: 'items/index', layout: false
 
       .row#catalog_empty{ 'ng-show' => '!showContainer' }
-        .carousel
-          .carousel-inner
-            %img.img-responsive{src: image_path('bg-lg.jpg')}
-          .carousel-caption.top
-            %h1 Mercedes177
-            %h2 Оригинальные автозапчасти из Европы
-            %small АВТОРАЗБОР
-          .carousel-caption
-            .col-xs-12.col-sm-4.text-center
-              %h3 Только оригинальные детали
-            .col-xs-12.col-sm-4.text-center
-              %h3 Отличное состояние
-            .col-xs-12.col-sm-4.text-center
-              %h3 Тёплый сухой склад
+        .col-xs-12
+          .carousel
+            .carousel-inner
+              %img.img-responsive{src: image_path('bg-lg.jpg')}
+            .carousel-caption.top
+              %h1 Mercedes177
+              %h2 Оригинальные автозапчасти из Европы
+              %small АВТОРАЗБОР
+            .carousel-caption
+              .col-xs-12.col-sm-4.text-center
+                %h3 Только оригинальные детали
+              .col-xs-12.col-sm-4.text-center
+                %h3 Отличное состояние
+              .col-xs-12.col-sm-4.text-center
+                %h3 Тёплый сухой склад
 
 
 - content_for(:title) do

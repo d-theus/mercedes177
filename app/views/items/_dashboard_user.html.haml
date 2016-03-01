@@ -1,21 +1,18 @@
 .row
-  %center.col-xs-12
-    .row
-      .col-xs-12.text-center
-        %h3 Характеристики
-    .row
-      .col-xs-10.col-xs-offset-1.panel
-        %table.table.table-hover
-          %tr{'ng-if' => 'item.body'}
-            %td Кузов
-            %td {{item.body}}
-          %tr{ 'ng-repeat' => '(name, val) in item.properties'}
-            %td {{name}}
-            %td {{val}}
-    -#.row
-      -#.col-xs-12
-        -#.description
-          -#{{ item.description }}
+  %center.col-xs-12.panel
+    .panel-body
+      .row
+        .col-xs-12.text-center
+          %h3 Характеристики
+      .row
+        .col-xs-12
+          %table.table.table-hover.table-striped
+            %tr{'ng-if' => 'item.body'}
+              %td Кузов
+              %td {{item.body}}
+            %tr{ 'ng-repeat' => '(name, val) in item.properties'}
+              %td {{name}}
+              %td {{val}}
 .row
   .col-xs-12.col-sm-5{'ng-show' => '!editing.price'}
     .row
@@ -46,8 +43,12 @@
     %a.btn.btn-default.btn-block{href: '#'}
       %span.fa.fa-question.fa-fw
       Задать вопрос
+%br/
 
-    .row{'ng-if' => 'item.notice'}
-      .col-xs-12.text-warning
+.row{'ng-if' => 'item.notice'}
+  .col-xs-12.text-warning.panel
+    .panel-body
+      .text-center
         %h3 Примечания
+      %p
         {{ item.notice }}

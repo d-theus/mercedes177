@@ -1,24 +1,23 @@
 .row
-  %center.col-xs-10.col-xs-offset-1.image-container
-    %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview || '#{image_path('placeholder.svg')}'}}"}
-    .col-xs-10.image-overlay
-      - if admin?
-        %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
-          %span.fa.fa-edit
-        %button.btn.btn-info{ type: :button, 'ng-click' => 'featurePhoto()', 'ng-show' => '!editing.photos', 'ng-disabled' => 'item.currentPhoto.id == item.featuredPhoto.id'}
-          %span.fa.fa-star
-        %button.btn.btn-danger{ type: :button, 'ng-click' => 'deletePhoto()', 'ng-show' => '!editing.photos && item.currentPhoto.preview'}
-          %span.fa.fa-times
+  .col-xs-12.image-container.panel
+    .panel-body
+      %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview || '#{image_path('placeholder.svg')}'}}"}
+      .col-xs-10.image-overlay
+        - if admin?
+          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
+            %span.fa.fa-edit
+          %button.btn.btn-info{ type: :button, 'ng-click' => 'featurePhoto()', 'ng-show' => '!editing.photos', 'ng-disabled' => 'item.currentPhoto.id == item.featuredPhoto.id'}
+            %span.fa.fa-star
+          %button.btn.btn-danger{ type: :button, 'ng-click' => 'deletePhoto()', 'ng-show' => '!editing.photos && item.currentPhoto.preview'}
+            %span.fa.fa-times
 
-      %button.btn.btn-primary{ type: :button, 'ng-click' => 'openPhotoPreview()', 'ng-if' => 'item.photos.length'}
-        %span.fa.fa-arrows-alt
+        %button.btn.btn-default{ type: :button, 'ng-click' => 'openPhotoPreview()', 'ng-if' => 'item.photos.length'}
+          %span.fa.fa-arrows-alt
 
 .row{ 'ng-if' => 'item.photos.length'}
   .col-xs-12
-    %br/
-    %br
     .row{'ng-repeat' => 'row in item.photos | chunkBy: 3'}
-      .col-xs-4{'ng-repeat' => 'photo in row'}
+      .col-xs-3{'ng-repeat' => 'photo in row'}
         %a.thumbnail{'href' => '', 'ng-click' => 'setPhoto(photo)'}
           %img.img-responsive{'ng-src' => '{{photo.thumb}}'}
 - if admin?
