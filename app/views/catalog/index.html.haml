@@ -44,7 +44,7 @@
                 %small.text-info &nbsp;&nbsp;&nbsp;редактировать
 
     .col-md-9.col-xs-12
-      .well#catalog_container{ 'ng-show' => 'selectedCategory || selectedItem' }
+      .well#catalog_container{ 'ng-show' => 'showContainer' }
         .row
         %a.btn.btn-sm{'ng-click' => 'clearItem()', href: '', 'ng-show' => 'selectedItem && selectedCategory'}
           %span.small.text-primary
@@ -59,7 +59,7 @@
           %br/
           =render template: 'items/index', layout: false
 
-      .row#catalog_empty{ 'ng-show' => '!(selectedCategory || selectedItem)' }
+      .row#catalog_empty{ 'ng-show' => '!showContainer' }
         .carousel
           .carousel-inner
             %img.img-responsive{src: image_path('bg-lg.jpg')}

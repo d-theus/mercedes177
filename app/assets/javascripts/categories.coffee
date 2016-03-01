@@ -30,6 +30,9 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
         itemsQuery.then (items)->
           $scope.currentCategory.items = items
 
+  $scope.clearCategory = ->
+    $scope.currentCategory = null
+
   $scope.openNewDialog = ->
     $scope.newCategory = new Category
     m = $modal.open(
@@ -93,7 +96,10 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
 
     $rootScope.$on "category:change", (_, id)->
       console.log 'category:change catched'
-      $scope.setCategory(id)
+      if id
+        $scope.setCategory(id)
+      else
+        $scope.clearCategory()
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->
