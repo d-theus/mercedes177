@@ -18,7 +18,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   version :preview do
     process :watermark
-    process resize_to_fit: [400, 300]
+    process resize_to_fit: [920, 700]
   end
 
   version :big do
