@@ -1,22 +1,23 @@
 .row
-  .col-xs-12.image-container.panel
-    .panel-body
-      %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview || '#{image_path('placeholder.svg')}'}}"}
-      .col-xs-10.image-overlay
-        - if admin?
-          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
-            %span.fa.fa-edit
-          %button.btn.btn-info{ type: :button, 'ng-click' => 'featurePhoto()', 'ng-show' => '!editing.photos', 'ng-disabled' => 'item.currentPhoto.id == item.featuredPhoto.id'}
-            %span.fa.fa-star
-          %button.btn.btn-danger{ type: :button, 'ng-click' => 'deletePhoto()', 'ng-show' => '!editing.photos && item.currentPhoto.preview'}
-            %span.fa.fa-times
+  .col-xs-12.col-lg-10.col-lg-offset-1
+    .image-container.panel.col-xs-12
+      .panel-body
+        %img.img-responsive{'ng-src' => "{{item.currentPhoto.preview || '#{image_path('placeholder.svg')}'}}"}
+        .col-xs-10.image-overlay
+          - if admin?
+            %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("photos", "prompt")', 'ng-show' => '!editing.photos'}
+              %span.fa.fa-edit
+            %button.btn.btn-info{ type: :button, 'ng-click' => 'featurePhoto()', 'ng-show' => '!editing.photos', 'ng-disabled' => 'item.currentPhoto.id == item.featuredPhoto.id'}
+              %span.fa.fa-star
+            %button.btn.btn-danger{ type: :button, 'ng-click' => 'deletePhoto()', 'ng-show' => '!editing.photos && item.currentPhoto.preview'}
+              %span.fa.fa-times
 
-        %button.btn.btn-default{ type: :button, 'ng-click' => 'openPhotoPreview()', 'ng-if' => 'item.photos.length'}
-          %span.fa.fa-arrows-alt
+          %button.btn.btn-default{ type: :button, 'ng-click' => 'openPhotoPreview()', 'ng-if' => 'item.photos.length'}
+            %span.fa.fa-arrows-alt
 
 .row{ 'ng-if' => 'item.photos.length'}
   .col-xs-12
-    .row{'ng-repeat' => 'row in item.photos | chunkBy: 3'}
+    .row{'ng-repeat' => 'row in item.photos | chunkBy: 4'}
       .col-xs-3{'ng-repeat' => 'photo in row'}
         %a.thumbnail{'href' => '', 'ng-click' => 'setPhoto(photo)'}
           %img.img-responsive{'ng-src' => '{{photo.thumb}}'}

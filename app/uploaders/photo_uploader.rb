@@ -10,14 +10,20 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  process :watermark
 
   version :thumb do
+    process :watermark
     process resize_to_fill: [128, 96]
   end
 
   version :preview do
+    process :watermark
     process resize_to_fit: [400, 300]
+  end
+
+  version :big do
+    process :watermark
+    process resize_to_fit: [2560, 1600]
   end
 
   def watermark

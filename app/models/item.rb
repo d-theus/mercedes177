@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :category
-  has_many   :photos
+  has_many   :photos, dependent: :delete_all
 
   before_save :set_featured_photo
 
@@ -15,6 +15,11 @@ class Item < ActiveRecord::Base
 
   def featured_or_first_photo
       featured_photo || photos.first
+  end
+
+  def delete_featured_photo
+    photos.find(featured_photo_id).destroy &&
+      update(featured_photo_id: nil)
   end
 
   private

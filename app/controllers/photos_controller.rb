@@ -9,7 +9,12 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    respond_with Photo.delete(params[:id])
+    @item = Item.find(params[:item_id])
+    if @item.featured_photo_id == params[:id].to_i
+      respond_with @item.delete_featured_photo
+    else
+      respond_with Photo.delete(params[:id])
+    end
   end
 
   def index
