@@ -7,8 +7,9 @@ CartCtrl = ($scope, $rootScope, $resource, $modal, $cookies, $location) ->
       @name = item.name
       @serial = item.serial
       @price = item.price
+      @available = item.count || throw 'No items available 0_0'
     add: ->
-      @count += 1
+      @count += 1 if @count < @available
     subtract: ()->
       @count -= 1 if @count > 0
 
@@ -34,7 +35,7 @@ CartCtrl = ($scope, $rootScope, $resource, $modal, $cookies, $location) ->
   $scope.getPositions = ->
     pos = $cookies.getObject('cart-positions')
     if pos
-      $scope.positions = (new Position({id: p.id, name: p.name, serial: p.serial, price: p.price}, p.count) for p in pos)
+      $scope.positions = (new Position({id: p.id, name: p.name, serial: p.serial, price: p.price, count: p.available}, p.count) for p in pos)
     else
       $scope.positions = []
     $scope.$broadcast 'positions:updated', 'stuff'
