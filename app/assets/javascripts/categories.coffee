@@ -1,6 +1,6 @@
 @category = angular.module('category', ['ngResource', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'item', 'search', 'cart'])
 
-CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window) ->
+CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window, $filter) ->
   $scope.editing = false
 
   $scope.maximized = not $location.search().item
@@ -33,8 +33,11 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
   $scope.clearCategory = ->
     $scope.$emit 'filter:tochange', null
 
-  $scope.setFilter = (filter)->
-    $scope.bodyFilter = filter
+  $scope.setBody = (body = null)->
+    $scope.$emit 'body:tochange', body
+
+  $scope.setAvailable = (value = null)->
+    $scope.$emit 'available:tochange', value
 
   $scope.openNewDialog = ->
     $scope.newCategory = new Category
@@ -96,6 +99,7 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
     $scope.toggleMaximized(false)
 
   $scope.init = ->
+    $scope.filters = { available: 1, body: undefined }
 
     $rootScope.$on "category:change", (_, id)->
       console.log 'category:change catched'
@@ -104,9 +108,13 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
       else
         $scope.clearCategory()
 
-    $rootScope.$on 'filter:change', (_, filter)->
-      console.log 'filter:change catched'
-      $scope.setFilter(filter)
+    $rootScope.$on 'body:change', (_, body)->
+      console.log "body:change catched: #{body}"
+      $scope.filters.body = body
+
+    $rootScope.$on 'available:change', (_, available)->
+      console.log "available:change catched: #{available}"
+      $scope.filters.available = available
 
     categoriesQuery = (Category.query '').$promise
     categoriesQuery.then (categories)->
@@ -114,11 +122,7 @@ CategoriesCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $window)
       $scope.ready = true
       $scope.$emit 'category_controller:ready'
 
-
-    $scope.filters = { count: '!0', body: undefined }
-
-
   $scope.init()
 
 
-@category.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', '$window', CategoriesCtrl]
+@category.controller 'CategoriesCtrl', ['$scope', '$rootScope', '$resource', '$location', '$modal', '$q', '$window', '$filter', CategoriesCtrl]

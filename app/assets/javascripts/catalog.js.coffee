@@ -16,9 +16,13 @@ CatalogCtrl = ($scope, $rootScope, $location, $route)->
       $location.search('item', Number(id) )
       $scope.$emit 'item:change', id
       $scope._update()
-    $scope.$on 'filter:tochange', (_, filter)->
-      $location.search('filter', filter)
-      $scope.$emit 'filter:change', id
+    $scope.$on 'body:tochange', (_, body)->
+      $location.search('body', body)
+      $scope.$emit 'body:change', body
+      $scope._update()
+    $scope.$on 'available:tochange', (_, available)->
+      $location.search('available', available)
+      $scope.$emit 'available:change', available
       $scope._update()
 
     $rootScope.$on '$locationChangeSuccess', ->
@@ -27,12 +31,10 @@ CatalogCtrl = ($scope, $rootScope, $location, $route)->
     $scope._update()
 
     $scope.$on 'category_controller:ready', (e)->
-      console.log 'category_controller:ready'
+      console.log 'categories_controller:ready'
       $scope.selectedCategory && $scope.$emit('category:change',  $scope.selectedCategory)
-
-    $scope.$on 'category_controller:ready', (e)->
-      console.log 'category_controller:ready'
-      $scope.selectedCategory && $scope.$emit('filter:change',  $scope.selectedFilter)
+      $scope.selectedBody && $scope.$emit('body:change',  $scope.selectedBody)
+      $scope.selectedAvailable? && $scope.$emit('available:change',  $scope.selectedAvailable)
 
     $scope.$on 'item_controller:ready', (e)->
       console.log 'item_controller:ready'
@@ -48,29 +50,39 @@ CatalogCtrl = ($scope, $rootScope, $location, $route)->
     $scope._update()
     $scope.$emit 'category:change', null
 
-  $scope.setFilter = (filter)->
-    $location.search('filter', filter)
+  $scope.setBody = (body)->
+    $location.search('body', body)
     $scope._update()
-    $scope.$emit 'filter:change', filter
+    $scope.$emit 'body:change', body
+
+  $scope.setAvailable = (available)->
+    $location.search('available', available)
+    $scope._update()
+    $scope.$emit 'available:change', available
 
   $scope.clearFilter = ->
-    $location.search('filter', null)
+    $location.search('body', null)
+    $location.search('count', null)
     $scope._update()
-    $scope.$emit 'filter:change', null
+    $scope.$emit 'body:change', null
+    $scope.$emit 'available:change', null
 
   $scope.clear = ->
     $location.search('cat', null)
     $location.search('item', null)
-    $location.search('filter', null)
+    $location.search('body', null)
+    $location.search('available', null)
     $scope._update()
     $scope.$emit 'category:change'
     $scope.$emit 'item:change'
-    $scope.$emit 'filter:change'
+    $scope.$emit 'available:change'
+    $scope.$emit 'body:change'
 
   $scope._update = ->
     $scope.selectedItem = $location.search().item
     $scope.selectedCategory = $location.search().cat
-    $scope.selectedFilter = $location.search().filter
+    $scope.selectedBody = $location.search().body
+    $scope.selectedAvailable = $location.search().available
     $scope.showContainer = $scope.selectedCategory || $scope.selectedItem
 
   $scope.init()
