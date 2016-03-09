@@ -101,15 +101,15 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
     $q.all(rs).then ->
       $scope.files.splice(0)
       $scope.editing.photos = false
-      $scope.setItem($scope.item)
+      $scope.$emit 'item:tochange', $scope.item.id
 
   $scope.deletePhoto = ->
     ItemPhoto.delete(id: $scope.item.currentPhoto.id, item_id: $scope.item.id)
-    $scope.$emit 'item:tochange'
+    $scope.$emit 'item:tochange', $scope.item.id
 
   $scope.featurePhoto = ->
     Item.update(id: $scope.item.id, featured_photo_id: $scope.item.currentPhoto.id)
-    $scope.$emit 'item:tochange'
+    $scope.$emit 'item:tochange', $scope.item.id
 
   $scope.openPhotoPreview = ()->
     modal = $modal.open(
