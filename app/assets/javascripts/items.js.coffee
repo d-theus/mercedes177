@@ -90,18 +90,35 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
         break
 
   $scope.savePhotos = ()->
+    chain = $q.when()
     rs = $scope.files.map (file)->
       photo = new ItemPhoto
       photo.data = file.data
       file.progress = 10
-      promise = photo.$save(item_id: $scope.item.id)
-      promise.then ->
-        file.progress = 100
+      chain.then ->
+        chain = photo.$save(item_id: $scope.item.id)
+        chain
+          .then ->
+            file.progress = 100
+          .catch ->
+            file.progress = -1
 
-    $q.all(rs).then ->
-      $scope.files.splice(0)
-      $scope.editing.photos = false
-      $scope.$emit 'item:tochange', $scope.item.id
+    $q.all(rs)
+      .then ->
+        $scope.files = $scope.files.filter((file)-> file.progress != 100)
+        console.log $scope.files
+        if $scope.files.length > 0
+          if confirm('Некоторые фото не загрузились, попробовать еще?')
+            $scope.savePhotos()
+          else
+            $scope.files.splice(0)
+            $scope.editing.photos = false
+            $scope.$emit 'item:tochange', $scope.item.id
+        else
+          $scope.editing.photos = false
+          $scope.$emit 'item:tochange', $scope.item.id
+
+
 
   $scope.deletePhoto = ->
     ItemPhoto.delete(id: $scope.item.currentPhoto.id, item_id: $scope.item.id)
