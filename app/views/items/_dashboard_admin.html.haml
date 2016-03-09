@@ -1,9 +1,9 @@
 .row
   .col-xs-12
     .row{'ng-show' => '!editing.price'}
-      .col-xs-3
+      .col-xs-5
         Цена: 
-      .col-xs-7
+      .col-xs-5
         %strong.lead {{ item.price }}
         %span.fa.fa-rub
       .col-xs-2
@@ -18,9 +18,11 @@
                 %span.fa.fa-rub
               %input.form-control{type: :number, 'ng-model' => 'item.price'}
           - v_submit_tag
+%hr/
+%br/
 
-    %br/
-
+.row
+  .col-xs-12
     .row{'ng-show' => '!editing.count'}
       .col-xs-5
         На складе:
@@ -40,28 +42,35 @@
                 шт.
               %input.form-control{type: :number, min: '0', 'ng-model' => 'item.count'}
           - v_submit_tag
-%br/
+%hr/
 %br/
 .row
   .col-xs-12
-    .row
-      .col-xs-12
+    .row{'ng-if' => '!editing.body'}
+      .col-xs-5
+        Кузов
+      .col-xs-5
+        {{ item.body }}
+      .col-xs-2
         %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("body")', 'ng-show' => '!editing.body'}
           %span.fa.fa-edit
-        %h4 Кузов
+    .row{'ng-if' => 'editing.body'}
+      .col-xs-12
         - item_field_for 'body' do
           .form-group.col-xs-8
             .input-group
               %input.form-control{type: :text, 'ng-model' => 'item.body'}
           - v_submit_tag
-        {{ item.body }}
-    %br/
+%hr/
+%br/
+.row
+  .col-xs-12
     .row
-      %h3 Характеристики
+      .col-xs-12
+        %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("properties")'}
+          %span.fa.fa-edit
+        %h3 Характеристики
       .col-xs-12{'ng-show' => '!editing.properties'}
-        .col-xs-2.pull-right
-          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("properties")'}
-            %span.fa.fa-edit
         %table.table.table-hover
           %tr{ 'ng-repeat' => '(name, val) in item.properties'}
             %td {{name}}
@@ -91,13 +100,15 @@
                 %span.fa.fa-plus
           - v_submit_tag
 
-      .col-xs-12.alert.alert-warning{ 'ng-if' => 'item.notice'}
-        .col-xs-2.pull-right
-          %button.btn.btn-info{ type: :button, 'ng-click' => 'toggleControl("notice")'}
-            %span.fa.fa-edit
-        %h6 Примечания:
+    .row
+      .col-xs-12
+        %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("notice")'}
+          %span.fa.fa-edit
+        %h3 Примечания
+      .col-xs-12{ 'ng-if' => 'item.notice'}
         .col-xs-12{'ng-if' => '!editing.notice'}
-          {{ item.notice }}
+          %pre.description
+            {{ item.notice }}
         .col-xs-12{'ng-if' => 'editing.notice'}
           - item_form_for 'notice' do
             %textarea.form-control{'ng-model' => 'item.notice'}
