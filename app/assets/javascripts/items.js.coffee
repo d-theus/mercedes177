@@ -107,6 +107,8 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
             $scope.editing.photos = false
             $scope.$emit 'item:tochange', $scope.item.id
     else
+      $scope.files.splice(0)
+      $scope.editing.photos = false
       $scope.$emit 'item:tochange', $scope.item.id
 
   $scope.deletePhoto = ->
