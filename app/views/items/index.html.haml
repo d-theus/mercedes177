@@ -1,6 +1,6 @@
 .row
   .col-xs-12{'ng-if' => 'currentCategory'}
-    .row{ 'ng-repeat' => 'row in currentCategory.items | pick: filters.available != "no" ? "count > 0" : "count == 0" | filterBy: ["body"]: filters.body  | chunkBy: 2'}
+    .row{ 'ng-repeat' => 'row in currentCategory.items | pick: filters.available == "no" ? "count < 1" : "count > 0" | filterBy: ["body"]: filters.body  | chunkBy: 2'}
       .col-xs-12.col-sm-6{ 'ng-repeat' => 'item in row'}
         .panel.col-xs-12.item-card{ 'ng-click' => 'changeItem(item.id)' }
           .panel-body

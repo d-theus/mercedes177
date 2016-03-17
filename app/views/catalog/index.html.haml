@@ -24,7 +24,7 @@
                 %button.btn.btn-info{ type: :button, 'ng-click' => 'openNewDialog()'}
                   %span.fa.fa-plus
             %h3
-              {{ filters.available == "yes" ? "Каталог" : "Архив" }}
+              {{ selectedAvailable === "no" ? "Архив" : "Каталог" }}
               .btn-group{ 'is-open' => false, 'dropdown' => true}
                 %span#catalog_list_filter_toggle{'dropdown-toggle' => true }
                   %span.caret
