@@ -25,5 +25,8 @@ ready = ->
   $('#navbar_toggle_2').click ->
     $('#navbar_toggle').show()
 
+  $('#w_bar a, #catalog_list ul').on 'click', ->
+    $('#content').animate({scrollLeft: $(window).width()}, 300)
+
 $(document).ready ready
 $(document).on 'page:load', ready

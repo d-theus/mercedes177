@@ -201,7 +201,7 @@ body{
 .navbar-toggle{
   position: fixed;
   top: 0.5em;
-  right: 0.1em;
+  left: 80vw;
   font-size: 2em;
   z-index: 999;
   .btn{
@@ -209,8 +209,57 @@ body{
   }
 }
 
-#content{
+#catalog_list{
+}
+
+#catalog{
+}
+
+#content {
+  overflow-x: scroll;
   min-height: 80vh;
+  aside{
+    h1,h2,h3,h4,h5,h6{
+      margin-top: 0;
+    }
+  }
+  @media only screen and (max-width: @grid-float-breakpoint){
+    .xs-double{
+      width: 200vw;
+    }
+  }
+}
+
+#w_bar{
+  .well{
+    padding: 0;
+    .nav li a{
+      padding: 2px;
+      font-weight: 600;
+    }
+  }
+}
+
+#catalog_empty{
+  .carousel{
+    .carousel-caption{
+      h1,h2,h3,h4,h5,h6,p,span,a{
+        color: white;
+        font-family: Roboto Light;
+        font-weight: 400;
+        text-shadow: black 0 0 4px;
+      }
+      @media only screen and (max-width: @screen-sm){
+        h1{ font-size: 14px; }
+        h2{ font-size: 12px; }
+        h3{ font-size: 10px; }
+      }
+      &.top{
+        top: 0;
+        bottom: auto;
+      }
+    }
+  }
 }
 
 #footer{
@@ -350,55 +399,6 @@ body{
   margin-bottom: 1em;
 }
 
-#catalog_list{
-  @media only screen and (max-width: @screen-md){
-    position: absolute;
-    z-index: 10;
-    width: 96%;
-    left: -102%;
-    top: 80px;
-    &.in{
-      left: 2%;
-    }
-
-    .dropdown-menu{
-      background: white;
-      margin-top: 3em;
-    }
-    transition: left 0.4s;
-  }
-}
-
-#content aside{
-  h1,h2,h3,h4,h5,h6{
-    margin-top: 0;
-  }
-}
-
-#w_bar{
-  padding: 0;
-  .nav li a{
-    padding: 2px;
-    font-weight: 600;
-  }
-}
-
-#catalog_empty{
-  .carousel{
-    .carousel-caption{
-      h1,h2,h3,h4,h5,h6,p,span,a{
-        color: white;
-        font-family: Roboto Light;
-        font-weight: 400;
-        text-shadow: black 0 0 4px;
-      }
-      &.top{
-        top: 0;
-        bottom: auto;
-      }
-    }
-  }
-}
 
 .description{
   white-space: pre-line;
