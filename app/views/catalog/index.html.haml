@@ -1,7 +1,7 @@
 .row.container-fluid#w_bar
   .col-xs-12.well
     %ul.nav.nav-pills.nav-justified{ 'ng-controller' => 'CatalogCtrl' }
-      - %w(W163 W203 W204 W211).each do |body|
+      - %w(W163 W202 W203 W204 W211).each do |body|
         %li{ 'ng-class' => "{active: (selectedBody === '#{body}')}"}
           %a{href: '', 'ng-click' => "setBody('#{body}')"}= body
       %li{ 'ng-class' => "{ active: !selectedBody }" }
