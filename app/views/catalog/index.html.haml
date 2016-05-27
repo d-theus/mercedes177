@@ -70,7 +70,10 @@
           .row
             .col-xs-9
               %h2
-                Категория: {{currentCategory.name}}
+                %span{'ng-if' => 'currentCategory'}
+                  Категория: {{currentCategory.name}}
+                %span.text-muted{'ng-if' => '!currentCategory'}
+                  Выберите тип запчасти слева
                 %span{'ng-if' => 'filters.body'}
                   \/&nbsp;{{selectedBody}}&nbsp;
                   %a.text-danger{'ng-click' => 'setBody(null)', 'href' => '' }

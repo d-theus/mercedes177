@@ -83,7 +83,7 @@ CatalogCtrl = ($scope, $rootScope, $location, $route)->
     $scope.selectedCategory = $location.search().cat
     $scope.selectedBody = $location.search().body
     $scope.selectedAvailable = $location.search().available
-    $scope.showContainer = $scope.selectedCategory || $scope.selectedItem
+    $scope.showContainer = $scope.selectedCategory || $scope.selectedItem || $scope.selectedBody
 
   $scope.init()
 
