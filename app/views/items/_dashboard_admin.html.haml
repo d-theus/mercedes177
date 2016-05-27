@@ -1,5 +1,27 @@
 .row
   .col-xs-12
+    .row{ 'ng-show' => '!editing.category_id'}
+      .col-xs-5
+        Категория:
+      .col-xs-5
+        {{ item.category.name }}
+      .col-xs-2
+        %button.btn.btn-info.pull-right{ type: :button, 'ng-click' => 'toggleControl("category_id")'}
+          %span.fa.fa-edit
+    .row{'ng-show' => 'editing.category_id'}
+      .col-xs-12
+        - item_field_for 'category_id', to_change: true do
+          .form-group.col-xs-8
+            .input-group
+              %select.form-control{'ng-model' => 'item.category_id'}
+                %option{'ng-repeat' => 'cat in categories', 'value' => '{{cat.id}}', 'ng-selected' => '{{cat.id == item.category_id}}'}
+                  {{ cat.name }}
+          - v_submit_tag
+%br/
+%br/
+
+.row
+  .col-xs-12
     .row{'ng-show' => '!editing.price'}
       .col-xs-5
         Цена: 

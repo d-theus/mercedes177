@@ -47,13 +47,15 @@ ItemCtrl = ($scope, $rootScope, $resource, $location, $modal, $q, $timeout) ->
     id = phs.indexOf($scope.item.currentPhoto)
     $scope.item.currentPhoto = phs[(phs.length + id - 1) % phs.length]
 
-  $scope.submit = (attr)->
+  $scope.submit = (attr, tochange = false)->
     if $scope.item[attr]
       upd = {}
       upd.id = $scope.item.id
       upd[attr] = $scope.item[attr]
       Item.update upd, ->
         $scope.editing[attr] = false
+        if tochange
+          $scope.$emit 'item:tochange', $scope.item.id
 
   $scope.chooseFile = ()->
     $scope.files ||= []

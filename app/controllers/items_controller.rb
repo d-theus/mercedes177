@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    respond_with Item.find(params[:id])
+    respond_with Item.includes(:category).find(params[:id])
   end
 
   def update
