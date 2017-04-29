@@ -28,12 +28,24 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   def watermark
     manipulate! do |img|
-      wm = MiniMagick::Image.open(File.join(Rails.root, 'app', 'assets', 'images', 'watermark.png'))
-      size = "#{img.width / 3 - 20}x"
-      offset = "+#{2*img.width / 3}+#{ 2*img.height/3}"
-      img = img.composite(wm) do |c|
-        c.compose 'Over'
-        c.geometry "#{size}#{offset}"
+      wms = [
+        MiniMagick::Image.open(File.join(Rails.root, 'app', 'assets', 'images', 'watermark.png')),
+        MiniMagick::Image.open(File.join(Rails.root, 'app', 'assets', 'images', 'logo.png')),
+      ]
+      sizes = [
+        "#{img.width / 3 - 20}x",
+        "#{img.width / 10 }x",
+      ]
+      offsets = [
+        "+#{2*img.width / 3}+#{ 2*img.height/3}",
+        "+#{3*img.width/4}+#{ img.height/3}",
+      ]
+      wms.each_with_index do |wm, i|
+        img = img.composite(wm) do |c|
+          c.compose 'Over'
+          c.blend 50
+          c.geometry "#{sizes[i]}#{offsets[i]}"
+        end
       end
       img
     end
