@@ -48,4 +48,31 @@ namespace :deploy do
     end
   end
 
+  namespace :backends do
+    task :restart do
+      on roles(:web), in: :groups, limit: 3, wait: 10 do
+        sudo 'systemctl', 'restart', 'thin@0'
+        sudo 'systemctl', 'restart', 'thin@1'
+        sudo 'systemctl', 'restart', 'thin@2'
+      end
+    end
+
+    task :start do
+      on roles(:web), in: :groups, limit: 3, wait: 10 do
+        sudo 'systemctl', 'start', 'thin@0'
+        sudo 'systemctl', 'start', 'thin@1'
+        sudo 'systemctl', 'start', 'thin@2'
+      end
+    end
+
+    task :stop do
+      on roles(:web), in: :groups, limit: 3, wait: 10 do
+        sudo 'systemctl', 'stop', 'thin@0'
+        sudo 'systemctl', 'stop', 'thin@1'
+        sudo 'systemctl', 'stop', 'thin@2'
+      end
+    end
+  end
 end
+
+after 'deploy:finishing', 'deploy:restart'
