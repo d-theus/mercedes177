@@ -38,7 +38,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
       ]
       offsets = [
         "+#{2*img.width / 3}+#{ 2*img.height/3}",
-        "+#{3*img.width/4}+#{ img.height/3}",
+        "+#{9*img.width/10 - 30}-#{50}",
       ]
       wms.each_with_index do |wm, i|
         img = img.composite(wm) do |c|
