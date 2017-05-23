@@ -24,4 +24,5 @@ tags
 *.swp
 tags
 .rbenv-vars
+.ruby-version
 /documents/
