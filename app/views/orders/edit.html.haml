@@ -24,6 +24,18 @@
 
   .row
     .col-xs-10.col-xs-offset-1
+      %h2 Заказчик
+      %p= [@order.last_name, @order.first_name, @order.middle_name].join(" ")
+      %p
+        %span.fa.fa-phone
+        = @order.phone
+      %p
+        %span.fa.fa-envelope
+        = @order.email
+
+
+  .row
+    .col-xs-10.col-xs-offset-1
       %h2 Доставка
       - if @order.pickup?
         %strong Самовывоз.
