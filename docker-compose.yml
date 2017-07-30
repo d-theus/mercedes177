@@ -1,0 +1,54 @@
+version: '2'
+volumes:
+  dbdata:
+    external:
+      name: 'mercedes177-dbdata'
+  public:
+  uploads:
+    external:
+      name: 'mercedes-uploads'
+
+networks:
+  www_default:
+    external:
+      name: www_default
+  mercedes:
+
+services:
+  db:
+    image: 'postgres:9.5'
+    env_file: .rbenv-vars
+    networks:
+     - mercedes
+    volumes:
+      - 'dbdata:/var/lib/postgresql/data'
+
+  app: &app
+    build: .
+    networks:
+      - mercedes
+      - www_default
+    depends_on:
+      - db
+    external_links:
+      - www_smtp_1:smtp
+    env_file: .rbenv-vars
+    volumes:
+      - 'public:/app/public'
+      - 'uploads:/app/public/uploads'
+    environment:
+      VIRTUAL_HOST: mercedes177.ru
+      VIRTUAL_PORT: 3000
+
+  static:
+    image: nginx
+    volumes:
+      -  public:/usr/share/nginx/html
+      -  uploads:/usr/share/nginx/html/uploads
+    depends_on:
+      - app
+    networks:
+      - www_default
+    environment:
+      VIRTUAL_HOST: assets.mercedes177.ru
+      VIRTUAL_PORT: 80
