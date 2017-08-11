@@ -3,6 +3,8 @@ FROM dtheus/rails:4.2-jessie
 ENV RAILS_ENV production
 ENV BUNDLE_WITHOUT test:development
 
+RUN apt-get update && apt-get install -y imagemagick
+
 WORKDIR /tmp
 ADD Gemfile Gemfile
 ADD Gemfile.lock Gemfile.lock
